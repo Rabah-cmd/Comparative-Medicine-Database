@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparative Medicine Database</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Add in the <head> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <!-- Navigation Bar with Sign Up Form -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Comparative Medicine Database</a>
+
+            <!-- Navigation Links -->
+            <div class="navbar-nav me-auto">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">About Us</a>
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
+            </div>
+
+            <!-- Sign Up Form in Top Right -->
+            <div class="d-flex align-items-center">
+                <button type="button" class="btn btn-outline-light me-2" onclick="showCart()">
+                    🛒 Cart (<span id="cartCount">0</span>)
+                </button>
+                
+                <!-- User greeting (hidden by default) -->
+                <div id="userGreeting" class="text-white me-3" style="display: none;">
+                    Welcome, <span id="userName"></span>!
+                </div>
+                
+                <!-- Authentication buttons -->
+                <div id="authButtons">
+                    <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal"
+                        data-bs-target="#signinModal">
+                        Sign In
+                    </button>
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                        data-bs-target="#signupModal">
+                        Sign Up
+                    </button>
+                </div>
+                
+                <!-- Sign out button (hidden by default) -->
+                <button type="button" class="btn btn-outline-light" id="signoutBtn" onclick="signOut()" style="display: none;">
+                    Sign Out
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sign Up Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitSignup()">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signinModalLabel">Sign In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signinForm">
+                        <div class="mb-3">
+                            <label for="signinEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="signinEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signinPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signinPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">
+                                Remember me
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitSignin()">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel">About Us</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Our Mission</h6>
+                    <p>The Comparative Medicine Database is dedicated to advancing medical research through
+                        comprehensive data collection and analysis across different species and treatment methodologies.
+                    </p>
+
+                    <h6>What We Do</h6>
+                    <p>We provide researchers, veterinarians, and medical professionals with access to comparative
+                        medicine data to improve understanding of diseases, treatments, and outcomes across various
+                        animal models and human applications.</p>
+
+                    <h6>Our Team</h6>
+                    <p>Our team consists of experienced researchers, data scientists, and medical professionals
+                        committed to advancing the field of comparative medicine.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label for="contactName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="contactEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactSubject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="contactSubject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label">Message</label>
+                            <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
+                        </div>
+                    </form>
+
+                    <hr>
+
+                    <h6>Other Ways to Reach Us</h6>
+                    <p><strong>Email:</strong> info@comparativemedicine.com</p>
+                    <p><strong>Phone:</strong> (555) 123-4567</p>
+                    <p><strong>Address:</strong> 123 Research Drive, Medical Center, State 12345</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitContact()">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">Help & Support</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="helpAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    How to get started?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    To get started, create an account by clicking the "Sign Up" button. Once registered,
+                                    you can access our database of comparative medicine research and contribute your own
+                                    data.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    How to search the database?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    Use the search function to find specific studies, diseases, treatments, or animal
+                                    models. You can filter results by species, treatment type, study date, and other
+                                    criteria.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    How to submit data?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#helpAccordion">
+                                <div class="accordion-body">
+                                    Registered users can submit research data through our submission portal. All
+                                    submissions are reviewed for quality and relevance before being added to the
+                                    database.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mt-4">
+
+                    <h6>Still need help?</h6>
+                    <p>If you can't find what you're looking for, please contact our support team using the Contact Us
+                        form.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medicine Details Modal -->
+    <div class="modal fade" id="medicineDetailsModal" tabindex="-1" aria-labelledby="medicineDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="medicineDetailsModalLabel">Medicine Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="medicineDetailsContent">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Purchase Medicine</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Order Summary</h6>
+                            <div id="orderSummary">
+                                <!-- Order details will be populated here -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Payment Information</h6>
+                            <form id="paymentForm">
+                                <div class="mb-3">
+                                    <label for="cardNumber" class="form-label">Card Number</label>
+                                    <input type="text" class="form-control" id="cardNumber"
+                                        placeholder="1234 5678 9012 3456" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="expiryDate" class="form-label">Expiry Date</label>
+                                        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY"
+                                            required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="cardName" class="form-label">Cardholder Name</label>
+                                    <input type="text" class="form-control" id="cardName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="billingAddress" class="form-label">Billing Address</label>
+                                    <textarea class="form-control" id="billingAddress" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" id="quantity" min="1" value="1"
+                                        onchange="updateTotal()">
+                                </div>
+                                <div class="mb-3">
+                                    <h5>Total: $<span id="totalAmount">0.00</span></h5>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="processPayment()">
+                        <i class="bi bi-credit-card"></i> Pay Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cartItems">
+                        <!-- Cart items will be populated here -->
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h5>Total: $<span id="cartTotal">0.00</span></h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+                    <button type="button" class="btn btn-primary" onclick="proceedToCheckout()" id="checkoutBtn"
+                        disabled>
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <h1>Welcome to Comparative Medicine Database</h1>
+        <p>This is a comprehensive database for comparative medicine research and treatments.</p>
+        <p>Browse through our collection of medicines and their applications across different species.</p>
+
+        <!-- Medicine Display Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2 class="mb-4">Featured Medicines</h2>
+
+                <!-- Search Bar -->
+                <div class="mb-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="medicineSearch"
+                            placeholder="Search medicines by name, category, or species...">
+                        <button class="btn btn-outline-secondary" type="button" onclick="searchMedicines()">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Medicine Cards Grid -->
+                <div class="row" id="medicineGrid">
+                    <!-- Medicine Card 1 -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="antibiotic" data-species="human,dog,cat" data-type="veterinary">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="card-title mb-0">Amoxicillin</h5>
+                                <small class="text-light">Antibiotic</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generic Name:</strong> Amoxicillin</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Amoxil, Trimox</p>
+                                <p class="card-text"><strong>Description:</strong> Broad-spectrum antibiotic used to
+                                    treat bacterial infections.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats</p>
+                                <p class="card-text"><strong>Dosage:</strong> 250-500mg (varies by species and weight)
+                                </p>
+                                <p class="card-text"><strong>Side Effects:</strong> Nausea, diarrhea, allergic reactions
+                                </p>
+                                <p class="card-text text-success"><strong>Price: $25.99</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm"
+                                        onclick="showMedicineDetails('amoxicillin')">View Details</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="addToCart('amoxicillin', 'Amoxicillin', 25.99)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicine Card 2 -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="anti-inflammatory"
+                        data-species="human,horse,dog" data-type="veterinary">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="card-title mb-0">Phenylbutazone</h5>
+                                <small class="text-light">Anti-inflammatory</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generic Name:</strong> Phenylbutazone</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Bute, Equipalazone</p>
+                                <p class="card-text"><strong>Description:</strong> Non-steroidal anti-inflammatory drug
+                                    (NSAID) commonly used in veterinary medicine.</p>
+                                <p class="card-text"><strong>Species:</strong> Horses, Dogs, Limited human use</p>
+                                <p class="card-text"><strong>Dosage:</strong> 2-4mg/kg body weight</p>
+                                <p class="card-text"><strong>Side Effects:</strong> GI upset, bone marrow suppression
+                                </p>
+                                <p class="card-text text-success"><strong>Price: $45.50</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm"
+                                        onclick="showMedicineDetails('phenylbutazone')">View Details</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="addToCart('phenylbutazone', 'Phenylbutazone', 45.50)">Add to
+                                        Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicine Card 3 -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="anesthetic"
+                        data-species="human,cat,dog,bird" data-type="veterinary">
+                        <div class="card h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="card-title mb-0">Isoflurane</h5>
+                                <small>Inhalation Anesthetic</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generic Name:</strong> Isoflurane</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Forane, Terrell</p>
+                                <p class="card-text"><strong>Description:</strong> Inhalation anesthetic used for
+                                    general anesthesia across multiple species.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats, Birds, Exotic animals
+                                </p>
+                                <p class="card-text"><strong>Dosage:</strong> 1-3% concentration (varies by species)</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Respiratory depression, hypotension
+                                </p>
+                                <p class="card-text text-success"><strong>Price: $89.99</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('isoflurane')">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="addToCart('isoflurane', 'Isoflurane', 89.99)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicine Card 4 -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human,dog,cat" data-type="veterinary">
+                        <div class="card h-100">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="card-title mb-0">Tramadol</h5>
+                                <small class="text-light">Analgesic</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generic Name:</strong> Tramadol HCl</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Ultram, Ryzolt</p>
+                                <p class="card-text"><strong>Description:</strong> Centrally acting analgesic for
+                                    moderate to severe pain management.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats</p>
+                                <p class="card-text"><strong>Dosage:</strong> 1-5mg/kg (varies by species)</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Sedation, nausea, constipation</p>
+                                <p class="card-text text-success"><strong>Price: $35.75</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('tramadol')">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="addToCart('tramadol', 'Tramadol', 35.75)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicine Card 5 -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="antiparasitic" data-species="dog,cat,horse" data-type="veterinary">
+                        <div class="card h-100">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="card-title mb-0">Ivermectin</h5>
+                                <small class="text-light">Antiparasitic</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generic Name:</strong> Ivermectin</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Stromectol, Heartgard</p>
+                                <p class="card-text"><strong>Description:</strong> Antiparasitic medication effective
+                                    against various internal and external parasites.</p>
+                                <p class="card-text"><strong>Species:</strong> Dogs, Cats, Horses, Livestock</p>
+                                <p class="card-text"><strong>Dosage:</strong> 0.006-0.2mg/kg (species dependent)</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Neurological signs in sensitive
+                                    breeds</p>
+                                <p class="card-text text-success"><strong>Price: $18.25</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('ivermectin')">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="addToCart('ivermectin', 'Ivermectin', 18.25)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicine Card 6 -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="hormone" data-species="human,dog,cat" data-type="veterinary">
+                        <div class="card h-100">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="card-title mb-0">Insulin</h5>
+                                <small class="text-light">Hormone Therapy</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generic Name:</strong> Human Insulin</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Humulin, Novolin</p>
+                                <p class="card-text"><strong>Description:</strong> Hormone replacement therapy for
+                                    diabetes mellitus management across species.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats</p>
+                                <p class="card-text"><strong>Dosage:</strong> 0.25-2.2 units/kg (highly variable)</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Hypoglycemia, injection site
+                                    reactions</p>
+                                <p class="card-text text-success"><strong>Price: $125.00</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('insulin')">View
+                                        Details</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="addToCart('insulin', 'Insulin', 125.00)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isSignedIn = false;
+        let currentUser = null;
+        let cart = [];
+        
+        // Human medicines dataset - only shown when searched
+        const humanMedicines = [
+            {
+                id: 'aspirin_human',
+                name: 'Aspirin',
+                category: 'analgesic',
+                species: 'human',
+                genericName: 'Acetylsalicylic Acid',
+                brandNames: 'Bayer, Bufferin, Excedrin',
+                description: 'Anti-inflammatory and pain reliever commonly used for headaches, fever, and cardiovascular protection.',
+                dosage: '325-650mg every 4-6 hours',
+                sideEffects: 'Stomach irritation, bleeding risk, tinnitus',
+                price: 12.99,
+                type: 'human'
+            },
+            {
+                id: 'ibuprofen_human',
+                name: 'Ibuprofen',
+                category: 'anti-inflammatory',
+                species: 'human',
+                genericName: 'Ibuprofen',
+                brandNames: 'Advil, Motrin, Nuprin',
+                description: 'Nonsteroidal anti-inflammatory drug (NSAID) for pain, fever, and inflammation.',
+                dosage: '200-400mg every 4-6 hours',
+                sideEffects: 'GI upset, kidney problems, cardiovascular risk',
+                price: 15.49,
+                type: 'human'
+            },
+            {
+                id: 'acetaminophen_human',
+                name: 'Acetaminophen',
+                category: 'analgesic',
+                species: 'human',
+                genericName: 'Acetaminophen',
+                brandNames: 'Tylenol, Panadol, Feverall',
+                description: 'Pain reliever and fever reducer, safer for stomach than NSAIDs.',
+                dosage: '325-650mg every 4-6 hours',
+                sideEffects: 'Liver damage with overdose, rare skin reactions',
+                price: 9.99,
+                type: 'human'
+            },
+            {
+                id: 'metformin_human',
+                name: 'Metformin',
+                category: 'antidiabetic',
+                species: 'human',
+                genericName: 'Metformin HCl',
+                brandNames: 'Glucophage, Fortamet, Riomet',
+                description: 'First-line treatment for type 2 diabetes, improves insulin sensitivity.',
+                dosage: '500-1000mg twice daily with meals',
+                sideEffects: 'GI upset, lactic acidosis (rare), vitamin B12 deficiency',
+                price: 22.75,
+                type: 'human'
+            },
+            {
+                id: 'lisinopril_human',
+                name: 'Lisinopril',
+                category: 'antihypertensive',
+                species: 'human',
+                genericName: 'Lisinopril',
+                brandNames: 'Prinivil, Zestril',
+                description: 'ACE inhibitor for high blood pressure and heart failure.',
+                dosage: '5-40mg once daily',
+                sideEffects: 'Dry cough, hyperkalemia, angioedema',
+                price: 18.50,
+                type: 'human'
+            },
+            {
+                id: 'atorvastatin_human',
+                name: 'Atorvastatin',
+                category: 'statin',
+                species: 'human',
+                genericName: 'Atorvastatin Calcium',
+                brandNames: 'Lipitor',
+                description: 'HMG-CoA reductase inhibitor for cholesterol management.',
+                dosage: '10-80mg once daily',
+                sideEffects: 'Muscle pain, liver enzyme elevation, diabetes risk',
+                price: 45.99,
+                type: 'human'
+            },
+            {
+                id: 'omeprazole_human',
+                name: 'Omeprazole',
+                category: 'proton-pump-inhibitor',
+                species: 'human',
+                genericName: 'Omeprazole',
+                brandNames: 'Prilosec, Zegerid',
+                description: 'Proton pump inhibitor for acid reflux and ulcers.',
+                dosage: '20-40mg once daily before breakfast',
+                sideEffects: 'Headache, diarrhea, bone fracture risk with long-term use',
+                price: 28.99,
+                type: 'human'
+            },
+            {
+                id: 'sertraline_human',
+                name: 'Sertraline',
+                category: 'antidepressant',
+                species: 'human',
+                genericName: 'Sertraline HCl',
+                brandNames: 'Zoloft',
+                description: 'Selective serotonin reuptake inhibitor (SSRI) for depression and anxiety.',
+                dosage: '25-200mg once daily',
+                sideEffects: 'Nausea, sexual dysfunction, withdrawal syndrome',
+                price: 32.25,
+                type: 'human'
+            },
+            {
+                id: 'levothyroxine_human',
+                name: 'Levothyroxine',
+                category: 'hormone',
+                species: 'human',
+                genericName: 'Levothyroxine Sodium',
+                brandNames: 'Synthroid, Levoxyl, Tirosint',
+                description: 'Thyroid hormone replacement for hypothyroidism.',
+                dosage: '25-200mcg once daily on empty stomach',
+                sideEffects: 'Heart palpitations, insomnia, weight loss',
+                price: 35.50,
+                type: 'human'
+            },
+            {
+                id: 'albuterol_human',
+                name: 'Albuterol',
+                category: 'bronchodilator',
+                species: 'human',
+                genericName: 'Albuterol Sulfate',
+                brandNames: 'ProAir, Ventolin, Proventil',
+                description: 'Short-acting beta2-agonist for asthma and COPD.',
+                dosage: '2 puffs every 4-6 hours as needed',
+                sideEffects: 'Tremor, tachycardia, nervousness',
+                price: 55.99,
+                type: 'human'
+            },
+            {
+                id: 'warfarin_human',
+                name: 'Warfarin',
+                category: 'anticoagulant',
+                species: 'human',
+                genericName: 'Warfarin Sodium',
+                brandNames: 'Coumadin, Jantoven',
+                description: 'Anticoagulant for preventing blood clots and stroke.',
+                dosage: '2-10mg daily (highly individualized)',
+                sideEffects: 'Bleeding, skin necrosis, purple toe syndrome',
+                price: 24.75,
+                type: 'human'
+            },
+            {
+                id: 'hydrochlorothiazide_human',
+                name: 'Hydrochlorothiazide',
+                category: 'diuretic',
+                species: 'human',
+                genericName: 'Hydrochlorothiazide',
+                brandNames: 'Microzide, HCTZ',
+                description: 'Thiazide diuretic for high blood pressure and fluid retention.',
+                dosage: '12.5-50mg once daily',
+                sideEffects: 'Electrolyte imbalance, dehydration, hyperuricemia',
+                price: 16.25,
+                type: 'human'
+            },
+            {
+                id: 'prednisone_human',
+                name: 'Prednisone',
+                category: 'corticosteroid',
+                species: 'human',
+                genericName: 'Prednisone',
+                brandNames: 'Deltasone, Rayos, Prednisone Intensol',
+                description: 'Corticosteroid for inflammation, autoimmune conditions, and allergies.',
+                dosage: '5-60mg daily (varies by condition)',
+                sideEffects: 'Weight gain, mood changes, osteoporosis, immunosuppression',
+                price: 19.99,
+                type: 'human'
+            },
+            {
+                id: 'gabapentin_human',
+                name: 'Gabapentin',
+                category: 'anticonvulsant',
+                species: 'human',
+                genericName: 'Gabapentin',
+                brandNames: 'Neurontin, Gralise, Horizant',
+                description: 'Anticonvulsant used for neuropathic pain and seizures.',
+                dosage: '300-1800mg daily in divided doses',
+                sideEffects: 'Dizziness, fatigue, peripheral edema',
+                price: 27.50,
+                type: 'human'
+            },
+            {
+                id: 'amlodipine_human',
+                name: 'Amlodipine',
+                category: 'calcium-channel-blocker',
+                species: 'human',
+                genericName: 'Amlodipine Besylate',
+                brandNames: 'Norvasc',
+                description: 'Calcium channel blocker for high blood pressure and angina.',
+                dosage: '2.5-10mg once daily',
+                sideEffects: 'Peripheral edema, dizziness, flushing',
+                price: 21.99,
+                type: 'human'
+            }
+        ];
+
+        function submitSignin() {
+            const email = document.getElementById('signinEmail').value;
+            const password = document.getElementById('signinPassword').value;
+
+            if (!email || !password) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            // Simulate authentication (in real app, this would be an API call)
+            if (email === 'test@example.com' && password === 'password') {
+                isSignedIn = true;
+                currentUser = { 
+                    email: email, 
+                    name: 'John Doe'  // You could extract this from email or have a separate name field
+                };
+
+                // Update UI to show user is signed in
+                updateUIForSignedInUser();
+
+                alert('Welcome back! You are now signed in.');
+
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('signinModal'));
+                modal.hide();
+
+                // Reset form
+                document.getElementById('signinForm').reset();
+            } else {
+                alert('Invalid email or password. Try: test@example.com / password');
+            }
+        }
+
+        function updateUIForSignedInUser() {
+            // Show user greeting
+            document.getElementById('userGreeting').style.display = 'block';
+            document.getElementById('userName').textContent = currentUser.name;
+            
+            // Hide sign in/sign up buttons
+            document.getElementById('authButtons').style.display = 'none';
+            
+            // Show sign out button
+            document.getElementById('signoutBtn').style.display = 'block';
+        }
+
+        function signOut() {
+            isSignedIn = false;
+            currentUser = null;
+            cart = []; // Clear cart on sign out
+            
+            // Update UI
+            document.getElementById('userGreeting').style.display = 'none';
+            document.getElementById('authButtons').style.display = 'block';
+            document.getElementById('signoutBtn').style.display = 'none';
+            
+            // Update cart count
+            updateCartCount();
+            
+            alert('You have been signed out successfully.');
+        }
+
+        function addToCart(medicineId, medicineName, price) {
+            if (!isSignedIn) {
+                alert('Please sign in first to add items to cart.');
+                const modal = new bootstrap.Modal(document.getElementById('signinModal'));
+                modal.show();
+                return;
+            }
+
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.id === medicineId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: medicineId,
+                    name: medicineName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+
+            updateCartCount();
+            alert(`${medicineName} added to cart!`);
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function showCart() {
+            if (cart.length === 0) {
+                document.getElementById('cartItems').innerHTML = '<p class="text-muted">Your cart is empty.</p>';
+                document.getElementById('cartTotal').textContent = '0.00';
+                document.getElementById('checkoutBtn').disabled = true;
+            } else {
+                let cartHTML = '';
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+
+                    cartHTML += `
+                        <div class="d-flex justify-content-between align-items-center mb-3 p-3 border rounded">
+                            <div>
+                                <h6>${item.name}</h6>
+                                <p class="text-muted mb-0">$${item.price.toFixed(2)} each</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, -1)">-</button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, 1)">+</button>
+                                <span class="fw-bold">$${itemTotal.toFixed(2)}</span>
+                                <button class="btn btn-danger btn-sm ms-2" onclick="removeFromCart(${index})">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('cartItems').innerHTML = cartHTML;
+                document.getElementById('cartTotal').textContent = total.toFixed(2);
+                document.getElementById('checkoutBtn').disabled = false;
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById('cartModal'));
+            modal.show();
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartCount();
+            showCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            showCart();
+        }
+
+        function proceedToCheckout() {
+            if (!isSignedIn) {
+                alert('Please sign in first.');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            let orderHTML = '';
+            cart.forEach(item => {
+                orderHTML += `
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>${item.name} x ${item.quantity}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            orderHTML += `<hr><div class="d-flex justify-content-between fw-bold"><span>Total:</span><span>$${total.toFixed(2)}</span></div>`;
+
+            document.getElementById('orderSummary').innerHTML = orderHTML;
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+
+            const cartModal = bootstrap.Modal.getInstance(document.getElementById('cartModal'));
+            cartModal.hide();
+
+            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            paymentModal.show();
+        }
+
+        function processPayment() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardName = document.getElementById('cardName').value;
+            const billingAddress = document.getElementById('billingAddress').value;
+
+            if (!cardNumber || !expiryDate || !cvv || !cardName || !billingAddress) {
+                alert('Please fill in all payment fields!');
+                return;
+            }
+
+            const totalAmount = document.getElementById('totalAmount').textContent;
+
+            const payBtn = document.querySelector('[onclick="processPayment()"]');
+            payBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+            payBtn.disabled = true;
+
+            setTimeout(() => {
+                alert(`Payment successful! Total: $${totalAmount}\nOrder confirmation will be sent to ${currentUser.email}`);
+
+                cart = [];
+                updateCartCount();
+
+                payBtn.innerHTML = '<i class="bi bi-credit-card"></i> Pay Now';
+                payBtn.disabled = false;
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                modal.hide();
+
+                document.getElementById('paymentForm').reset();
+            }, 2000);
+        }
+
+        function submitSignup() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!firstName || !lastName || !email || !password || !confirmPassword) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // Simulate user registration and automatic sign-in
+            isSignedIn = true;
+            currentUser = { 
+                email: email, 
+                name: `${firstName} ${lastName}`
+            };
+
+            // Update UI to show user is signed in
+            updateUIForSignedInUser();
+
+            alert(`Welcome ${firstName}! Your account has been created and you are now signed in.`);
+
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('signupModal'));
+            modal.hide();
+
+            // Reset the form
+            document.getElementById('signupForm').reset();
+        }
+
+        function submitSignin() {
+            const email = document.getElementById('signinEmail').value;
+            const password = document.getElementById('signinPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Here you would typically send the data to your Django backend for authentication
+            alert('Sign in functionality would be implemented here!');
+
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('signinModal'));
+            modal.hide();
+
+            // Reset the form
+            document.getElementById('signinForm').reset();
+        }
+
+        function submitContact() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            // Here you would typically send the contact form data to your Django backend
+            alert('Thank you for your message! We will get back to you soon.');
+
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
+            modal.hide();
+
+            // Reset the form
+            document.getElementById('contactForm').reset();
+        }
+
+        function searchMedicines() {
+            const searchTerm = document.getElementById('medicineSearch').value.toLowerCase();
+            const medicineGrid = document.querySelector('.row');
+            
+            if (searchTerm.length === 0) {
+                // If search is empty, show only veterinary medicines (original cards)
+                showOnlyVeterinaryMedicines();
+                return;
+            }
+
+            // Get original veterinary medicine cards
+            const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
+            
+            // Filter veterinary medicines
+            veterinaryCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                const category = card.getAttribute('data-category');
+                const species = card.getAttribute('data-species');
+
+                if (cardText.includes(searchTerm) ||
+                    category.includes(searchTerm) ||
+                    species.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Remove any existing human medicine cards
+            const existingHumanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
+            existingHumanCards.forEach(card => card.remove());
+
+            // Search human medicines and add matching ones
+            const matchingHumanMedicines = humanMedicines.filter(medicine => {
+                return medicine.name.toLowerCase().includes(searchTerm) ||
+                       medicine.category.toLowerCase().includes(searchTerm) ||
+                       medicine.description.toLowerCase().includes(searchTerm) ||
+                       medicine.genericName.toLowerCase().includes(searchTerm) ||
+                       medicine.brandNames.toLowerCase().includes(searchTerm);
+            });
+
+            // Add human medicine cards to the grid
+            matchingHumanMedicines.forEach(medicine => {
+                const humanCard = createHumanMedicineCard(medicine);
+                medicineGrid.appendChild(humanCard);
+            });
+        }
+
+        function showOnlyVeterinaryMedicines() {
+            // Show all veterinary medicine cards
+            const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
+            veterinaryCards.forEach(card => {
+                card.style.display = 'block';
+            });
+
+            // Remove any human medicine cards
+            const humanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
+            humanCards.forEach(card => card.remove());
+        }
+
+        function createHumanMedicineCard(medicine) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'col-md-4 mb-4 medicine-card';
+            cardDiv.setAttribute('data-category', medicine.category);
+            cardDiv.setAttribute('data-species', medicine.species);
+            cardDiv.setAttribute('data-type', 'human');
+
+            cardDiv.innerHTML = `
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">${medicine.name}</h5>
+                        <p class="card-text text-muted small mb-2">
+                            <i class="fas fa-tag"></i> ${medicine.category} | 
+                            <i class="fas fa-user"></i> ${medicine.species}
+                        </p>
+                        <p class="card-text">${medicine.description}</p>
+                        <p class="text-success fw-bold">$${medicine.price}</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button class="btn btn-outline-primary btn-sm me-2" onclick="showHumanMedicineDetails('${medicine.id}')">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                        <button class="btn btn-success btn-sm" onclick="addToCart('${medicine.id}', '${medicine.name}', ${medicine.price}, 'human')">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return cardDiv;
+        }
+
+        function showMedicineDetails(medicineId) {
+            // Here you would fetch the medicine details from your backend using the medicineId
+            // For demonstration, we will use static content
+            let medicineDetails = {
+                'amoxicillin': {
+                    'Generic Name': 'Amoxicillin',
+                    'Brand Names': 'Amoxil, Trimox',
+                    'Description': 'Broad-spectrum antibiotic used to treat bacterial infections.',
+                    'Species': 'Humans, Dogs, Cats',
+                    'Dosage': '250-500mg (varies by species and weight)',
+                    'Side Effects': 'Nausea, diarrhea, allergic reactions'
+                },
+                'phenylbutazone': {
+                    'Generic Name': 'Phenylbutazone',
+                    'Brand Names': 'Bute, Equipalazone',
+                    'Description': 'Non-steroidal anti-inflammatory drug (NSAID) commonly used in veterinary medicine.',
+                    'Species': 'Horses, Dogs, Limited human use',
+                    'Dosage': '2-4mg/kg body weight',
+                    'Side Effects': 'GI upset, bone marrow suppression'
+                },
+                'isoflurane': {
+                    'Generic Name': 'Isoflurane',
+                    'Brand Names': 'Forane, Terrell',
+                    'Description': 'Inhalation anesthetic used for general anesthesia across multiple species.',
+                    'Species': 'Humans, Dogs, Cats, Birds, Exotic animals',
+                    'Dosage': '1-3% concentration (varies by species)',
+                    'Side Effects': 'Respiratory depression, hypotension'
+                },
+                'tramadol': {
+                    'Generic Name': 'Tramadol HCl',
+                    'Brand Names': 'Ultram, Ryzolt',
+                    'Description': 'Centrally acting analgesic for moderate to severe pain management.',
+                    'Species': 'Humans, Dogs, Cats',
+                    'Dosage': '1-5mg/kg (varies by species)',
+                    'Side Effects': 'Sedation, nausea, constipation'
+                },
+                'ivermectin': {
+                    'Generic Name': 'Ivermectin',
+                    'Brand Names': 'Stromectol, Heartgard',
+                    'Description': 'Antiparasitic medication effective against various internal and external parasites.',
+                    'Species': 'Dogs, Cats, Horses, Livestock',
+                    'Dosage': '0.006-0.2mg/kg (species dependent)',
+                    'Side Effects': 'Neurological signs in sensitive breeds'
+                },
+                'insulin': {
+                    'Generic Name': 'Human Insulin',
+                    'Brand Names': 'Humulin, Novolin',
+                    'Description': 'Hormone replacement therapy for diabetes mellitus management across species.',
+                    'Species': 'Humans, Dogs, Cats',
+                    'Dosage': '0.25-2.2 units/kg (highly variable)',
+                    'Side Effects': 'Hypoglycemia, injection site reactions'
+                }
+            };
+
+            let details = medicineDetails[medicineId];
+
+            if (details) {
+                let content = '<ul class="list-group">';
+                for (let key in details) {
+                    content += `<li class="list-group-item"><strong>${key}:</strong> ${details[key]}</li>`;
+                }
+                content += '</ul>';
+
+                document.getElementById('medicineDetailsContent').innerHTML = content;
+
+                // Show the modal
+                const modal = new bootstrap.Modal(document.getElementById('medicineDetailsModal'));
+                modal.show();
+            } else {
+                alert('Medicine details not found!');
+            }
+        }
+
+        function updateTotal() {
+            const quantity = document.getElementById('quantity').value;
+            const pricePerUnit = 10; // Assume each medicine unit costs $10 for demonstration
+            const totalAmount = (quantity * pricePerUnit).toFixed(2);
+
+            document.getElementById('totalAmount').innerText = totalAmount;
+        }
+
+        function processPayment() {
+            // Here you would typically process the payment with the provided card details
+            alert('Payment processing functionality would be implemented here!');
+
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+            modal.hide();
+        }
+
+        function addToCart(medicineId) {
+            // Here you would add the selected medicine to the cart
+            // For demonstration, we will just show an alert
+            alert('Medicine added to cart: ' + medicineId);
+
+            // Update cart UI
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Here you would update the cart UI with the current items in the cart
+            // For demonstration, we will just show static content
+            const cartItems = `
+                <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h6 class="mb-1">Amoxicillin</h6>
+                        <small>Quantity: 1</small>
+                    </div>
+                    <div>
+                        <strong>$10.00</strong>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('cartItems').innerHTML = cartItems;
+            document.getElementById('cartTotal').innerText = '10.00';
+
+            // Enable checkout button if there are items in the cart
+            document.getElementById('checkoutBtn').disabled = false;
+        }
+
+        function proceedToCheckout() {
+            // Here you would proceed to the checkout process
+            // For demonstration, we will just show the payment modal
+            const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            modal.show();
+        }
+
+        // Enable search on Enter key press
+        document.getElementById('medicineSearch').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchMedicines();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
