@@ -814,7 +814,8 @@
                 isSignedIn = true;
                 currentUser = { 
                     email: email, 
-                    name: 'John Doe'  // You could extract this from email or have a separate name field
+                    name: 'John',  // Only first name
+                    fullName: 'John Doe'  // Keep full name for other purposes
                 };
 
                 // Update UI to show user is signed in
@@ -1030,7 +1031,8 @@
             isSignedIn = true;
             currentUser = { 
                 email: email, 
-                name: `${firstName} ${lastName}`
+                name: firstName,  // Only first name for display
+                fullName: `${firstName} ${lastName}`  // Keep full name for other purposes
             };
 
             // Update UI to show user is signed in
@@ -1046,21 +1048,7 @@
             document.getElementById('signupForm').reset();
         }
 
-        function submitSignin() {
-            const email = document.getElementById('signinEmail').value;
-            const password = document.getElementById('signinPassword').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
 
-            // Here you would typically send the data to your Django backend for authentication
-            alert('Sign in functionality would be implemented here!');
-
-            // Close the modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('signinModal'));
-            modal.hide();
-
-            // Reset the form
-            document.getElementById('signinForm').reset();
-        }
 
         function submitContact() {
             const name = document.getElementById('contactName').value;
@@ -1084,8 +1072,8 @@
             document.getElementById('contactForm').reset();
         }
 
-        function searchMedicines() {
-            const searchTerm = document.getElementById('medicineSearch').value.toLowerCase();
+        async function searchMedicines() {
+            const searchTerm = document.getElementById('medicineSearch').value.trim();
             const medicineGrid = document.querySelector('.row');
             
             if (searchTerm.length === 0) {
@@ -1094,42 +1082,37 @@
                 return;
             }
 
-            // Get original veterinary medicine cards
-            const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
-            
-            // Filter veterinary medicines
-            veterinaryCards.forEach(card => {
-                const cardText = card.textContent.toLowerCase();
-                const category = card.getAttribute('data-category');
-                const species = card.getAttribute('data-species');
+            try {
+                // Fetch human medicines from Django API
+                const response = await fetch(`/api/search/?q=${encodeURIComponent(searchTerm)}`);
+                const data = await response.json();
+                
+                // Remove any existing human medicine cards
+                const existingHumanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
+                existingHumanCards.forEach(card => card.remove());
 
-                if (cardText.includes(searchTerm) ||
-                    category.includes(searchTerm) ||
-                    species.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
+                // Hide all veterinary cards since we're showing search results
+                const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
+                veterinaryCards.forEach(card => {
                     card.style.display = 'none';
+                });
+
+                // Add human medicine cards to the grid
+                if (data.medicines && data.medicines.length > 0) {
+                    data.medicines.forEach(medicine => {
+                        const humanCard = createHumanMedicineCard(medicine);
+                        medicineGrid.appendChild(humanCard);
+                    });
+                } else {
+                    // Show "no results" message
+                    const noResultsCard = createNoResultsCard(searchTerm);
+                    medicineGrid.appendChild(noResultsCard);
                 }
-            });
-
-            // Remove any existing human medicine cards
-            const existingHumanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
-            existingHumanCards.forEach(card => card.remove());
-
-            // Search human medicines and add matching ones
-            const matchingHumanMedicines = humanMedicines.filter(medicine => {
-                return medicine.name.toLowerCase().includes(searchTerm) ||
-                       medicine.category.toLowerCase().includes(searchTerm) ||
-                       medicine.description.toLowerCase().includes(searchTerm) ||
-                       medicine.genericName.toLowerCase().includes(searchTerm) ||
-                       medicine.brandNames.toLowerCase().includes(searchTerm);
-            });
-
-            // Add human medicine cards to the grid
-            matchingHumanMedicines.forEach(medicine => {
-                const humanCard = createHumanMedicineCard(medicine);
-                medicineGrid.appendChild(humanCard);
-            });
+            } catch (error) {
+                console.error('Error searching medicines:', error);
+                // Fallback to showing veterinary medicines
+                showOnlyVeterinaryMedicines();
+            }
         }
 
         function showOnlyVeterinaryMedicines() {
@@ -1148,8 +1131,11 @@
             const cardDiv = document.createElement('div');
             cardDiv.className = 'col-md-4 mb-4 medicine-card';
             cardDiv.setAttribute('data-category', medicine.category);
-            cardDiv.setAttribute('data-species', medicine.species);
+            cardDiv.setAttribute('data-species', medicine.species_applicable);
             cardDiv.setAttribute('data-type', 'human');
+
+            // Generate a random price for display purposes
+            const price = (Math.random() * 50 + 10).toFixed(2);
 
             cardDiv.innerHTML = `
                 <div class="card h-100 shadow-sm">
@@ -1157,16 +1143,17 @@
                         <h5 class="card-title text-primary">${medicine.name}</h5>
                         <p class="card-text text-muted small mb-2">
                             <i class="fas fa-tag"></i> ${medicine.category} | 
-                            <i class="fas fa-user"></i> ${medicine.species}
+                            <i class="fas fa-user"></i> ${medicine.species_applicable}
                         </p>
-                        <p class="card-text">${medicine.description}</p>
-                        <p class="text-success fw-bold">$${medicine.price}</p>
+                        <p class="card-text"><strong>Dosage:</strong> ${medicine.dosage}</p>
+                        <p class="card-text">${medicine.notes}</p>
+                        <p class="text-success fw-bold">$${price}</p>
                     </div>
                     <div class="card-footer bg-transparent">
                         <button class="btn btn-outline-primary btn-sm me-2" onclick="showHumanMedicineDetails('${medicine.id}')">
                             <i class="fas fa-info-circle"></i> Details
                         </button>
-                        <button class="btn btn-success btn-sm" onclick="addToCart('${medicine.id}', '${medicine.name}', ${medicine.price}, 'human')">
+                        <button class="btn btn-success btn-sm" onclick="addToCart('${medicine.id}', '${medicine.name}', ${price}, 'human')">
                             <i class="fas fa-cart-plus"></i> Add to Cart
                         </button>
                     </div>

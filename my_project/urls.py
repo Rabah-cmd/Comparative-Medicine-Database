@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from comparative_medicine_database.views import index
+from comparative_medicine_database.views import index, search_medicines
 
 urlpatterns = [
     path('', index, name='index'),  # Home page view
+    path('api/search/', search_medicines, name='search_medicines'),  # Search API endpoint
     path('admin/', admin.site.urls),
 ]
