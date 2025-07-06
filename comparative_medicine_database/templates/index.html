@@ -25,6 +25,7 @@
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">About Us</a>
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</a>
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
             </div>
 
             <!-- Sign Up Form in Top Right -->
@@ -278,6 +279,81 @@
         </div>
     </div>
 
+    <!-- Terms and Conditions Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="terms-content">
+                        <h6>1. Acceptance of Terms</h6>
+                        <p>By accessing and using the Comparative Medicine Database website and services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you may not use our services.</p>
+
+                        <h6>2. Description of Service</h6>
+                        <p>The Comparative Medicine Database provides access to information about medicines and treatments for both humans and animals. This platform is designed for educational and research purposes to facilitate comparative medicine studies.</p>
+
+                        <h6>3. User Responsibilities</h6>
+                        <ul>
+                            <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+                            <li>You agree to provide accurate and current information when creating an account</li>
+                            <li>You will not use the service for any unlawful or prohibited activities</li>
+                            <li>You will not attempt to gain unauthorized access to any part of the service</li>
+                        </ul>
+
+                        <h6>4. Medical Disclaimer</h6>
+                        <p><strong>Important:</strong> The information provided in this database is for educational and research purposes only. It is not intended as medical advice, diagnosis, or treatment. Always consult with qualified healthcare professionals or veterinarians before making any medical decisions for yourself or your animals.</p>
+
+                        <h6>5. Data Accuracy and Liability</h6>
+                        <p>While we strive to provide accurate information, we make no warranties about the completeness, reliability, or accuracy of the data. Users should verify all information with appropriate medical professionals before use.</p>
+
+                        <h6>6. Privacy and Data Protection</h6>
+                        <p>We are committed to protecting your privacy. Personal information collected through this service will be handled in accordance with applicable data protection laws. We do not sell or share personal information with third parties without consent.</p>
+
+                        <h6>7. Intellectual Property</h6>
+                        <p>The content, design, and functionality of this website are protected by copyright and other intellectual property laws. Users may not reproduce, distribute, or create derivative works without written permission.</p>
+
+                        <h6>8. Shopping Cart and Payment</h6>
+                        <p>The shopping cart feature is provided for demonstration purposes only. Any transactions are simulated and no actual payments are processed. Real medicine purchases should only be made through licensed pharmacies and veterinary clinics.</p>
+
+                        <h6>9. Prohibited Uses</h6>
+                        <p>You may not use this service to:</p>
+                        <ul>
+                            <li>Engage in illegal activities or promote illegal substances</li>
+                            <li>Distribute malware, viruses, or harmful code</li>
+                            <li>Harass, abuse, or harm other users</li>
+                            <li>Impersonate others or provide false information</li>
+                            <li>Attempt to circumvent security measures</li>
+                        </ul>
+
+                        <h6>10. Limitation of Liability</h6>
+                        <p>The Comparative Medicine Database and its operators shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use this service.</p>
+
+                        <h6>11. Changes to Terms</h6>
+                        <p>We reserve the right to modify these terms at any time. Users will be notified of significant changes, and continued use of the service constitutes acceptance of the modified terms.</p>
+
+                        <h6>12. Termination</h6>
+                        <p>We may terminate or suspend access to the service immediately, without prior notice, for any breach of these Terms and Conditions.</p>
+
+                        <h6>13. Governing Law</h6>
+                        <p>These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which the service operates.</p>
+
+                        <h6>14. Contact Information</h6>
+                        <p>If you have questions about these Terms and Conditions, please contact us through the Contact Us form on our website.</p>
+
+                        <hr class="mt-4">
+                        <p class="text-muted"><small>Last updated: July 6, 2025</small></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Medicine Details Modal -->
     <div class="modal fade" id="medicineDetailsModal" tabindex="-1" aria-labelledby="medicineDetailsModalLabel"
         aria-hidden="true">
@@ -346,7 +422,7 @@
                                         onchange="updateTotal()">
                                 </div>
                                 <div class="mb-3">
-                                    <h5>Total: $<span id="totalAmount">0.00</span></h5>
+                                    <h5>Total: £<span id="totalAmount">0.00</span></h5>
                                 </div>
                             </form>
                         </div>
@@ -376,7 +452,7 @@
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
-                        <h5>Total: $<span id="cartTotal">0.00</span></h5>
+                        <h5>Total: £<span id="cartTotal">0.00</span></h5>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -396,12 +472,328 @@
         <p>This is a comprehensive database for comparative medicine research and treatments.</p>
         <p>Browse through our collection of medicines and their applications across different species.</p>
 
+        <!-- Patient Information Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-primary mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-user-md"></i> Patient Information
+                        </h4>
+                        <small>Please provide your information for personalized medicine recommendations and safety warnings</small>
+                    </div>
+                    <div class="card-body">
+                        <form id="patientInfoForm">
+                            <div class="row">
+                                <!-- Age -->
+                                <div class="col-md-3">
+                                    <label for="patientAge" class="form-label"><strong>Age:</strong></label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="patientAge" min="0" max="120" placeholder="Enter age">
+                                        <span class="input-group-text">years</span>
+                                    </div>
+                                    <div class="form-text">Age affects dosage and safety</div>
+                                </div>
+                                
+                                <!-- Weight -->
+                                <div class="col-md-3">
+                                    <label for="patientWeight" class="form-label"><strong>Weight:</strong></label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="patientWeight" min="1" max="300" step="0.1" placeholder="Enter weight">
+                                        <select class="form-select" id="weightUnit" style="max-width: 80px;">
+                                            <option value="kg">kg</option>
+                                            <option value="lbs">lbs</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-text">Weight-based dosing calculations</div>
+                                </div>
+                                
+                                <!-- Height -->
+                                <div class="col-md-3">
+                                    <label for="patientHeight" class="form-label"><strong>Height:</strong></label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="patientHeight" min="50" max="250" placeholder="Enter height">
+                                        <select class="form-select" id="heightUnit" style="max-width: 80px;">
+                                            <option value="cm">cm</option>
+                                            <option value="ft">ft</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-text">For BMI and surface area calculations</div>
+                                </div>
+                                
+                                <!-- Allergies -->
+                                <div class="col-md-3">
+                                    <label for="patientAllergies" class="form-label"><strong>Known Allergies:</strong></label>
+                                    <textarea class="form-control" id="patientAllergies" rows="2" placeholder="e.g., Penicillin, Aspirin, Sulfa"></textarea>
+                                    <div class="form-text">Critical for safety warnings</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <button type="button" class="btn btn-primary me-2" onclick="savePatientInfo()">
+                                        <i class="fas fa-save"></i> Save Information
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary me-2" onclick="clearPatientInfo()">
+                                        <i class="fas fa-eraser"></i> Clear
+                                    </button>
+                                    <button type="button" class="btn btn-info" onclick="calculateBMI()">
+                                        <i class="fas fa-calculator"></i> Calculate BMI
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- BMI Display -->
+                            <div class="row mt-3" id="bmiSection" style="display: none;">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <strong>BMI: </strong><span id="bmiValue"></span> - <span id="bmiCategory"></span>
+                                        <br><small id="bmiNote"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Safety Alerts -->
+                            <div class="row mt-3" id="safetyAlerts" style="display: none;">
+                                <div class="col-12">
+                                    <div class="alert alert-warning">
+                                        <strong><i class="fas fa-exclamation-triangle"></i> Safety Alerts:</strong>
+                                        <ul id="alertsList" class="mb-0 mt-2"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Medicine Display Section -->
         <div class="row mt-5">
             <div class="col-12">
                 <h2 class="mb-4">Featured Medicines</h2>
 
-                <!-- Search Bar -->
+                <!-- Medicine Selection and Filter Section -->
+                <div class="mb-4">
+                    <div class="row">
+                        <!-- Species Filter (First) -->
+                        <div class="col-md-2">
+                            <label for="speciesFilter" class="form-label"><strong>Species:</strong></label>
+                            <select class="form-select" id="speciesFilter" onchange="filterBySpecies()">
+                                <option value="">All Species</option>
+                                <option value="Humans">Humans</option>
+                                <option value="Dogs">Dogs</option>
+                                <option value="Cats">Cats</option>
+                                <option value="Dogs, Cats">Dogs & Cats</option>
+                                <option value="Horses">Horses</option>
+                                <option value="Cattle">Cattle</option>
+                                <option value="Horses, Cattle">Horses & Cattle</option>
+                                <option value="Sheep">Sheep</option>
+                                <option value="Pigs">Pigs</option>
+                                <option value="Goats">Goats</option>
+                                <option value="Rabbits">Rabbits</option>
+                                <option value="Exotic Animals">Exotic Animals</option>
+                            </select>
+                        </div>
+                        <!-- Category Filter (Second) -->
+                        <div class="col-md-2">
+                            <label for="categoryFilter" class="form-label"><strong>Category:</strong></label>
+                            <select class="form-select" id="categoryFilter" onchange="filterByCategory()">
+                                <option value="">All Categories</option>
+                                <option value="Antibiotic">Antibiotics</option>
+                                <option value="Pain Reliever">Pain Relievers</option>
+                                <option value="NSAID">NSAIDs</option>
+                                <option value="Anti-inflammatory">Anti-inflammatory</option>
+                                <option value="Diabetes Medication">Diabetes Medications</option>
+                                <option value="ACE Inhibitor">ACE Inhibitors</option>
+                                <option value="Statin">Statins</option>
+                                <option value="Proton Pump Inhibitor">Proton Pump Inhibitors</option>
+                                <option value="Corticosteroid">Corticosteroids</option>
+                                <option value="Bronchodilator">Bronchodilators</option>
+                                <option value="Diuretic">Diuretics</option>
+                                <option value="Antiparasitic">Antiparasitics</option>
+                                <option value="Topical Antiparasitic">Topical Antiparasitics</option>
+                                <option value="Heartworm Preventive">Heartworm Preventives</option>
+                                <option value="Joint Supplement">Joint Supplements</option>
+                                <option value="Cardiac Glycoside">Cardiac Glycosides</option>
+                                <option value="Antiemetic">Antiemetics</option>
+                                <option value="H2 Receptor Antagonist">H2 Antagonists</option>
+                                <option value="Immunosuppressant">Immunosuppressants</option>
+                                <option value="Anthelmintic">Anthelmintics</option>
+                                <option value="Topical Insecticide">Topical Insecticides</option>
+                                <option value="Opioid Analgesic">Opioid Analgesics</option>
+                                <option value="Anesthetic">Anesthetics</option>
+                                <option value="Tranquilizer">Tranquilizers</option>
+                                <option value="SSRI">SSRIs</option>
+                                <option value="Thyroid Hormone">Thyroid Hormones</option>
+                                <option value="Antithyroid">Antithyroid</option>
+                                <option value="Insulin">Insulin</option>
+                                <option value="Inodilator">Inodilators</option>
+                                <option value="Chemotherapy">Chemotherapy</option>
+                            </select>
+                        </div>
+                        <!-- Medicine Selection (Third) -->
+                        <div class="col-md-4">
+                            <label for="medicineSelect" class="form-label"><strong>Select a Medicine:</strong></label>
+                            <select class="form-select" id="medicineSelect" onchange="selectMedicine()">
+                                <option value="">Choose a medicine...</option>
+                                <option value="loading" disabled>Loading medicines...</option>
+                            </select>
+                        </div>
+                        <!-- Action Buttons -->
+                        <div class="col-md-2">
+                            <label class="form-label">&nbsp;</label>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-danger btn-sm" onclick="clearAllFilters()">
+                                    <i class="fas fa-times"></i> Clear Filters
+                                </button>
+                                <button class="btn btn-outline-info btn-sm" onclick="loadAllMedicines()">
+                                    <i class="fas fa-list"></i> Show All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart Section -->
+                    <div class="row mt-3" id="addToCartSection" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h6 class="mb-0"><i class="fas fa-shopping-cart"></i> Selected Medicine Details & Add to Cart</h6>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Basic Medicine Information -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-8">
+                                            <div id="selectedMedicineInfo">
+                                                <h5 class="text-primary mb-2">
+                                                    <i class="fas fa-pills"></i> <span id="selectedMedicineName">None</span>
+                                                </h5>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <small class="text-muted"><strong>Category:</strong> <span id="selectedMedicineCategory">-</span></small><br>
+                                                        <small class="text-muted"><strong>Species:</strong> <span id="selectedMedicineSpecies">-</span></small><br>
+                                                        <small class="text-info"><strong>Dosage:</strong> <span id="selectedMedicineDosage">-</span></small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="fw-bold text-success fs-5">£<span id="selectedMedicinePrice">0.00</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <label for="quantitySelect" class="form-label"><strong>Quantity:</strong></label>
+                                                    <select class="form-select" id="quantitySelect">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label class="form-label">&nbsp;</label>
+                                                    <div class="d-grid">
+                                                        <button class="btn btn-primary" onclick="addSelectedMedicineToCart()">
+                                                            <i class="fas fa-cart-plus"></i> Add to Cart
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comprehensive Formula Section -->
+                                    <div class="card border-info mt-3" id="formulaSection">
+                                        <div class="card-header bg-info text-white">
+                                            <h6 class="mb-0"><i class="fas fa-flask"></i> Comprehensive Formula & Chemical Information</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <!-- Chemical Formula -->
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <strong class="text-primary">Molecular Formula:</strong>
+                                                        <div class="bg-light p-2 rounded">
+                                                            <code id="molecularFormula" class="fs-6">-</code>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <strong class="text-primary">Molecular Weight:</strong>
+                                                        <div class="text-muted" id="molecularWeight">-</div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <strong class="text-primary">Chemical Name:</strong>
+                                                        <div class="text-muted" id="chemicalName">-</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Pharmacological Information -->
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <strong class="text-primary">Mechanism of Action:</strong>
+                                                        <div class="text-muted small" id="mechanismOfAction">-</div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <strong class="text-primary">Therapeutic Class:</strong>
+                                                        <div class="text-muted" id="therapeuticClass">-</div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <strong class="text-primary">Route of Administration:</strong>
+                                                        <div class="text-muted" id="routeOfAdmin">-</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Pharmacokinetics -->
+                                            <div class="row mt-3">
+                                                <div class="col-md-12">
+                                                    <h6 class="text-primary border-bottom pb-1">
+                                                        <i class="fas fa-heartbeat"></i> Pharmacokinetics
+                                                    </h6>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong>Absorption:</strong>
+                                                    <div class="text-muted small" id="absorption">-</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong>Distribution:</strong>
+                                                    <div class="text-muted small" id="distribution">-</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong>Metabolism:</strong>
+                                                    <div class="text-muted small" id="metabolism">-</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong>Elimination:</strong>
+                                                    <div class="text-muted small" id="elimination">-</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Additional Information -->
+                                            <div class="row mt-3">
+                                                <div class="col-md-6">
+                                                    <strong class="text-primary">Contraindications:</strong>
+                                                    <div class="text-danger small" id="contraindications">-</div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <strong class="text-primary">Side Effects:</strong>
+                                                    <div class="text-warning small" id="sideEffects">-</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Bar (Fourth/Last) -->
                 <div class="mb-4">
                     <div class="input-group">
                         <input type="text" class="form-control" id="medicineSearch"
@@ -431,7 +823,7 @@
                                 </p>
                                 <p class="card-text"><strong>Side Effects:</strong> Nausea, diarrhea, allergic reactions
                                 </p>
-                                <p class="card-text text-success"><strong>Price: $25.99</strong></p>
+                                <p class="card-text text-success"><strong>Price: £25.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
@@ -461,7 +853,7 @@
                                 <p class="card-text"><strong>Dosage:</strong> 2-4mg/kg body weight</p>
                                 <p class="card-text"><strong>Side Effects:</strong> GI upset, bone marrow suppression
                                 </p>
-                                <p class="card-text text-success"><strong>Price: $45.50</strong></p>
+                                <p class="card-text text-success"><strong>Price: £45.50</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
@@ -493,7 +885,7 @@
                                 <p class="card-text"><strong>Dosage:</strong> 1-3% concentration (varies by species)</p>
                                 <p class="card-text"><strong>Side Effects:</strong> Respiratory depression, hypotension
                                 </p>
-                                <p class="card-text text-success"><strong>Price: $89.99</strong></p>
+                                <p class="card-text text-success"><strong>Price: £89.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
@@ -521,7 +913,7 @@
                                 <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats</p>
                                 <p class="card-text"><strong>Dosage:</strong> 1-5mg/kg (varies by species)</p>
                                 <p class="card-text"><strong>Side Effects:</strong> Sedation, nausea, constipation</p>
-                                <p class="card-text text-success"><strong>Price: $35.75</strong></p>
+                                <p class="card-text text-success"><strong>Price: £35.75</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
@@ -550,7 +942,7 @@
                                 <p class="card-text"><strong>Dosage:</strong> 0.006-0.2mg/kg (species dependent)</p>
                                 <p class="card-text"><strong>Side Effects:</strong> Neurological signs in sensitive
                                     breeds</p>
-                                <p class="card-text text-success"><strong>Price: $18.25</strong></p>
+                                <p class="card-text text-success"><strong>Price: £18.25</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
@@ -579,7 +971,7 @@
                                 <p class="card-text"><strong>Dosage:</strong> 0.25-2.2 units/kg (highly variable)</p>
                                 <p class="card-text"><strong>Side Effects:</strong> Hypoglycemia, injection site
                                     reactions</p>
-                                <p class="card-text text-success"><strong>Price: $125.00</strong></p>
+                                <p class="card-text text-success"><strong>Price: £125.00</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
@@ -910,13 +1302,13 @@
                         <div class="d-flex justify-content-between align-items-center mb-3 p-3 border rounded">
                             <div>
                                 <h6>${item.name}</h6>
-                                <p class="text-muted mb-0">$${item.price.toFixed(2)} each</p>
+                                <p class="text-muted mb-0">£${item.price.toFixed(2)} each</p>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, -1)">-</button>
                                 <span class="mx-2">${item.quantity}</span>
                                 <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, 1)">+</button>
-                                <span class="fw-bold">$${itemTotal.toFixed(2)}</span>
+                                <span class="fw-bold">£${itemTotal.toFixed(2)}</span>
                                 <button class="btn btn-danger btn-sm ms-2" onclick="removeFromCart(${index})">Remove</button>
                             </div>
                         </div>
@@ -1147,7 +1539,7 @@
                         </p>
                         <p class="card-text"><strong>Dosage:</strong> ${medicine.dosage}</p>
                         <p class="card-text">${medicine.notes}</p>
-                        <p class="text-success fw-bold">$${price}</p>
+                        <p class="text-success fw-bold">£${price}</p>
                     </div>
                     <div class="card-footer bg-transparent">
                         <button class="btn btn-outline-primary btn-sm me-2" onclick="showHumanMedicineDetails('${medicine.id}')">
@@ -1297,7 +1689,634 @@
                 searchMedicines();
             }
         });
+
+        // Load medicines into the select dropdown when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMedicinesIntoSelect();
+        });
+
+        async function loadMedicinesIntoSelect() {
+            try {
+                const response = await fetch('/api/medicines/');
+                const data = await response.json();
+                
+                const selectElement = document.getElementById('medicineSelect');
+                selectElement.innerHTML = '<option value="">Choose a medicine...</option>';
+                
+                if (data.medicines && data.medicines.length > 0) {
+                    data.medicines.forEach(medicine => {
+                        const option = document.createElement('option');
+                        option.value = medicine.id;
+                        option.textContent = `${medicine.name} (${medicine.category}) - ${medicine.species_applicable}`;
+                        option.setAttribute('data-category', medicine.category);
+                        option.setAttribute('data-species', medicine.species_applicable);
+                        selectElement.appendChild(option);
+                    });
+                } else {
+                    selectElement.innerHTML = '<option value="">No medicines available</option>';
+                }
+            } catch (error) {
+                console.error('Error loading medicines:', error);
+                document.getElementById('medicineSelect').innerHTML = '<option value="">Error loading medicines</option>';
+            }
+        }
+
+        async function selectMedicine() {
+            const selectElement = document.getElementById('medicineSelect');
+            const selectedMedicineId = selectElement.value;
+            
+            if (!selectedMedicineId) {
+                // If no medicine is selected, hide add to cart section and show all veterinary medicines
+                document.getElementById('addToCartSection').style.display = 'none';
+                showOnlyVeterinaryMedicines();
+                return;
+            }
+
+            try {
+                // Fetch specific medicine details
+                const response = await fetch(`/api/medicines/${selectedMedicineId}/`);
+                const medicine = await response.json();
+                
+                // Update add to cart section
+                updateAddToCartSection(medicine);
+                
+                // Clear the current grid
+                const medicineGrid = document.querySelector('.row');
+                
+                // Hide veterinary cards
+                const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
+                veterinaryCards.forEach(card => {
+                    card.style.display = 'none';
+                });
+
+                // Remove any existing human medicine cards
+                const existingHumanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
+                existingHumanCards.forEach(card => card.remove());
+
+                // Create and display the selected medicine card
+                const selectedCard = createHumanMedicineCard(medicine);
+                selectedCard.classList.add('border-primary');
+                selectedCard.querySelector('.card').classList.add('border-primary', 'border-3');
+                medicineGrid.appendChild(selectedCard);
+
+                // Scroll to the medicine card
+                selectedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            } catch (error) {
+                console.error('Error fetching medicine details:', error);
+                alert('Error loading medicine details. Please try again.');
+            }
+        }
+
+        function filterByCategory() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const selectElement = document.getElementById('medicineSelect');
+            const options = selectElement.querySelectorAll('option[data-category]');
+            
+            // Reset the medicine selection
+            selectElement.value = '';
+            
+            // Show/hide options based on category filter
+            options.forEach(option => {
+                if (!categoryFilter || option.getAttribute('data-category') === categoryFilter) {
+                    option.style.display = 'block';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+
+            // If a category is selected, show medicines from that category
+            if (categoryFilter) {
+                searchMedicinesByCategory(categoryFilter);
+            } else {
+                showOnlyVeterinaryMedicines();
+            }
+        }
+
+        function filterBySpecies() {
+            const speciesFilter = document.getElementById('speciesFilter').value;
+            const selectElement = document.getElementById('medicineSelect');
+            const options = selectElement.querySelectorAll('option[data-species]');
+            
+            // Reset the medicine selection
+            selectElement.value = '';
+            
+            // Show/hide options based on species filter
+            options.forEach(option => {
+                if (!speciesFilter || option.getAttribute('data-species').includes(speciesFilter)) {
+                    option.style.display = 'block';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+
+            // If a species is selected, show medicines for that species
+            if (speciesFilter) {
+                searchMedicinesBySpecies(speciesFilter);
+            } else {
+                showOnlyVeterinaryMedicines();
+            }
+        }
+
+        async function searchMedicinesByCategory(category) {
+            try {
+                const response = await fetch(`/api/search/?category=${encodeURIComponent(category)}`);
+                const data = await response.json();
+                displaySearchResults(data.medicines);
+            } catch (error) {
+                console.error('Error searching by category:', error);
+                showOnlyVeterinaryMedicines();
+            }
+        }
+
+        async function searchMedicinesBySpecies(species) {
+            try {
+                const response = await fetch(`/api/search/?species=${encodeURIComponent(species)}`);
+                const data = await response.json();
+                displaySearchResults(data.medicines);
+            } catch (error) {
+                console.error('Error searching by species:', error);
+                showOnlyVeterinaryMedicines();
+            }
+        }
+
+        function displaySearchResults(medicines) {
+            const medicineGrid = document.querySelector('.row');
+            
+            // Hide veterinary cards
+            const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
+            veterinaryCards.forEach(card => {
+                card.style.display = 'none';
+            });
+
+            // Remove any existing human medicine cards
+            const existingHumanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
+            existingHumanCards.forEach(card => card.remove());
+
+            // Add search results
+            if (medicines && medicines.length > 0) {
+                medicines.forEach(medicine => {
+                    const card = createHumanMedicineCard(medicine);
+                    medicineGrid.appendChild(card);
+                });
+            } else {
+                const noResultsCard = createNoResultsCard('filter criteria');
+                medicineGrid.appendChild(noResultsCard);
+            }
+        }
+
+        // Load all medicines function
+        async function loadAllMedicines() {
+            try {
+                const response = await fetch('/api/medicines/');
+                const data = await response.json();
+                
+                if (data.medicines && data.medicines.length > 0) {
+                    displaySearchResults(data.medicines);
+                } else {
+                    showOnlyVeterinaryMedicines();
+                }
+            } catch (error) {
+                console.error('Error loading all medicines:', error);
+                showOnlyVeterinaryMedicines();
+            }
+        }
+
+        // Clear all filters function
+        function clearAllFilters() {
+            document.getElementById('medicineSelect').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('speciesFilter').value = '';
+            document.getElementById('medicineSearch').value = '';
+            document.getElementById('addToCartSection').style.display = 'none';
+            showOnlyVeterinaryMedicines();
+        }
+
+        // Comprehensive Formula Database
+        function getComprehensiveFormulaData(medicineName) {
+            const formulaDatabase = {
+                'Ibuprofen': {
+                    molecularFormula: 'C₁₃H₁₈O₂',
+                    molecularWeight: '206.28 g/mol',
+                    chemicalName: '2-(4-isobutylphenyl)propionic acid',
+                    mechanismOfAction: 'Non-selective COX-1 and COX-2 inhibitor, reducing prostaglandin synthesis',
+                    therapeuticClass: 'Nonsteroidal Anti-inflammatory Drug (NSAID)',
+                    routeOfAdmin: 'Oral, Topical',
+                    absorption: 'Rapidly absorbed from GI tract, peak levels in 1-4 hours',
+                    distribution: 'Highly protein bound (99%), limited distribution to CNS',
+                    metabolism: 'Hepatic metabolism via CYP2C9, glucuronidation',
+                    elimination: 'Renal elimination, half-life 2-4 hours',
+                    contraindications: 'Peptic ulcer disease, severe renal/hepatic impairment, aspirin allergy',
+                    sideEffects: 'GI upset, increased bleeding risk, renal dysfunction, hypertension'
+                },
+                'Amoxicillin': {
+                    molecularFormula: 'C₁₆H₁₉N₃O₅S',
+                    molecularWeight: '365.40 g/mol',
+                    chemicalName: '(2S,5R,6R)-6-[(2R)-2-amino-2-(4-hydroxyphenyl)acetamido]-3,3-dimethyl-7-oxo-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid',
+                    mechanismOfAction: 'Inhibits bacterial cell wall synthesis by binding to penicillin-binding proteins',
+                    therapeuticClass: 'Beta-lactam Antibiotic (Penicillin)',
+                    routeOfAdmin: 'Oral, Intravenous',
+                    absorption: 'Well absorbed orally (75-90%), not affected by food',
+                    distribution: 'Widely distributed, crosses placenta, minimal CNS penetration',
+                    metabolism: 'Minimal hepatic metabolism (10-25%)',
+                    elimination: 'Primarily renal excretion, half-life 1-1.3 hours',
+                    contraindications: 'Penicillin allergy, severe renal impairment',
+                    sideEffects: 'Allergic reactions, GI upset, superinfection, skin rash'
+                },
+                'Carprofen': {
+                    molecularFormula: 'C₁₅H₁₂ClNO₂',
+                    molecularWeight: '273.71 g/mol',
+                    chemicalName: '6-chloro-α-methyl-9H-carbazole-2-acetic acid',
+                    mechanismOfAction: 'Preferential COX-2 inhibitor with some COX-1 activity',
+                    therapeuticClass: 'Veterinary NSAID',
+                    routeOfAdmin: 'Oral, Injectable',
+                    absorption: 'Rapidly absorbed, peak levels in 1-3 hours in dogs',
+                    distribution: 'Highly protein bound (>95%), good tissue penetration',
+                    metabolism: 'Hepatic metabolism, glucuronidation in dogs',
+                    elimination: 'Biliary and renal excretion, half-life 8 hours in dogs',
+                    contraindications: 'GI ulceration, renal/hepatic disease, concurrent steroid use',
+                    sideEffects: 'GI upset, hepatotoxicity, renal dysfunction, behavioral changes'
+                },
+                'Tramadol': {
+                    molecularFormula: 'C₁₆H₂₅NO₂',
+                    molecularWeight: '263.38 g/mol',
+                    chemicalName: '(±)-trans-2-[(dimethylamino)methyl]-1-(3-methoxyphenyl)cyclohexanol',
+                    mechanismOfAction: 'Weak μ-opioid receptor agonist, inhibits serotonin and norepinephrine reuptake',
+                    therapeuticClass: 'Centrally Acting Analgesic',
+                    routeOfAdmin: 'Oral, Injectable',
+                    absorption: 'Well absorbed orally (75%), peak levels in 2 hours',
+                    distribution: 'Crosses blood-brain barrier, moderate protein binding (20%)',
+                    metabolism: 'Hepatic metabolism via CYP2D6 to active metabolite M1',
+                    elimination: 'Renal excretion, half-life 5-7 hours',
+                    contraindications: 'Seizure disorders, MAO inhibitor use, respiratory depression',
+                    sideEffects: 'Seizures, serotonin syndrome, respiratory depression, dependence potential'
+                },
+                'Ivermectin': {
+                    molecularFormula: 'C₄₈H₇₄O₁₄',
+                    molecularWeight: '875.09 g/mol',
+                    chemicalName: '22,23-dihydroavermectin B1a + 22,23-dihydroavermectin B1b',
+                    mechanismOfAction: 'Binds to glutamate-gated chloride channels, causing paralysis in parasites',
+                    therapeuticClass: 'Macrocyclic Lactone Antiparasitic',
+                    routeOfAdmin: 'Oral, Topical, Injectable',
+                    absorption: 'Well absorbed orally in most species, peak levels in 4-5 hours',
+                    distribution: 'Highly lipophilic, extensive tissue distribution, crosses blood-brain barrier minimally',
+                    metabolism: 'Hepatic metabolism via CYP3A4',
+                    elimination: 'Biliary excretion primarily, half-life 12-36 hours (species dependent)',
+                    contraindications: 'MDR1 gene mutations (collies), severe hepatic impairment',
+                    sideEffects: 'Neurological signs in sensitive breeds, hypersensitivity reactions'
+                },
+                'Prednisolone': {
+                    molecularFormula: 'C₂₁H₂₈O₅',
+                    molecularWeight: '360.44 g/mol',
+                    chemicalName: '11β,17α,21-trihydroxypregna-1,4-diene-3,20-dione',
+                    mechanismOfAction: 'Binds to glucocorticoid receptors, modulates gene transcription and protein synthesis',
+                    therapeuticClass: 'Synthetic Glucocorticoid',
+                    routeOfAdmin: 'Oral, Injectable, Topical',
+                    absorption: 'Well absorbed orally, peak levels in 1-2 hours',
+                    distribution: 'Widely distributed, crosses placenta and blood-brain barrier',
+                    metabolism: 'Hepatic metabolism, converted to inactive metabolites',
+                    elimination: 'Renal excretion, biological half-life 12-36 hours',
+                    contraindications: 'Viral infections, fungal infections, vaccination periods',
+                    sideEffects: 'Immunosuppression, PU/PD, weight gain, GI ulceration, behavioral changes'
+                },
+                'Gabapentin': {
+                    molecularFormula: 'C₉H₁₇NO₂',
+                    molecularWeight: '171.24 g/mol',
+                    chemicalName: '1-(aminomethyl)cyclohexaneacetic acid',
+                    mechanismOfAction: 'Binds to α2δ subunit of voltage-gated calcium channels, modulates neurotransmitter release',
+                    therapeuticClass: 'Anticonvulsant/Neuropathic Pain Agent',
+                    routeOfAdmin: 'Oral',
+                    absorption: 'Variable absorption (27-60%), not affected by food',
+                    distribution: 'Minimal protein binding (<3%), crosses blood-brain barrier',
+                    metabolism: 'Not metabolized, excreted unchanged',
+                    elimination: 'Renal excretion, half-life 5-7 hours in humans, 3-4 hours in dogs',
+                    contraindications: 'Severe renal impairment, known hypersensitivity',
+                    sideEffects: 'Sedation, ataxia, behavioral changes, potential withdrawal symptoms'
+                }
+            };
+            
+            // Return data for the medicine, or default values if not found
+            return formulaDatabase[medicineName] || {
+                molecularFormula: 'Data not available',
+                molecularWeight: 'Data not available',
+                chemicalName: 'Chemical name not available for this medicine',
+                mechanismOfAction: 'Mechanism of action information not available',
+                therapeuticClass: 'Classification information not available',
+                routeOfAdmin: 'Administration route not specified',
+                absorption: 'Absorption data not available',
+                distribution: 'Distribution data not available',
+                metabolism: 'Metabolism data not available',
+                elimination: 'Elimination data not available',
+                contraindications: 'Contraindication information not available',
+                sideEffects: 'Side effect information not available'
+            };
+        }
+
+        // Update add to cart section with selected medicine
+        function updateAddToCartSection(medicine) {
+            document.getElementById('selectedMedicineName').textContent = medicine.name;
+            document.getElementById('selectedMedicineCategory').textContent = medicine.category;
+            document.getElementById('selectedMedicineSpecies').textContent = medicine.species_applicable;
+            document.getElementById('selectedMedicineDosage').textContent = medicine.dosage;
+            
+            // Generate a random price for demonstration (in a real app, this would come from the database)
+            const price = (Math.random() * 100 + 10).toFixed(2);
+            document.getElementById('selectedMedicinePrice').textContent = price;
+            
+            // Get comprehensive formula data
+            const formulaData = getComprehensiveFormulaData(medicine.name);
+            
+            // Update formula information
+            document.getElementById('molecularFormula').textContent = formulaData.molecularFormula;
+            document.getElementById('molecularWeight').textContent = formulaData.molecularWeight;
+            document.getElementById('chemicalName').textContent = formulaData.chemicalName;
+            document.getElementById('mechanismOfAction').textContent = formulaData.mechanismOfAction;
+            document.getElementById('therapeuticClass').textContent = formulaData.therapeuticClass;
+            document.getElementById('routeOfAdmin').textContent = formulaData.routeOfAdmin;
+            document.getElementById('absorption').textContent = formulaData.absorption;
+            document.getElementById('distribution').textContent = formulaData.distribution;
+            document.getElementById('metabolism').textContent = formulaData.metabolism;
+            document.getElementById('elimination').textContent = formulaData.elimination;
+            document.getElementById('contraindications').textContent = formulaData.contraindications;
+            document.getElementById('sideEffects').textContent = formulaData.sideEffects;
+            
+            // Show the add to cart section
+            document.getElementById('addToCartSection').style.display = 'block';
+            
+            // Store medicine data for cart addition
+            window.selectedMedicineData = {
+                id: medicine.id,
+                name: medicine.name,
+                category: medicine.category,
+                dosage: medicine.dosage,
+                species_applicable: medicine.species_applicable,
+                price: parseFloat(price),
+                notes: medicine.notes
+            };
+        }
+
+        // Add selected medicine to cart
+        function addSelectedMedicineToCart() {
+            if (!window.selectedMedicineData) {
+                alert('Please select a medicine first.');
+                return;
+            }
+
+            const quantity = parseInt(document.getElementById('quantitySelect').value);
+            const medicine = window.selectedMedicineData;
+            
+            // Check if medicine is already in cart
+            const existingItem = cart.find(item => item.id === medicine.id);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id: medicine.id,
+                    name: medicine.name,
+                    category: medicine.category,
+                    dosage: medicine.dosage,
+                    species: medicine.species_applicable,
+                    price: medicine.price,
+                    quantity: quantity,
+                    notes: medicine.notes
+                });
+            }
+            
+            updateCartUI();
+            
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'alert alert-success alert-dismissible fade show mt-2';
+            successMessage.innerHTML = `
+                <strong>Success!</strong> ${medicine.name} (${quantity}x) has been added to your cart.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            const addToCartSection = document.getElementById('addToCartSection');
+            addToCartSection.appendChild(successMessage);
+            
+            // Remove success message after 3 seconds
+            setTimeout(() => {
+                if (successMessage.parentNode) {
+                    successMessage.remove();
+                }
+            }, 3000);
+        }
+
+        // Patient Information Functions
+        function savePatientInfo() {
+            const age = document.getElementById('patientAge').value;
+            const weight = document.getElementById('patientWeight').value;
+            const weightUnit = document.getElementById('weightUnit').value;
+            const height = document.getElementById('patientHeight').value;
+            const heightUnit = document.getElementById('heightUnit').value;
+            const allergies = document.getElementById('patientAllergies').value;
+
+            // Save to localStorage
+            const patientData = {
+                age: age,
+                weight: weight,
+                weightUnit: weightUnit,
+                height: height,
+                heightUnit: heightUnit,
+                allergies: allergies,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('patientInfo', JSON.stringify(patientData));
+
+            // Show success message
+            showPatientInfoSaved();
+
+            // Check for safety alerts
+            checkSafetyAlerts(patientData);
+
+            // Calculate BMI if height and weight are provided
+            if (height && weight) {
+                calculateBMI();
+            }
+        }
+
+        function clearPatientInfo() {
+            document.getElementById('patientAge').value = '';
+            document.getElementById('patientWeight').value = '';
+            document.getElementById('patientHeight').value = '';
+            document.getElementById('patientAllergies').value = '';
+            document.getElementById('bmiSection').style.display = 'none';
+            document.getElementById('safetyAlerts').style.display = 'none';
+            localStorage.removeItem('patientInfo');
+        }
+
+        function loadPatientInfo() {
+            const savedData = localStorage.getItem('patientInfo');
+            if (savedData) {
+                const patientData = JSON.parse(savedData);
+                document.getElementById('patientAge').value = patientData.age || '';
+                document.getElementById('patientWeight').value = patientData.weight || '';
+                document.getElementById('weightUnit').value = patientData.weightUnit || 'kg';
+                document.getElementById('patientHeight').value = patientData.height || '';
+                document.getElementById('heightUnit').value = patientData.heightUnit || 'cm';
+                document.getElementById('patientAllergies').value = patientData.allergies || '';
+            }
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('patientWeight').value);
+            const height = parseFloat(document.getElementById('patientHeight').value);
+            const weightUnit = document.getElementById('weightUnit').value;
+            const heightUnit = document.getElementById('heightUnit').value;
+
+            if (!weight || !height) {
+                alert('Please enter both weight and height to calculate BMI.');
+                return;
+            }
+
+            // Convert to metric units
+            let weightKg = weight;
+            let heightM = height;
+
+            if (weightUnit === 'lbs') {
+                weightKg = weight * 0.453592;
+            }
+
+            if (heightUnit === 'ft') {
+                heightM = height * 0.3048;
+            } else {
+                heightM = height / 100; // cm to meters
+            }
+
+            // Calculate BMI
+            const bmi = weightKg / (heightM * heightM);
+            const bmiRounded = Math.round(bmi * 10) / 10;
+
+            // Determine BMI category
+            let category, note, alertClass;
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                note = 'May need higher caloric intake and careful medication dosing.';
+                alertClass = 'alert-warning';
+            } else if (bmi < 25) {
+                category = 'Normal weight';
+                note = 'Healthy weight range for most medications.';
+                alertClass = 'alert-success';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+                note = 'May require dose adjustments for some medications.';
+                alertClass = 'alert-warning';
+            } else {
+                category = 'Obese';
+                note = 'Requires careful dose calculations and monitoring for many medications.';
+                alertClass = 'alert-danger';
+            }
+
+            // Display BMI results
+            document.getElementById('bmiValue').textContent = bmiRounded;
+            document.getElementById('bmiCategory').textContent = category;
+            document.getElementById('bmiNote').textContent = note;
+            document.getElementById('bmiSection').style.display = 'block';
+            document.getElementById('bmiSection').querySelector('.alert').className = `alert ${alertClass}`;
+        }
+
+        function checkSafetyAlerts(patientData) {
+            const alerts = [];
+            const age = parseInt(patientData.age);
+            const allergies = patientData.allergies.toLowerCase();
+
+            // Age-based alerts
+            if (age < 18) {
+                alerts.push('Pediatric patient: Many medications require special pediatric dosing.');
+            }
+            if (age >= 65) {
+                alerts.push('Geriatric patient: Increased risk of drug interactions and side effects.');
+            }
+
+            // Allergy-based alerts
+            if (allergies.includes('penicillin')) {
+                alerts.push('Penicillin allergy: Avoid all penicillin-based antibiotics.');
+            }
+            if (allergies.includes('aspirin')) {
+                alerts.push('Aspirin allergy: Avoid NSAIDs and salicylates.');
+            }
+            if (allergies.includes('sulfa')) {
+                alerts.push('Sulfa allergy: Avoid sulfonamide antibiotics.');
+            }
+            if (allergies.includes('iodine')) {
+                alerts.push('Iodine allergy: Use caution with contrast agents and some antiseptics.');
+            }
+
+            // Display alerts if any
+            if (alerts.length > 0) {
+                const alertsList = document.getElementById('alertsList');
+                alertsList.innerHTML = '';
+                alerts.forEach(alert => {
+                    const li = document.createElement('li');
+                    li.textContent = alert;
+                    alertsList.appendChild(li);
+                });
+                document.getElementById('safetyAlerts').style.display = 'block';
+            } else {
+                document.getElementById('safetyAlerts').style.display = 'none';
+            }
+        }
+
+        function showPatientInfoSaved() {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            successMessage.style.top = '20px';
+            successMessage.style.right = '20px';
+            successMessage.style.zIndex = '9999';
+            successMessage.innerHTML = `
+                <strong><i class="fas fa-check-circle"></i> Patient Information Saved!</strong>
+                <br>Your information will be used for personalized recommendations.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(successMessage);
+
+            // Auto-remove after 4 seconds
+            setTimeout(() => {
+                if (successMessage.parentNode) {
+                    successMessage.remove();
+                }
+            }, 4000);
+        }
+
+        // Load patient info on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPatientInfo();
+        });
     </script>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Comparative Medicine Database</h5>
+                    <p class="mb-0">Your trusted source for comparative medicine information.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h6>Quick Links</h6>
+                    <div class="footer-links">
+                        <a href="#" class="text-light me-3" data-bs-toggle="modal" data-bs-target="#aboutModal">About Us</a>
+                        <a href="#" class="text-light me-3" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
+                        <a href="#" class="text-light me-3" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
+                        <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0 text-muted">
+                        &copy; 2025 Comparative Medicine Database. All rights reserved. 
+                        | <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
+                        | For educational purposes only.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 
