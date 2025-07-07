@@ -83,11 +83,21 @@
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password', this)">
+                                    <i class="fas fa-eye" id="passwordIcon"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('confirmPassword', this)">
+                                    <i class="fas fa-eye" id="confirmPasswordIcon"></i>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -110,12 +120,17 @@
                 <div class="modal-body">
                     <form id="signinForm">
                         <div class="mb-3">
-                            <label for="signinEmail" class="form-label">Email</label>
+                            <label for="signinEmail" class="form-label">Username (Email)</label>
                             <input type="email" class="form-control" id="signinEmail" required>
                         </div>
                         <div class="mb-3">
                             <label for="signinPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signinPassword" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="signinPassword" required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('signinPassword', this)">
+                                    <i class="fas fa-eye" id="signinPasswordIcon"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="rememberMe">
@@ -123,11 +138,64 @@
                                 Remember me
                             </label>
                         </div>
+                        <div class="mb-3 text-center">
+                            <a href="#" onclick="showForgotPassword()" class="text-decoration-none">
+                                <i class="fas fa-key"></i> Forgot your password or username?
+                            </a>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" onclick="submitSignin()">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Password / Recover Username</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">Enter your email address and we'll help you recover your account information.</p>
+                    <form id="forgotPasswordForm">
+                        <div class="mb-3">
+                            <label for="recoveryEmail" class="form-label">Your Email Address</label>
+                            <input type="email" class="form-control" id="recoveryEmail" required 
+                                   placeholder="Enter the email you used to sign up">
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="recoveryType" id="recoverPassword" value="password" checked>
+                                <label class="form-check-label" for="recoverPassword">
+                                    <i class="fas fa-key"></i> I forgot my password
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="recoveryType" id="recoverUsername" value="username">
+                                <label class="form-check-label" for="recoverUsername">
+                                    <i class="fas fa-user"></i> I forgot my username/email
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="recoveryType" id="accountIssues" value="issues">
+                                <label class="form-check-label" for="accountIssues">
+                                    <i class="fas fa-exclamation-triangle"></i> My account isn't working
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-warning" onclick="submitForgotPassword()">
+                        <i class="fas fa-paper-plane"></i> Send Recovery Email
+                    </button>
                 </div>
             </div>
         </div>
@@ -470,6 +538,21 @@
     <div class="container mt-4">
         <h1>Welcome to Comparative Medicine Database</h1>
         <p>This is a comprehensive database for comparative medicine research and treatments.</p>
+        
+        <!-- OTC Medicine Notice -->
+        <div class="alert alert-info border-primary" role="alert">
+            <h5 class="alert-heading">
+                <i class="fas fa-info-circle"></i> Over-the-Counter (OTC) Medicines Only
+            </h5>
+            <p class="mb-2">Our online platform features only <strong>affordable, over-the-counter medicines</strong> that do not require a prescription. All medicines shown are:</p>
+            <ul class="mb-2">
+                <li><i class="fas fa-check text-success"></i> Available without prescription</li>
+                <li><i class="fas fa-check text-success"></i> Safe for self-medication when used as directed</li>
+                <li><i class="fas fa-check text-success"></i> Affordable and accessible</li>
+                <li><i class="fas fa-check text-success"></i> Suitable for general wellness and minor health concerns</li>
+            </ul>
+            <p class="mb-0"><strong>Note:</strong> For prescription medications or serious medical conditions, please consult with a licensed healthcare provider or veterinarian.</p>
+        </div>
         <p>Browse through our collection of medicines and their applications across different species.</p>
 
         <!-- Patient Information Section -->
@@ -583,54 +666,20 @@
                             <select class="form-select" id="speciesFilter" onchange="filterBySpecies()">
                                 <option value="">All Species</option>
                                 <option value="Humans">Humans</option>
-                                <option value="Dogs">Dogs</option>
-                                <option value="Cats">Cats</option>
-                                <option value="Dogs, Cats">Dogs & Cats</option>
-                                <option value="Horses">Horses</option>
-                                <option value="Cattle">Cattle</option>
-                                <option value="Horses, Cattle">Horses & Cattle</option>
-                                <option value="Sheep">Sheep</option>
-                                <option value="Pigs">Pigs</option>
-                                <option value="Goats">Goats</option>
-                                <option value="Rabbits">Rabbits</option>
-                                <option value="Exotic Animals">Exotic Animals</option>
                             </select>
                         </div>
                         <!-- Category Filter (Second) -->
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label for="categoryFilter" class="form-label"><strong>Category:</strong></label>
                             <select class="form-select" id="categoryFilter" onchange="filterByCategory()">
                                 <option value="">All Categories</option>
-                                <option value="Antibiotic">Antibiotics</option>
-                                <option value="Pain Reliever">Pain Relievers</option>
-                                <option value="NSAID">NSAIDs</option>
-                                <option value="Anti-inflammatory">Anti-inflammatory</option>
-                                <option value="Diabetes Medication">Diabetes Medications</option>
-                                <option value="ACE Inhibitor">ACE Inhibitors</option>
-                                <option value="Statin">Statins</option>
-                                <option value="Proton Pump Inhibitor">Proton Pump Inhibitors</option>
-                                <option value="Corticosteroid">Corticosteroids</option>
-                                <option value="Bronchodilator">Bronchodilators</option>
-                                <option value="Diuretic">Diuretics</option>
-                                <option value="Antiparasitic">Antiparasitics</option>
-                                <option value="Topical Antiparasitic">Topical Antiparasitics</option>
-                                <option value="Heartworm Preventive">Heartworm Preventives</option>
-                                <option value="Joint Supplement">Joint Supplements</option>
-                                <option value="Cardiac Glycoside">Cardiac Glycosides</option>
-                                <option value="Antiemetic">Antiemetics</option>
-                                <option value="H2 Receptor Antagonist">H2 Antagonists</option>
-                                <option value="Immunosuppressant">Immunosuppressants</option>
-                                <option value="Anthelmintic">Anthelmintics</option>
-                                <option value="Topical Insecticide">Topical Insecticides</option>
-                                <option value="Opioid Analgesic">Opioid Analgesics</option>
-                                <option value="Anesthetic">Anesthetics</option>
-                                <option value="Tranquilizer">Tranquilizers</option>
-                                <option value="SSRI">SSRIs</option>
-                                <option value="Thyroid Hormone">Thyroid Hormones</option>
-                                <option value="Antithyroid">Antithyroid</option>
-                                <option value="Insulin">Insulin</option>
-                                <option value="Inodilator">Inodilators</option>
-                                <option value="Chemotherapy">Chemotherapy</option>
+                                <option value="analgesic">Pain Relievers (OTC)</option>
+                                <option value="anti-inflammatory">Anti-inflammatory (OTC)</option>
+                                <option value="vitamin">Vitamins & Supplements</option>
+                                <option value="supplement">Nutritional Supplements</option>
+                                <option value="antihistamine">Allergy Relief (OTC)</option>
+                                <option value="sleep-aid">Sleep Aids (OTC)</option>
+                                <option value="digestive">Digestive Health (OTC)</option>
                             </select>
                         </div>
                         <!-- Medicine Selection (Third) -->
@@ -641,15 +690,12 @@
                                 <option value="loading" disabled>Loading medicines...</option>
                             </select>
                         </div>
-                        <!-- Action Buttons -->
-                        <div class="col-md-2">
+                        <!-- Action Buttons (Fourth) -->
+                        <div class="col-md-3">
                             <label class="form-label">&nbsp;</label>
                             <div class="d-grid gap-2">
                                 <button class="btn btn-outline-danger btn-sm" onclick="clearAllFilters()">
                                     <i class="fas fa-times"></i> Clear Filters
-                                </button>
-                                <button class="btn btn-outline-info btn-sm" onclick="loadAllMedicines()">
-                                    <i class="fas fa-list"></i> Show All
                                 </button>
                             </div>
                         </div>
@@ -793,192 +839,161 @@
                     </div>
                 </div>
 
-                <!-- Search Bar (Fourth/Last) -->
-                <div class="mb-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="medicineSearch"
-                            placeholder="Search medicines by name, category, or species...">
-                        <button class="btn btn-outline-secondary" type="button" onclick="searchMedicines()">
-                            <i class="bi bi-search"></i> Search
-                        </button>
-                    </div>
-                </div>
-
                 <!-- Medicine Cards Grid -->
                 <div class="row" id="medicineGrid">
-                    <!-- Medicine Card 1 -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="antibiotic" data-species="human,dog,cat" data-type="veterinary">
+                    <!-- Medicine Card 1 - Aspirin (OTC Pain Relief) -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human" data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-primary text-white">
-                                <h5 class="card-title mb-0">Amoxicillin</h5>
-                                <small class="text-light">Antibiotic</small>
+                                <h5 class="card-title mb-0">Aspirin</h5>
+                                <small class="text-light">OTC Pain Reliever</small>
                             </div>
                             <div class="card-body">
-                                <p class="card-text"><strong>Generic Name:</strong> Amoxicillin</p>
-                                <p class="card-text"><strong>Brand Names:</strong> Amoxil, Trimox</p>
-                                <p class="card-text"><strong>Description:</strong> Broad-spectrum antibiotic used to
-                                    treat bacterial infections.</p>
-                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats</p>
-                                <p class="card-text"><strong>Dosage:</strong> 250-500mg (varies by species and weight)
-                                </p>
-                                <p class="card-text"><strong>Side Effects:</strong> Nausea, diarrhea, allergic reactions
-                                </p>
-                                <p class="card-text text-success"><strong>Price: £25.99</strong></p>
+                                <p class="card-text"><strong>Generic Name:</strong> Acetylsalicylic Acid</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Bayer, Bufferin, Generic</p>
+                                <p class="card-text"><strong>Description:</strong> Over-the-counter pain reliever and anti-inflammatory. Safe for headaches and minor aches.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans</p>
+                                <p class="card-text"><strong>Dosage:</strong> 325-650mg every 4-6 hours</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Mild stomach irritation, take with food</p>
+                                <p class="card-text text-success"><strong>Price: £4.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-info btn-sm"
-                                        onclick="showMedicineDetails('amoxicillin')">View Details</button>
+                                        onclick="showMedicineDetails('aspirin')">View Details</button>
                                     <button class="btn btn-success btn-sm"
-                                        onclick="addToCart('amoxicillin', 'Amoxicillin', 25.99)">Add to Cart</button>
+                                        onclick="addToCart('aspirin', 'Aspirin', 4.99)">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Medicine Card 2 -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="anti-inflammatory"
-                        data-species="human,horse,dog" data-type="veterinary">
+                    <!-- Medicine Card 2 - Ibuprofen (OTC Anti-inflammatory) -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="anti-inflammatory" data-species="human" data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-success text-white">
-                                <h5 class="card-title mb-0">Phenylbutazone</h5>
-                                <small class="text-light">Anti-inflammatory</small>
+                                <h5 class="card-title mb-0">Ibuprofen</h5>
+                                <small class="text-light">OTC Anti-inflammatory</small>
                             </div>
                             <div class="card-body">
-                                <p class="card-text"><strong>Generic Name:</strong> Phenylbutazone</p>
-                                <p class="card-text"><strong>Brand Names:</strong> Bute, Equipalazone</p>
-                                <p class="card-text"><strong>Description:</strong> Non-steroidal anti-inflammatory drug
-                                    (NSAID) commonly used in veterinary medicine.</p>
-                                <p class="card-text"><strong>Species:</strong> Horses, Dogs, Limited human use</p>
-                                <p class="card-text"><strong>Dosage:</strong> 2-4mg/kg body weight</p>
-                                <p class="card-text"><strong>Side Effects:</strong> GI upset, bone marrow suppression
-                                </p>
-                                <p class="card-text text-success"><strong>Price: £45.50</strong></p>
+                                <p class="card-text"><strong>Generic Name:</strong> Ibuprofen</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Advil, Motrin, Generic</p>
+                                <p class="card-text"><strong>Description:</strong> Over-the-counter NSAID for pain, fever, and inflammation. No prescription needed.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans</p>
+                                <p class="card-text"><strong>Dosage:</strong> 200-400mg every 4-6 hours</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Take with food, avoid if you have stomach problems</p>
+                                <p class="card-text text-success"><strong>Price: £5.49</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-info btn-sm"
-                                        onclick="showMedicineDetails('phenylbutazone')">View Details</button>
+                                        onclick="showMedicineDetails('ibuprofen')">View Details</button>
                                     <button class="btn btn-success btn-sm"
-                                        onclick="addToCart('phenylbutazone', 'Phenylbutazone', 45.50)">Add to
-                                        Cart</button>
+                                        onclick="addToCart('ibuprofen', 'Ibuprofen', 5.49)">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Medicine Card 3 -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="anesthetic"
-                        data-species="human,cat,dog,bird" data-type="veterinary">
+                    <!-- Medicine Card 3 - Acetaminophen (OTC Pain Relief) -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human" data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-warning text-dark">
-                                <h5 class="card-title mb-0">Isoflurane</h5>
-                                <small>Inhalation Anesthetic</small>
+                                <h5 class="card-title mb-0">Acetaminophen</h5>
+                                <small>OTC Pain Reliever</small>
                             </div>
                             <div class="card-body">
-                                <p class="card-text"><strong>Generic Name:</strong> Isoflurane</p>
-                                <p class="card-text"><strong>Brand Names:</strong> Forane, Terrell</p>
-                                <p class="card-text"><strong>Description:</strong> Inhalation anesthetic used for
-                                    general anesthesia across multiple species.</p>
-                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats, Birds, Exotic animals
-                                </p>
-                                <p class="card-text"><strong>Dosage:</strong> 1-3% concentration (varies by species)</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Respiratory depression, hypotension
-                                </p>
-                                <p class="card-text text-success"><strong>Price: £89.99</strong></p>
+                                <p class="card-text"><strong>Generic Name:</strong> Acetaminophen</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Tylenol, Panadol, Generic</p>
+                                <p class="card-text"><strong>Description:</strong> Safe over-the-counter pain reliever and fever reducer. Gentle on stomach.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans</p>
+                                <p class="card-text"><strong>Dosage:</strong> 325-650mg every 4-6 hours</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Very safe when used as directed</p>
+                                <p class="card-text text-success"><strong>Price: £3.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('isoflurane')">View
-                                        Details</button>
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('acetaminophen')">View Details</button>
                                     <button class="btn btn-success btn-sm"
-                                        onclick="addToCart('isoflurane', 'Isoflurane', 89.99)">Add to Cart</button>
+                                        onclick="addToCart('acetaminophen', 'Acetaminophen', 3.99)">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Medicine Card 4 -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human,dog,cat" data-type="veterinary">
-                        <div class="card h-100">
-                            <div class="card-header bg-danger text-white">
-                                <h5 class="card-title mb-0">Tramadol</h5>
-                                <small class="text-light">Analgesic</small>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text"><strong>Generic Name:</strong> Tramadol HCl</p>
-                                <p class="card-text"><strong>Brand Names:</strong> Ultram, Ryzolt</p>
-                                <p class="card-text"><strong>Description:</strong> Centrally acting analgesic for
-                                    moderate to severe pain management.</p>
-                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats</p>
-                                <p class="card-text"><strong>Dosage:</strong> 1-5mg/kg (varies by species)</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Sedation, nausea, constipation</p>
-                                <p class="card-text text-success"><strong>Price: £35.75</strong></p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('tramadol')">View
-                                        Details</button>
-                                    <button class="btn btn-success btn-sm"
-                                        onclick="addToCart('tramadol', 'Tramadol', 35.75)">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Medicine Card 5 -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="antiparasitic" data-species="dog,cat,horse" data-type="veterinary">
+                    <!-- Medicine Card 4 - Vitamin C (OTC Supplement) -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="vitamin" data-species="human" data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-info text-white">
-                                <h5 class="card-title mb-0">Ivermectin</h5>
-                                <small class="text-light">Antiparasitic</small>
+                                <h5 class="card-title mb-0">Vitamin C</h5>
+                                <small class="text-light">OTC Vitamin</small>
                             </div>
                             <div class="card-body">
-                                <p class="card-text"><strong>Generic Name:</strong> Ivermectin</p>
-                                <p class="card-text"><strong>Brand Names:</strong> Stromectol, Heartgard</p>
-                                <p class="card-text"><strong>Description:</strong> Antiparasitic medication effective
-                                    against various internal and external parasites.</p>
-                                <p class="card-text"><strong>Species:</strong> Dogs, Cats, Horses, Livestock</p>
-                                <p class="card-text"><strong>Dosage:</strong> 0.006-0.2mg/kg (species dependent)</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Neurological signs in sensitive
-                                    breeds</p>
-                                <p class="card-text text-success"><strong>Price: £18.25</strong></p>
+                                <p class="card-text"><strong>Generic Name:</strong> Ascorbic Acid</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Generic, Emergen-C</p>
+                                <p class="card-text"><strong>Description:</strong> Essential vitamin supplement for immune support. Available without prescription.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans</p>
+                                <p class="card-text"><strong>Dosage:</strong> 500-1000mg daily</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Generally safe, may cause stomach upset in high doses</p>
+                                <p class="card-text text-success"><strong>Price: £6.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('ivermectin')">View
-                                        Details</button>
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('vitamin_c')">View Details</button>
                                     <button class="btn btn-success btn-sm"
-                                        onclick="addToCart('ivermectin', 'Ivermectin', 18.25)">Add to Cart</button>
+                                        onclick="addToCart('vitamin_c', 'Vitamin C', 6.99)">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Medicine Card 6 -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="hormone" data-species="human,dog,cat" data-type="veterinary">
+                    <!-- Medicine Card 5 - Multivitamin (OTC Supplement) -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="vitamin" data-species="human" data-type="otc">
                         <div class="card h-100">
-                            <div class="card-header bg-secondary text-white">
-                                <h5 class="card-title mb-0">Insulin</h5>
-                                <small class="text-light">Hormone Therapy</small>
+                            <div class="card-header bg-info text-white">
+                                <h5 class="card-title mb-0">Daily Multivitamin</h5>
+                                <small class="text-light">OTC Supplement</small>
                             </div>
                             <div class="card-body">
-                                <p class="card-text"><strong>Generic Name:</strong> Human Insulin</p>
-                                <p class="card-text"><strong>Brand Names:</strong> Humulin, Novolin</p>
-                                <p class="card-text"><strong>Description:</strong> Hormone replacement therapy for
-                                    diabetes mellitus management across species.</p>
-                                <p class="card-text"><strong>Species:</strong> Humans, Dogs, Cats</p>
-                                <p class="card-text"><strong>Dosage:</strong> 0.25-2.2 units/kg (highly variable)</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Hypoglycemia, injection site
-                                    reactions</p>
-                                <p class="card-text text-success"><strong>Price: £125.00</strong></p>
+                                <p class="card-text"><strong>Generic Name:</strong> Multivitamin/Mineral</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Centrum, One-A-Day, Generic</p>
+                                <p class="card-text"><strong>Description:</strong> Complete daily vitamin and mineral supplement. Available over-the-counter.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans</p>
+                                <p class="card-text"><strong>Dosage:</strong> 1 tablet daily with breakfast</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Generally safe, may cause mild nausea on empty stomach</p>
+                                <p class="card-text text-success"><strong>Price: £8.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('insulin')">View
-                                        Details</button>
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('multivitamin')">View Details</button>
                                     <button class="btn btn-success btn-sm"
-                                        onclick="addToCart('insulin', 'Insulin', 125.00)">Add to Cart</button>
+                                        onclick="addToCart('multivitamin', 'Daily Multivitamin', 8.99)">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicine Card 6 - Allergy Relief (OTC Antihistamine) -->
+                    <div class="col-md-4 mb-4 medicine-card" data-category="antihistamine" data-species="human" data-type="otc">
+                        <div class="card h-100">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="card-title mb-0">Loratadine</h5>
+                                <small class="text-light">OTC Allergy Relief</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Generic Name:</strong> Loratadine</p>
+                                <p class="card-text"><strong>Brand Names:</strong> Claritin, Generic</p>
+                                <p class="card-text"><strong>Description:</strong> Non-drowsy over-the-counter allergy relief. No prescription needed.</p>
+                                <p class="card-text"><strong>Species:</strong> Humans</p>
+                                <p class="card-text"><strong>Dosage:</strong> 10mg once daily</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Non-drowsy, very safe for daily use</p>
+                                <p class="card-text text-success"><strong>Price: £6.49</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('loratadine')">View Details</button>
+                                    <button class="btn btn-success btn-sm"
+                                        onclick="addToCart('loratadine', 'Loratadine', 6.49)">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -993,7 +1008,12 @@
         let currentUser = null;
         let cart = [];
         
-        // Human medicines dataset - only shown when searched
+        // Store registered users (in a real app, this would be in a database)
+        let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [
+            { email: 'test@example.com', password: 'password', firstName: 'John', lastName: 'Doe', isActivated: true }
+        ];
+        
+        // Human medicines dataset - only affordable OTC (over-the-counter) medicines
         const humanMedicines = [
             {
                 id: 'aspirin_human',
@@ -1001,12 +1021,13 @@
                 category: 'analgesic',
                 species: 'human',
                 genericName: 'Acetylsalicylic Acid',
-                brandNames: 'Bayer, Bufferin, Excedrin',
-                description: 'Anti-inflammatory and pain reliever commonly used for headaches, fever, and cardiovascular protection.',
+                brandNames: 'Bayer, Bufferin, Generic',
+                description: 'Over-the-counter pain reliever and anti-inflammatory. Good for headaches, minor aches, and fever.',
                 dosage: '325-650mg every 4-6 hours',
-                sideEffects: 'Stomach irritation, bleeding risk, tinnitus',
-                price: 12.99,
-                type: 'human'
+                sideEffects: 'Mild stomach irritation, take with food',
+                price: 4.99,
+                type: 'human',
+                prescription: 'OTC'
             },
             {
                 id: 'ibuprofen_human',
@@ -1014,12 +1035,13 @@
                 category: 'anti-inflammatory',
                 species: 'human',
                 genericName: 'Ibuprofen',
-                brandNames: 'Advil, Motrin, Nuprin',
-                description: 'Nonsteroidal anti-inflammatory drug (NSAID) for pain, fever, and inflammation.',
+                brandNames: 'Advil, Motrin, Generic',
+                description: 'Over-the-counter NSAID for pain, fever, and inflammation. No prescription needed.',
                 dosage: '200-400mg every 4-6 hours',
-                sideEffects: 'GI upset, kidney problems, cardiovascular risk',
-                price: 15.49,
-                type: 'human'
+                sideEffects: 'Take with food, avoid if you have stomach problems',
+                price: 5.49,
+                type: 'human',
+                prescription: 'OTC'
             },
             {
                 id: 'acetaminophen_human',
@@ -1027,193 +1049,213 @@
                 category: 'analgesic',
                 species: 'human',
                 genericName: 'Acetaminophen',
-                brandNames: 'Tylenol, Panadol, Feverall',
-                description: 'Pain reliever and fever reducer, safer for stomach than NSAIDs.',
+                brandNames: 'Tylenol, Panadol, Generic',
+                description: 'Safe over-the-counter pain reliever and fever reducer. Gentle on stomach.',
                 dosage: '325-650mg every 4-6 hours',
-                sideEffects: 'Liver damage with overdose, rare skin reactions',
+                sideEffects: 'Very safe when used as directed, do not exceed daily limit',
+                price: 3.99,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'vitamin_c_human',
+                name: 'Vitamin C',
+                category: 'vitamin',
+                species: 'human',
+                genericName: 'Ascorbic Acid',
+                brandNames: 'Generic, Emergen-C',
+                description: 'Essential vitamin supplement for immune support. Available without prescription.',
+                dosage: '500-1000mg daily',
+                sideEffects: 'Generally safe, may cause stomach upset in high doses',
+                price: 6.99,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'vitamin_d_human',
+                name: 'Vitamin D3',
+                category: 'vitamin',
+                species: 'human',
+                genericName: 'Cholecalciferol',
+                brandNames: 'Generic, Nature Made',
+                description: 'Over-the-counter vitamin D supplement for bone health and immune function.',
+                dosage: '1000-2000 IU daily',
+                sideEffects: 'Very safe, take with food for better absorption',
+                price: 7.49,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'calcium_human',
+                name: 'Calcium Carbonate',
+                category: 'supplement',
+                species: 'human',
+                genericName: 'Calcium Carbonate',
+                brandNames: 'Tums, Caltrate, Generic',
+                description: 'Affordable calcium supplement and antacid. No prescription required.',
+                dosage: '500-1000mg daily with meals',
+                sideEffects: 'May cause constipation, drink plenty of water',
+                price: 4.49,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'multivitamin_human',
+                name: 'Daily Multivitamin',
+                category: 'vitamin',
+                species: 'human',
+                genericName: 'Multivitamin/Mineral',
+                brandNames: 'Centrum, One-A-Day, Generic',
+                description: 'Complete daily vitamin and mineral supplement. Available over-the-counter.',
+                dosage: '1 tablet daily with breakfast',
+                sideEffects: 'Generally safe, may cause mild nausea on empty stomach',
+                price: 8.99,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'diphenhydramine_human',
+                name: 'Diphenhydramine',
+                category: 'antihistamine',
+                species: 'human',
+                genericName: 'Diphenhydramine HCl',
+                brandNames: 'Benadryl, Generic',
+                description: 'Over-the-counter antihistamine for allergies and as a sleep aid.',
+                dosage: '25-50mg every 4-6 hours',
+                sideEffects: 'May cause drowsiness, avoid driving',
+                price: 5.99,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'loratadine_human',
+                name: 'Loratadine',
+                category: 'antihistamine',
+                species: 'human',
+                genericName: 'Loratadine',
+                brandNames: 'Claritin, Generic',
+                description: 'Non-drowsy over-the-counter allergy relief. No prescription needed.',
+                dosage: '10mg once daily',
+                sideEffects: 'Non-drowsy, very safe for daily use',
+                price: 6.49,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'melatonin_human',
+                name: 'Melatonin',
+                category: 'sleep-aid',
+                species: 'human',
+                genericName: 'Melatonin',
+                brandNames: 'Generic, Nature Made',
+                description: 'Natural sleep aid supplement. Available without prescription.',
+                dosage: '1-3mg 30 minutes before bedtime',
+                sideEffects: 'Generally safe, may cause mild morning grogginess',
+                price: 5.99,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'zinc_human',
+                name: 'Zinc Supplement',
+                category: 'supplement',
+                species: 'human',
+                genericName: 'Zinc Gluconate',
+                brandNames: 'Generic, Nature Made',
+                description: 'Affordable zinc supplement for immune support. Over-the-counter.',
+                dosage: '8-15mg daily with food',
+                sideEffects: 'Take with food to avoid stomach upset',
+                price: 4.99,
+                type: 'human',
+                prescription: 'OTC'
+            },
+            {
+                id: 'fish_oil_human',
+                name: 'Fish Oil (Omega-3)',
+                category: 'supplement',
+                species: 'human',
+                genericName: 'Omega-3 Fatty Acids',
+                brandNames: 'Generic, Nature Made',
+                description: 'Heart-healthy omega-3 supplement. No prescription required.',
+                dosage: '1-2 capsules daily with meals',
+                sideEffects: 'May cause mild fishy aftertaste, take with food',
                 price: 9.99,
-                type: 'human'
+                type: 'human',
+                prescription: 'OTC'
             },
             {
-                id: 'metformin_human',
-                name: 'Metformin',
-                category: 'antidiabetic',
+                id: 'probiotics_human',
+                name: 'Probiotic Supplement',
+                category: 'supplement',
                 species: 'human',
-                genericName: 'Metformin HCl',
-                brandNames: 'Glucophage, Fortamet, Riomet',
-                description: 'First-line treatment for type 2 diabetes, improves insulin sensitivity.',
-                dosage: '500-1000mg twice daily with meals',
-                sideEffects: 'GI upset, lactic acidosis (rare), vitamin B12 deficiency',
-                price: 22.75,
-                type: 'human'
+                genericName: 'Lactobacillus/Bifidobacterium',
+                brandNames: 'Generic, Culturelle',
+                description: 'Digestive health probiotic supplement. Available over-the-counter.',
+                dosage: '1 capsule daily',
+                sideEffects: 'Very safe, may cause mild bloating initially',
+                price: 12.99,
+                type: 'human',
+                prescription: 'OTC'
             },
             {
-                id: 'lisinopril_human',
-                name: 'Lisinopril',
-                category: 'antihypertensive',
+                id: 'magnesium_human',
+                name: 'Magnesium Supplement',
+                category: 'supplement',
                 species: 'human',
-                genericName: 'Lisinopril',
-                brandNames: 'Prinivil, Zestril',
-                description: 'ACE inhibitor for high blood pressure and heart failure.',
-                dosage: '5-40mg once daily',
-                sideEffects: 'Dry cough, hyperkalemia, angioedema',
-                price: 18.50,
-                type: 'human'
+                genericName: 'Magnesium Glycinate',
+                brandNames: 'Generic, Nature Made',
+                description: 'Affordable magnesium supplement for muscle and nerve function.',
+                dosage: '200-400mg daily',
+                sideEffects: 'May have mild laxative effect, start with lower dose',
+                price: 7.99,
+                type: 'human',
+                prescription: 'OTC'
             },
             {
-                id: 'atorvastatin_human',
-                name: 'Atorvastatin',
-                category: 'statin',
+                id: 'fiber_supplement_human',
+                name: 'Fiber Supplement',
+                category: 'digestive',
                 species: 'human',
-                genericName: 'Atorvastatin Calcium',
-                brandNames: 'Lipitor',
-                description: 'HMG-CoA reductase inhibitor for cholesterol management.',
-                dosage: '10-80mg once daily',
-                sideEffects: 'Muscle pain, liver enzyme elevation, diabetes risk',
-                price: 45.99,
-                type: 'human'
-            },
-            {
-                id: 'omeprazole_human',
-                name: 'Omeprazole',
-                category: 'proton-pump-inhibitor',
-                species: 'human',
-                genericName: 'Omeprazole',
-                brandNames: 'Prilosec, Zegerid',
-                description: 'Proton pump inhibitor for acid reflux and ulcers.',
-                dosage: '20-40mg once daily before breakfast',
-                sideEffects: 'Headache, diarrhea, bone fracture risk with long-term use',
-                price: 28.99,
-                type: 'human'
-            },
-            {
-                id: 'sertraline_human',
-                name: 'Sertraline',
-                category: 'antidepressant',
-                species: 'human',
-                genericName: 'Sertraline HCl',
-                brandNames: 'Zoloft',
-                description: 'Selective serotonin reuptake inhibitor (SSRI) for depression and anxiety.',
-                dosage: '25-200mg once daily',
-                sideEffects: 'Nausea, sexual dysfunction, withdrawal syndrome',
-                price: 32.25,
-                type: 'human'
-            },
-            {
-                id: 'levothyroxine_human',
-                name: 'Levothyroxine',
-                category: 'hormone',
-                species: 'human',
-                genericName: 'Levothyroxine Sodium',
-                brandNames: 'Synthroid, Levoxyl, Tirosint',
-                description: 'Thyroid hormone replacement for hypothyroidism.',
-                dosage: '25-200mcg once daily on empty stomach',
-                sideEffects: 'Heart palpitations, insomnia, weight loss',
-                price: 35.50,
-                type: 'human'
-            },
-            {
-                id: 'albuterol_human',
-                name: 'Albuterol',
-                category: 'bronchodilator',
-                species: 'human',
-                genericName: 'Albuterol Sulfate',
-                brandNames: 'ProAir, Ventolin, Proventil',
-                description: 'Short-acting beta2-agonist for asthma and COPD.',
-                dosage: '2 puffs every 4-6 hours as needed',
-                sideEffects: 'Tremor, tachycardia, nervousness',
-                price: 55.99,
-                type: 'human'
-            },
-            {
-                id: 'warfarin_human',
-                name: 'Warfarin',
-                category: 'anticoagulant',
-                species: 'human',
-                genericName: 'Warfarin Sodium',
-                brandNames: 'Coumadin, Jantoven',
-                description: 'Anticoagulant for preventing blood clots and stroke.',
-                dosage: '2-10mg daily (highly individualized)',
-                sideEffects: 'Bleeding, skin necrosis, purple toe syndrome',
-                price: 24.75,
-                type: 'human'
-            },
-            {
-                id: 'hydrochlorothiazide_human',
-                name: 'Hydrochlorothiazide',
-                category: 'diuretic',
-                species: 'human',
-                genericName: 'Hydrochlorothiazide',
-                brandNames: 'Microzide, HCTZ',
-                description: 'Thiazide diuretic for high blood pressure and fluid retention.',
-                dosage: '12.5-50mg once daily',
-                sideEffects: 'Electrolyte imbalance, dehydration, hyperuricemia',
-                price: 16.25,
-                type: 'human'
-            },
-            {
-                id: 'prednisone_human',
-                name: 'Prednisone',
-                category: 'corticosteroid',
-                species: 'human',
-                genericName: 'Prednisone',
-                brandNames: 'Deltasone, Rayos, Prednisone Intensol',
-                description: 'Corticosteroid for inflammation, autoimmune conditions, and allergies.',
-                dosage: '5-60mg daily (varies by condition)',
-                sideEffects: 'Weight gain, mood changes, osteoporosis, immunosuppression',
-                price: 19.99,
-                type: 'human'
-            },
-            {
-                id: 'gabapentin_human',
-                name: 'Gabapentin',
-                category: 'anticonvulsant',
-                species: 'human',
-                genericName: 'Gabapentin',
-                brandNames: 'Neurontin, Gralise, Horizant',
-                description: 'Anticonvulsant used for neuropathic pain and seizures.',
-                dosage: '300-1800mg daily in divided doses',
-                sideEffects: 'Dizziness, fatigue, peripheral edema',
-                price: 27.50,
-                type: 'human'
-            },
-            {
-                id: 'amlodipine_human',
-                name: 'Amlodipine',
-                category: 'calcium-channel-blocker',
-                species: 'human',
-                genericName: 'Amlodipine Besylate',
-                brandNames: 'Norvasc',
-                description: 'Calcium channel blocker for high blood pressure and angina.',
-                dosage: '2.5-10mg once daily',
-                sideEffects: 'Peripheral edema, dizziness, flushing',
-                price: 21.99,
-                type: 'human'
+                genericName: 'Psyllium Husk',
+                brandNames: 'Metamucil, Generic',
+                description: 'Natural fiber supplement for digestive health. Over-the-counter.',
+                dosage: '1-2 teaspoons in water daily',
+                sideEffects: 'Drink plenty of water, start slowly',
+                price: 8.49,
+                type: 'human',
+                prescription: 'OTC'
             }
         ];
 
         function submitSignin() {
-            const email = document.getElementById('signinEmail').value;
+            const email = document.getElementById('signinEmail').value.toLowerCase().trim();
             const password = document.getElementById('signinPassword').value;
 
             if (!email || !password) {
-                alert('Please fill in all fields!');
+                alert('Please enter both your username and password!');
                 return;
             }
 
-            // Simulate authentication (in real app, this would be an API call)
-            if (email === 'test@example.com' && password === 'password') {
+            // Load latest user data from localStorage
+            registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [
+                { email: 'test@example.com', password: 'password', firstName: 'John', lastName: 'Doe', isActivated: true }
+            ];
+
+            // Check against registered users
+            const user = registeredUsers.find(u => u.email.toLowerCase() === email && u.password === password);
+            
+            if (user) {
                 isSignedIn = true;
                 currentUser = { 
-                    email: email, 
-                    name: 'John',  // Only first name
-                    fullName: 'John Doe'  // Keep full name for other purposes
+                    email: user.email, 
+                    name: user.firstName,  // Only first name
+                    fullName: `${user.firstName} ${user.lastName}`  // Keep full name for other purposes
                 };
 
                 // Update UI to show user is signed in
                 updateUIForSignedInUser();
 
-                alert('Welcome back! You are now signed in.');
+                alert(`Welcome back, ${user.firstName}! You are now signed in.`);
 
                 // Close modal
                 const modal = bootstrap.Modal.getInstance(document.getElementById('signinModal'));
@@ -1222,7 +1264,146 @@
                 // Reset form
                 document.getElementById('signinForm').reset();
             } else {
-                alert('Invalid email or password. Try: test@example.com / password');
+                // Enhanced error message with help options
+                const confirmForgot = confirm(`❌ Login Failed\n\nIncorrect username or password.\n\nPossible solutions:\n• Check your email and password spelling\n• Use "Forgot Password" if you can't remember\n• Make sure your account is activated\n\nWould you like to reset your password or recover your username?`);
+                
+                if (confirmForgot) {
+                    // Close sign-in modal
+                    const signinModal = bootstrap.Modal.getInstance(document.getElementById('signinModal'));
+                    signinModal.hide();
+                    
+                    // Open forgot password modal
+                    setTimeout(() => {
+                        showForgotPassword();
+                    }, 300);
+                }
+            }
+        }
+
+        function showForgotPassword() {
+            const modal = new bootstrap.Modal(document.getElementById('forgotPasswordModal'));
+            modal.show();
+        }
+
+        function submitForgotPassword() {
+            const email = document.getElementById('recoveryEmail').value.toLowerCase().trim();
+            const recoveryType = document.querySelector('input[name="recoveryType"]:checked').value;
+
+            if (!email) {
+                alert('Please enter your email address!');
+                return;
+            }
+
+            // Load user data from localStorage
+            registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [
+                { email: 'test@example.com', password: 'password', firstName: 'John', lastName: 'Doe', isActivated: true }
+            ];
+
+            // Find user by email
+            const user = registeredUsers.find(u => u.email.toLowerCase() === email);
+
+            if (user) {
+                let message = '';
+                let emailSubject = '';
+                let emailBody = '';
+
+                switch (recoveryType) {
+                    case 'password':
+                        // Generate temporary password
+                        const tempPassword = Math.random().toString(36).substring(2, 10);
+                        
+                        // Update user's password temporarily
+                        user.tempPassword = tempPassword;
+                        user.passwordResetDate = new Date().toISOString();
+                        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+                        emailSubject = 'Password Reset - Comparative Medicine Database';
+                        emailBody = `Dear ${user.firstName},
+
+We received a request to reset your password for your Comparative Medicine Database account.
+
+Your temporary password is: ${tempPassword}
+
+Please sign in with this temporary password and change it immediately in your account settings.
+
+If you didn't request this password reset, please contact our support team.
+
+Best regards,
+Comparative Medicine Database Team`;
+
+                        message = `🔑 Password Reset Email Sent!\n\nA temporary password has been sent to ${email}.\n\nPlease check your email and sign in with the temporary password.`;
+                        break;
+
+                    case 'username':
+                        emailSubject = 'Username Recovery - Comparative Medicine Database';
+                        emailBody = `Dear ${user.firstName},
+
+We received a request to recover your username for the Comparative Medicine Database.
+
+Your username (email) is: ${user.email}
+
+You can use this email address to sign in to your account.
+
+Best regards,
+Comparative Medicine Database Team`;
+
+                        message = `📧 Username Recovery Email Sent!\n\nYour username has been sent to ${email}.\n\nPlease check your email to see your login username.`;
+                        break;
+
+                    case 'issues':
+                        emailSubject = 'Account Support - Comparative Medicine Database';
+                        emailBody = `Dear ${user.firstName},
+
+We received a request for help with your Comparative Medicine Database account.
+
+Account Details:
+• Email: ${user.email}
+• Name: ${user.firstName} ${user.lastName}
+• Account Status: ${user.isActivated ? 'Activated' : 'Pending Activation'}
+• Registration Date: ${user.registrationDate || 'Unknown'}
+
+If your account isn't working:
+1. Make sure you're using the correct email: ${user.email}
+2. Check if your account is activated (see status above)
+3. Try the temporary password feature if you can't remember your password
+
+If you need further assistance, please reply to this email.
+
+Best regards,
+Comparative Medicine Database Support Team`;
+
+                        message = `🛠️ Account Support Email Sent!\n\nWe've sent detailed account information to ${email}.\n\nThis includes your account status and troubleshooting steps.`;
+                        break;
+                }
+
+                // Simulate sending recovery email
+                const recoveryEmailData = {
+                    to: email,
+                    subject: emailSubject,
+                    body: emailBody,
+                    timestamp: new Date().toISOString(),
+                    type: 'recovery'
+                };
+
+                // Store the recovery email
+                localStorage.setItem(`recoveryEmail_${email}`, JSON.stringify(recoveryEmailData));
+
+                // Show the email immediately
+                setTimeout(() => {
+                    showEmailSimulationModal(recoveryEmailData);
+                }, 500);
+
+                alert(message);
+
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+                modal.hide();
+
+                // Reset form
+                document.getElementById('forgotPasswordForm').reset();
+
+            } else {
+                alert(`❌ Email Not Found\n\nWe couldn't find an account with the email address: ${email}\n\nPlease check the email address or sign up for a new account.`);
             }
         }
 
@@ -1286,57 +1467,104 @@
         }
 
         function showCart() {
-            if (cart.length === 0) {
-                document.getElementById('cartItems').innerHTML = '<p class="text-muted">Your cart is empty.</p>';
-                document.getElementById('cartTotal').textContent = '0.00';
-                document.getElementById('checkoutBtn').disabled = true;
-            } else {
-                let cartHTML = '';
-                let total = 0;
-
-                cart.forEach((item, index) => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-
-                    cartHTML += `
-                        <div class="d-flex justify-content-between align-items-center mb-3 p-3 border rounded">
-                            <div>
-                                <h6>${item.name}</h6>
-                                <p class="text-muted mb-0">£${item.price.toFixed(2)} each</p>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, -1)">-</button>
-                                <span class="mx-2">${item.quantity}</span>
-                                <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, 1)">+</button>
-                                <span class="fw-bold">£${itemTotal.toFixed(2)}</span>
-                                <button class="btn btn-danger btn-sm ms-2" onclick="removeFromCart(${index})">Remove</button>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                document.getElementById('cartItems').innerHTML = cartHTML;
-                document.getElementById('cartTotal').textContent = total.toFixed(2);
-                document.getElementById('checkoutBtn').disabled = false;
-            }
-
+            refreshCartDisplay();
             const modal = new bootstrap.Modal(document.getElementById('cartModal'));
             modal.show();
         }
 
         function updateQuantity(index, change) {
-            cart[index].quantity += change;
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
+            try {
+                // Check if index is valid
+                if (index < 0 || index >= cart.length) {
+                    console.error('Invalid cart index:', index);
+                    return;
+                }
+                
+                // Update quantity
+                cart[index].quantity += change;
+                
+                // Remove item if quantity becomes 0 or negative
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                
+                // Update cart display and count
+                updateCartCount();
+                
+                // Only refresh cart display if cart modal is currently shown
+                const cartModal = document.getElementById('cartModal');
+                if (cartModal && cartModal.classList.contains('show')) {
+                    refreshCartDisplay();
+                }
+            } catch (error) {
+                console.error('Error updating cart quantity:', error);
+                // Refresh the entire cart display to recover from any issues
+                updateCartCount();
+                if (document.getElementById('cartModal').classList.contains('show')) {
+                    refreshCartDisplay();
+                }
             }
-            updateCartCount();
-            showCart();
+        }
+
+        function refreshCartDisplay() {
+            try {
+                if (cart.length === 0) {
+                    document.getElementById('cartItems').innerHTML = '<p class="text-muted">Your cart is empty.</p>';
+                    document.getElementById('cartTotal').textContent = '0.00';
+                    document.getElementById('checkoutBtn').disabled = true;
+                } else {
+                    let cartHTML = '';
+                    let total = 0;
+
+                    cart.forEach((item, index) => {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+
+                        cartHTML += `
+                            <div class="d-flex justify-content-between align-items-center mb-3 p-3 border rounded">
+                                <div>
+                                    <h6>${item.name || 'Unknown Medicine'}</h6>
+                                    <p class="text-muted mb-0">£${(item.price || 0).toFixed(2)} each</p>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, -1)">-</button>
+                                    <span class="mx-2">${item.quantity || 0}</span>
+                                    <button class="btn btn-outline-secondary btn-sm me-2" onclick="updateQuantity(${index}, 1)">+</button>
+                                    <span class="fw-bold">£${itemTotal.toFixed(2)}</span>
+                                    <button class="btn btn-danger btn-sm ms-2" onclick="removeFromCart(${index})">Remove</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    document.getElementById('cartItems').innerHTML = cartHTML;
+                    document.getElementById('cartTotal').textContent = total.toFixed(2);
+                    document.getElementById('checkoutBtn').disabled = false;
+                }
+            } catch (error) {
+                console.error('Error refreshing cart display:', error);
+                // Fallback display
+                document.getElementById('cartItems').innerHTML = '<p class="text-danger">Error loading cart. Please refresh the page.</p>';
+                document.getElementById('cartTotal').textContent = '0.00';
+                document.getElementById('checkoutBtn').disabled = true;
+            }
         }
 
         function removeFromCart(index) {
+            // Check if index is valid
+            if (index < 0 || index >= cart.length) {
+                console.error('Invalid cart index:', index);
+                return;
+            }
+            
             cart.splice(index, 1);
             updateCartCount();
-            showCart();
+            
+            // Only refresh cart display if cart modal is currently shown
+            const cartModal = document.getElementById('cartModal');
+            if (cartModal && cartModal.classList.contains('show')) {
+                refreshCartDisplay();
+            }
         }
 
         function proceedToCheckout() {
@@ -1403,9 +1631,9 @@
         }
 
         function submitSignup() {
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.toLowerCase().trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -1419,18 +1647,59 @@
                 return;
             }
 
-            // Simulate user registration and automatic sign-in
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long!');
+                return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address!');
+                return;
+            }
+
+            // Load latest user data from localStorage
+            registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [
+                { email: 'test@example.com', password: 'password', firstName: 'John', lastName: 'Doe', isActivated: true }
+            ];
+
+            // Check if user already exists
+            if (registeredUsers.find(u => u.email.toLowerCase() === email)) {
+                alert('An account with this email already exists. Please sign in instead.');
+                return;
+            }
+
+            // Add new user to registered users (automatically activated)
+            const newUser = {
+                email: email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                isActivated: true, // Automatically activated - no email verification needed
+                registrationDate: new Date().toISOString()
+            };
+
+            registeredUsers.push(newUser);
+
+            // Save to localStorage
+            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+            // Send welcome email notification
+            sendWelcomeEmail(email, firstName);
+
+            // Automatically sign in the user
             isSignedIn = true;
             currentUser = { 
-                email: email, 
-                name: firstName,  // Only first name for display
-                fullName: `${firstName} ${lastName}`  // Keep full name for other purposes
+                email: newUser.email, 
+                name: newUser.firstName,
+                fullName: `${newUser.firstName} ${newUser.lastName}`
             };
 
             // Update UI to show user is signed in
             updateUIForSignedInUser();
 
-            alert(`Welcome ${firstName}! Your account has been created and you are now signed in.`);
+            alert(`🎉 Welcome to Comparative Medicine Database!\n\nCongratulations ${firstName}! Your account has been created successfully and you are now signed in.\n\n📧 A welcome email has been sent to ${email} with useful information about getting started.`);
 
             // Close the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('signupModal'));
@@ -1438,6 +1707,348 @@
 
             // Reset the form
             document.getElementById('signupForm').reset();
+        }
+
+        // Send welcome email notification (replaces activation email)
+        function sendWelcomeEmail(email, firstName) {
+            // Show a welcome email notification
+            setTimeout(() => {
+                const welcomeMessage = `
+📧 WELCOME EMAIL DELIVERED INSTANTLY
+
+Dear ${firstName},
+
+🎉 Welcome to Comparative Medicine Database!
+
+Your account has been successfully created and you are now signed in. You can immediately start using all features:
+
+✅ Browse medicines for humans and animals
+✅ Use our advanced search and filtering system  
+✅ Add medicines to your shopping cart
+✅ Access comprehensive medicine formulas and information
+✅ Use personalized medicine recommendations with patient information
+
+🔍 Getting Started:
+• Use the species filter to find medicines for specific animals
+• Enter patient information for personalized safety recommendations
+• Search by medicine name, category, or species
+• Add items to your cart and simulate purchases
+
+📞 Need Help?
+• Check the Help section in the navigation
+• Contact us through the Contact Us form
+• Read our Terms & Conditions
+
+Thank you for joining our platform!
+
+Best regards,
+The Comparative Medicine Database Team
+                `;
+                
+                alert(welcomeMessage);
+            }, 1000);
+        }
+
+        function showForgotPassword() {
+            // In a real application, this would send an actual email
+            // For demo purposes, we'll store the activation email in localStorage and show it INSTANTLY
+            
+            const activationEmail = {
+                to: email,
+                subject: 'Activate Your Comparative Medicine Database Account - INSTANT EMAIL',
+                body: `Dear ${firstName},
+
+✅ INSTANT EMAIL DELIVERY - Your activation email has arrived!
+
+Thank you for registering with the Comparative Medicine Database!
+
+🔗 TO ACTIVATE YOUR ACCOUNT:
+Option 1: Click the green "Click Here to Activate Account" button below this message.
+Option 2: Use the manual activation link in the navigation bar and enter your activation code.
+
+📧 Your Account Details:
+Email: ${email}
+Activation Code: ${activationCode}
+
+🔑 UNIVERSAL VERIFICATION CODE: VA4dc1e040b0c31b495a2c238b8fa8d336
+(This master code can activate any account instantly)
+
+💡 Activation Options:
+• Use your personal activation code: ${activationCode}
+• OR use the universal code: VA4dc1e040b0c31b495a2c238b8fa8d336
+
+⚡ This is an instant email simulation - no waiting required!
+
+If you didn't create this account, please ignore this email.
+
+Best regards,
+The Comparative Medicine Database Team`,
+                activationCode: activationCode,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Store the "email" in localStorage (simulating email delivery)
+            localStorage.setItem(`activationEmail_${email}`, JSON.stringify(activationEmail));
+            
+            // Show the email simulation modal IMMEDIATELY (no delay)
+            setTimeout(() => {
+                // Show a brief "sending email" notification
+                const notification = document.createElement('div');
+                notification.className = 'alert alert-info alert-dismissible fade show position-fixed';
+                notification.style.top = '20px';
+                notification.style.right = '20px';
+                notification.style.zIndex = '9999';
+                notification.innerHTML = `
+                    <strong>📧 Sending activation email...</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.body.appendChild(notification);
+                
+                // Remove notification after 2 seconds and show email modal
+                setTimeout(() => {
+                    notification.remove();
+                    showEmailSimulationModal(activationEmail);
+                }, 1000);
+            }, 100); // Tiny delay just to let the signup modal close first
+        }
+
+        // Show email simulation modal
+        function showEmailSimulationModal(emailData) {
+            // Create modal HTML if it doesn't exist
+            if (!document.getElementById('emailSimulationModal')) {
+                const modalHTML = `
+                    <!-- Email Simulation Modal -->
+                    <div class="modal fade" id="emailSimulationModal" tabindex="-1" aria-labelledby="emailSimulationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header bg-success text-white">
+                                    <h5 class="modal-title" id="emailSimulationModalLabel">
+                                        <i class="fas fa-envelope-open"></i> ⚡ INSTANT EMAIL DELIVERY - Activation Required
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-info">
+                                        <strong><i class="fas fa-info-circle"></i> Demo Mode:</strong> 
+                                        In a real application, this email would be sent to your inbox. For demonstration purposes, 
+                                        we're showing you the email content here.
+                                    </div>
+                                    
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <strong>To:</strong> <span id="emailTo"></span><br>
+                                            <strong>Subject:</strong> <span id="emailSubject"></span><br>
+                                            <strong>Time:</strong> <span id="emailTime"></span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="emailBody" style="white-space: pre-line;"></div>
+                                            
+                                            <hr>
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-success btn-lg" onclick="activateAccount()">
+                                                    <i class="fas fa-check-circle"></i> Click Here to Activate Account
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="checkEmail()">
+                                        <i class="fas fa-inbox"></i> Check Email Later
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHTML);
+            }
+            
+            // Populate modal with email data
+            document.getElementById('emailTo').textContent = emailData.to;
+            document.getElementById('emailSubject').textContent = emailData.subject;
+            document.getElementById('emailTime').textContent = new Date(emailData.timestamp).toLocaleString();
+            document.getElementById('emailBody').textContent = emailData.body;
+            
+            // Store activation code for later use
+            window.currentActivationCode = emailData.activationCode;
+            window.currentActivationEmail = emailData.to;
+            
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById('emailSimulationModal'));
+            modal.show();
+        }
+
+        // Activate account function
+        function activateAccount() {
+            // Check if this is a manual activation or from email
+            const activationCode = prompt('Please enter your activation code from the email:\n(Example: VA4dc1e040b0c31b495a2c238b8fa8d336)');
+            
+            if (!activationCode) {
+                return; // User cancelled
+            }
+            
+            // Check for the specific verification code
+            if (activationCode === 'VA4dc1e040b0c31b495a2c238b8fa8d336') {
+                // This is the master activation code - activate any pending account
+                activateWithMasterCode();
+                return;
+            }
+            
+            if (!window.currentActivationCode || !window.currentActivationEmail) {
+                alert('Activation information not found. Please try signing up again or use the master code: VA4dc1e040b0c31b495a2c238b8fa8d336');
+                return;
+            }
+            
+            // Check if the entered code matches the user's activation code
+            if (activationCode !== window.currentActivationCode) {
+                alert('Invalid activation code. Please check your email or use the master code: VA4dc1e040b0c31b495a2c238b8fa8d336');
+                return;
+            }
+            
+            // Load current users
+            registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+            
+            // Find the user and activate their account
+            const userIndex = registeredUsers.findIndex(u => 
+                u.email.toLowerCase() === window.currentActivationEmail.toLowerCase() && 
+                u.activationCode === window.currentActivationCode
+            );
+            
+            if (userIndex !== -1) {
+                registeredUsers[userIndex].isActivated = true;
+                localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                
+                // Hide the email modal if it's open
+                const emailModal = document.getElementById('emailSimulationModal');
+                if (emailModal && bootstrap.Modal.getInstance(emailModal)) {
+                    bootstrap.Modal.getInstance(emailModal).hide();
+                }
+                
+                // Show success message with better instructions
+                alert(`✅ ACCOUNT ACTIVATED! Welcome ${window.currentActivationEmail}!
+
+You can now sign in immediately with your credentials.
+
+The sign-in window will open automatically for your convenience.`);
+                
+                // Clear activation data
+                window.currentActivationCode = null;
+                window.currentActivationEmail = null;
+                localStorage.removeItem(`activationEmail_${window.currentActivationEmail}`);
+                
+                // Show sign-in modal
+                const signInModal = new bootstrap.Modal(document.getElementById('signinModal'));
+                signInModal.show();
+                
+            } else {
+                alert('Activation failed. User not found or invalid activation code.');
+            }
+        }
+
+        // Master activation code function
+        function activateWithMasterCode() {
+            // Load current users
+            registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+            
+            // Find any unactivated accounts
+            const unactivatedUsers = registeredUsers.filter(u => !u.isActivated);
+            
+            if (unactivatedUsers.length === 0) {
+                alert('✅ MASTER CODE VERIFIED!\n\nNo unactivated accounts found. All accounts are already activated.');
+                return;
+            }
+            
+            if (unactivatedUsers.length === 1) {
+                // Activate the single unactivated account
+                const userIndex = registeredUsers.findIndex(u => u.email === unactivatedUsers[0].email);
+                registeredUsers[userIndex].isActivated = true;
+                localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                
+                alert(`✅ MASTER CODE VERIFIED!\n\nAccount activated: ${unactivatedUsers[0].email}\n\nYou can now sign in with your credentials.`);
+                
+                // Show sign-in modal
+                const signInModal = new bootstrap.Modal(document.getElementById('signinModal'));
+                signInModal.show();
+                
+            } else {
+                // Multiple unactivated accounts - let user choose
+                let accountList = 'Multiple unactivated accounts found:\n\n';
+                unactivatedUsers.forEach((user, index) => {
+                    accountList += `${index + 1}. ${user.email} (${user.firstName} ${user.lastName})\n`;
+                });
+                accountList += '\nEnter the number of the account to activate:';
+                
+                const choice = prompt(accountList);
+                const choiceIndex = parseInt(choice) - 1;
+                
+                if (choiceIndex >= 0 && choiceIndex < unactivatedUsers.length) {
+                    const selectedUser = unactivatedUsers[choiceIndex];
+                    const userIndex = registeredUsers.findIndex(u => u.email === selectedUser.email);
+                    registeredUsers[userIndex].isActivated = true;
+                    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                    
+                    alert(`✅ MASTER CODE VERIFIED!\n\nAccount activated: ${selectedUser.email}\n\nYou can now sign in with your credentials.`);
+                    
+                    // Show sign-in modal
+                    const signInModal = new bootstrap.Modal(document.getElementById('signinModal'));
+                    signInModal.show();
+                } else {
+                    alert('Invalid selection. Please try again.');
+                }
+            }
+        }
+
+        // Check email function (for users who want to activate later)
+        function checkEmail() {
+            alert('Your activation email has been saved. You can return to this page anytime to activate your account by signing up with the same email address.');
+            
+            const emailModal = bootstrap.Modal.getInstance(document.getElementById('emailSimulationModal'));
+            emailModal.hide();
+        }
+
+        // Function to manually activate account (for testing)
+        function showManualActivation() {
+            const email = prompt('Enter your email address to activate:');
+            if (email) {
+                // Load current users
+                registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+                
+                // Find the user
+                const userIndex = registeredUsers.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+                
+                if (userIndex !== -1 && !registeredUsers[userIndex].isActivated) {
+                    const activationCode = prompt('Enter your activation code:');
+                    if (activationCode === registeredUsers[userIndex].activationCode) {
+                        registeredUsers[userIndex].isActivated = true;
+                        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                        alert('Account activated successfully! You can now sign in.');
+                    } else {
+                        alert('Invalid activation code.');
+                    }
+                } else if (userIndex !== -1 && registeredUsers[userIndex].isActivated) {
+                    alert('Account is already activated.');
+                } else {
+                    alert('User not found.');
+                }
+            }
+        }
+
+        // Toggle password visibility
+        function togglePassword(inputId, buttonElement) {
+            const passwordInput = document.getElementById(inputId);
+            const icon = buttonElement.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+                buttonElement.setAttribute('title', 'Hide password');
+            } else {
+                passwordInput.type = 'password';
+                icon.className = 'fas fa-eye';
+                buttonElement.setAttribute('title', 'Show password');
+            }
         }
 
 
@@ -1464,59 +2075,16 @@
             document.getElementById('contactForm').reset();
         }
 
-        async function searchMedicines() {
-            const searchTerm = document.getElementById('medicineSearch').value.trim();
-            const medicineGrid = document.querySelector('.row');
-            
-            if (searchTerm.length === 0) {
-                // If search is empty, show only veterinary medicines (original cards)
-                showOnlyVeterinaryMedicines();
-                return;
-            }
-
-            try {
-                // Fetch human medicines from Django API
-                const response = await fetch(`/api/search/?q=${encodeURIComponent(searchTerm)}`);
-                const data = await response.json();
-                
-                // Remove any existing human medicine cards
-                const existingHumanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
-                existingHumanCards.forEach(card => card.remove());
-
-                // Hide all veterinary cards since we're showing search results
-                const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
-                veterinaryCards.forEach(card => {
-                    card.style.display = 'none';
-                });
-
-                // Add human medicine cards to the grid
-                if (data.medicines && data.medicines.length > 0) {
-                    data.medicines.forEach(medicine => {
-                        const humanCard = createHumanMedicineCard(medicine);
-                        medicineGrid.appendChild(humanCard);
-                    });
-                } else {
-                    // Show "no results" message
-                    const noResultsCard = createNoResultsCard(searchTerm);
-                    medicineGrid.appendChild(noResultsCard);
-                }
-            } catch (error) {
-                console.error('Error searching medicines:', error);
-                // Fallback to showing veterinary medicines
-                showOnlyVeterinaryMedicines();
-            }
-        }
-
-        function showOnlyVeterinaryMedicines() {
-            // Show all veterinary medicine cards
-            const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
-            veterinaryCards.forEach(card => {
+        function showOnlyOTCMedicines() {
+            // Show all OTC medicine cards (the static cards)
+            const otcCards = document.querySelectorAll('.medicine-card[data-type="otc"]');
+            otcCards.forEach(card => {
                 card.style.display = 'block';
             });
 
-            // Remove any human medicine cards
-            const humanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
-            humanCards.forEach(card => card.remove());
+            // Remove any dynamically created medicine cards
+            const dynamicCards = document.querySelectorAll('.medicine-card[data-type="human"], .medicine-card[data-type="dynamic"]');
+            dynamicCards.forEach(card => card.remove());
         }
 
         function createHumanMedicineCard(medicine) {
@@ -1559,53 +2127,59 @@
             // Here you would fetch the medicine details from your backend using the medicineId
             // For demonstration, we will use static content
             let medicineDetails = {
-                'amoxicillin': {
-                    'Generic Name': 'Amoxicillin',
-                    'Brand Names': 'Amoxil, Trimox',
-                    'Description': 'Broad-spectrum antibiotic used to treat bacterial infections.',
-                    'Species': 'Humans, Dogs, Cats',
-                    'Dosage': '250-500mg (varies by species and weight)',
-                    'Side Effects': 'Nausea, diarrhea, allergic reactions'
+                'aspirin': {
+                    'Generic Name': 'Acetylsalicylic Acid',
+                    'Brand Names': 'Bayer, Bufferin, Generic',
+                    'Description': 'Over-the-counter pain reliever and anti-inflammatory. Safe for headaches and minor aches.',
+                    'Species': 'Humans',
+                    'Dosage': '325-650mg every 4-6 hours',
+                    'Side Effects': 'Mild stomach irritation, take with food',
+                    'Prescription': 'OTC - No prescription required'
                 },
-                'phenylbutazone': {
-                    'Generic Name': 'Phenylbutazone',
-                    'Brand Names': 'Bute, Equipalazone',
-                    'Description': 'Non-steroidal anti-inflammatory drug (NSAID) commonly used in veterinary medicine.',
-                    'Species': 'Horses, Dogs, Limited human use',
-                    'Dosage': '2-4mg/kg body weight',
-                    'Side Effects': 'GI upset, bone marrow suppression'
+                'ibuprofen': {
+                    'Generic Name': 'Ibuprofen',
+                    'Brand Names': 'Advil, Motrin, Generic',
+                    'Description': 'Over-the-counter NSAID for pain, fever, and inflammation. No prescription needed.',
+                    'Species': 'Humans',
+                    'Dosage': '200-400mg every 4-6 hours',
+                    'Side Effects': 'Take with food, avoid if you have stomach problems',
+                    'Prescription': 'OTC - No prescription required'
                 },
-                'isoflurane': {
-                    'Generic Name': 'Isoflurane',
-                    'Brand Names': 'Forane, Terrell',
-                    'Description': 'Inhalation anesthetic used for general anesthesia across multiple species.',
-                    'Species': 'Humans, Dogs, Cats, Birds, Exotic animals',
-                    'Dosage': '1-3% concentration (varies by species)',
-                    'Side Effects': 'Respiratory depression, hypotension'
+                'acetaminophen': {
+                    'Generic Name': 'Acetaminophen',
+                    'Brand Names': 'Tylenol, Panadol, Generic',
+                    'Description': 'Safe over-the-counter pain reliever and fever reducer. Gentle on stomach.',
+                    'Species': 'Humans',
+                    'Dosage': '325-650mg every 4-6 hours',
+                    'Side Effects': 'Very safe when used as directed',
+                    'Prescription': 'OTC - No prescription required'
                 },
-                'tramadol': {
-                    'Generic Name': 'Tramadol HCl',
-                    'Brand Names': 'Ultram, Ryzolt',
-                    'Description': 'Centrally acting analgesic for moderate to severe pain management.',
-                    'Species': 'Humans, Dogs, Cats',
-                    'Dosage': '1-5mg/kg (varies by species)',
-                    'Side Effects': 'Sedation, nausea, constipation'
+                'vitamin_c': {
+                    'Generic Name': 'Ascorbic Acid',
+                    'Brand Names': 'Generic, Emergen-C',
+                    'Description': 'Essential vitamin supplement for immune support. Available without prescription.',
+                    'Species': 'Humans',
+                    'Dosage': '500-1000mg daily',
+                    'Side Effects': 'Generally safe, may cause stomach upset in high doses',
+                    'Prescription': 'OTC - No prescription required'
                 },
-                'ivermectin': {
-                    'Generic Name': 'Ivermectin',
-                    'Brand Names': 'Stromectol, Heartgard',
-                    'Description': 'Antiparasitic medication effective against various internal and external parasites.',
-                    'Species': 'Dogs, Cats, Horses, Livestock',
-                    'Dosage': '0.006-0.2mg/kg (species dependent)',
-                    'Side Effects': 'Neurological signs in sensitive breeds'
+                'multivitamin': {
+                    'Generic Name': 'Multivitamin/Mineral',
+                    'Brand Names': 'Centrum, One-A-Day, Generic',
+                    'Description': 'Complete daily vitamin and mineral supplement. Available over-the-counter.',
+                    'Species': 'Humans',
+                    'Dosage': '1 tablet daily with breakfast',
+                    'Side Effects': 'Generally safe, may cause mild nausea on empty stomach',
+                    'Prescription': 'OTC - No prescription required'
                 },
-                'insulin': {
-                    'Generic Name': 'Human Insulin',
-                    'Brand Names': 'Humulin, Novolin',
-                    'Description': 'Hormone replacement therapy for diabetes mellitus management across species.',
-                    'Species': 'Humans, Dogs, Cats',
-                    'Dosage': '0.25-2.2 units/kg (highly variable)',
-                    'Side Effects': 'Hypoglycemia, injection site reactions'
+                'loratadine': {
+                    'Generic Name': 'Loratadine',
+                    'Brand Names': 'Claritin, Generic',
+                    'Description': 'Non-drowsy over-the-counter allergy relief. No prescription needed.',
+                    'Species': 'Humans',
+                    'Dosage': '10mg once daily',
+                    'Side Effects': 'Non-drowsy, very safe for daily use',
+                    'Prescription': 'OTC - No prescription required'
                 }
             };
 
@@ -1645,51 +2219,6 @@
             modal.hide();
         }
 
-        function addToCart(medicineId) {
-            // Here you would add the selected medicine to the cart
-            // For demonstration, we will just show an alert
-            alert('Medicine added to cart: ' + medicineId);
-
-            // Update cart UI
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            // Here you would update the cart UI with the current items in the cart
-            // For demonstration, we will just show static content
-            const cartItems = `
-                <div class="cart-item d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <h6 class="mb-1">Amoxicillin</h6>
-                        <small>Quantity: 1</small>
-                    </div>
-                    <div>
-                        <strong>$10.00</strong>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('cartItems').innerHTML = cartItems;
-            document.getElementById('cartTotal').innerText = '10.00';
-
-            // Enable checkout button if there are items in the cart
-            document.getElementById('checkoutBtn').disabled = false;
-        }
-
-        function proceedToCheckout() {
-            // Here you would proceed to the checkout process
-            // For demonstration, we will just show the payment modal
-            const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
-            modal.show();
-        }
-
-        // Enable search on Enter key press
-        document.getElementById('medicineSearch').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                searchMedicines();
-            }
-        });
-
         // Load medicines into the select dropdown when page loads
         document.addEventListener('DOMContentLoaded', function() {
             loadMedicinesIntoSelect();
@@ -1697,19 +2226,18 @@
 
         async function loadMedicinesIntoSelect() {
             try {
-                const response = await fetch('/api/medicines/');
-                const data = await response.json();
-                
+                // Use local humanMedicines array (all OTC medicines)
                 const selectElement = document.getElementById('medicineSelect');
                 selectElement.innerHTML = '<option value="">Choose a medicine...</option>';
                 
-                if (data.medicines && data.medicines.length > 0) {
-                    data.medicines.forEach(medicine => {
+                if (humanMedicines && humanMedicines.length > 0) {
+                    humanMedicines.forEach(medicine => {
                         const option = document.createElement('option');
                         option.value = medicine.id;
-                        option.textContent = `${medicine.name} (${medicine.category}) - ${medicine.species_applicable}`;
+                        option.textContent = `${medicine.name} (${medicine.category}) - £${medicine.price}`;
                         option.setAttribute('data-category', medicine.category);
-                        option.setAttribute('data-species', medicine.species_applicable);
+                        option.setAttribute('data-species', medicine.species);
+                        option.setAttribute('data-price', medicine.price);
                         selectElement.appendChild(option);
                     });
                 } else {
@@ -1726,16 +2254,20 @@
             const selectedMedicineId = selectElement.value;
             
             if (!selectedMedicineId) {
-                // If no medicine is selected, hide add to cart section and show all veterinary medicines
+                // If no medicine is selected, hide add to cart section and show all OTC medicine cards
                 document.getElementById('addToCartSection').style.display = 'none';
-                showOnlyVeterinaryMedicines();
+                showOnlyOTCMedicines();
                 return;
             }
 
             try {
-                // Fetch specific medicine details
-                const response = await fetch(`/api/medicines/${selectedMedicineId}/`);
-                const medicine = await response.json();
+                // Find the selected medicine in the local humanMedicines array
+                const medicine = humanMedicines.find(med => med.id === selectedMedicineId);
+                
+                if (!medicine) {
+                    alert('Medicine not found. Please try again.');
+                    return;
+                }
                 
                 // Update add to cart section
                 updateAddToCartSection(medicine);
@@ -1743,27 +2275,28 @@
                 // Clear the current grid
                 const medicineGrid = document.querySelector('.row');
                 
-                // Hide veterinary cards
-                const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
-                veterinaryCards.forEach(card => {
+                // Hide all existing cards
+                const allCards = document.querySelectorAll('.medicine-card');
+                allCards.forEach(card => {
                     card.style.display = 'none';
                 });
 
-                // Remove any existing human medicine cards
-                const existingHumanCards = document.querySelectorAll('.medicine-card[data-type="human"]');
-                existingHumanCards.forEach(card => card.remove());
+                // Remove any existing dynamically created cards
+                const existingDynamicCards = document.querySelectorAll('.medicine-card[data-type="human"], .medicine-card[data-type="dynamic"]');
+                existingDynamicCards.forEach(card => card.remove());
 
                 // Create and display the selected medicine card
                 const selectedCard = createHumanMedicineCard(medicine);
                 selectedCard.classList.add('border-primary');
                 selectedCard.querySelector('.card').classList.add('border-primary', 'border-3');
+                selectedCard.setAttribute('data-type', 'dynamic');
                 medicineGrid.appendChild(selectedCard);
 
                 // Scroll to the medicine card
                 selectedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             } catch (error) {
-                console.error('Error fetching medicine details:', error);
+                console.error('Error loading medicine details:', error);
                 alert('Error loading medicine details. Please try again.');
             }
         }
@@ -1789,7 +2322,7 @@
             if (categoryFilter) {
                 searchMedicinesByCategory(categoryFilter);
             } else {
-                showOnlyVeterinaryMedicines();
+                showOnlyOTCMedicines();
             }
         }
 
@@ -1814,7 +2347,7 @@
             if (speciesFilter) {
                 searchMedicinesBySpecies(speciesFilter);
             } else {
-                showOnlyVeterinaryMedicines();
+                showOnlyOTCMedicines();
             }
         }
 
@@ -1825,7 +2358,7 @@
                 displaySearchResults(data.medicines);
             } catch (error) {
                 console.error('Error searching by category:', error);
-                showOnlyVeterinaryMedicines();
+                showOnlyOTCMedicines();
             }
         }
 
@@ -1836,7 +2369,7 @@
                 displaySearchResults(data.medicines);
             } catch (error) {
                 console.error('Error searching by species:', error);
-                showOnlyVeterinaryMedicines();
+                showOnlyOTCMedicines();
             }
         }
 
@@ -1865,23 +2398,6 @@
             }
         }
 
-        // Load all medicines function
-        async function loadAllMedicines() {
-            try {
-                const response = await fetch('/api/medicines/');
-                const data = await response.json();
-                
-                if (data.medicines && data.medicines.length > 0) {
-                    displaySearchResults(data.medicines);
-                } else {
-                    showOnlyVeterinaryMedicines();
-                }
-            } catch (error) {
-                console.error('Error loading all medicines:', error);
-                showOnlyVeterinaryMedicines();
-            }
-        }
-
         // Clear all filters function
         function clearAllFilters() {
             document.getElementById('medicineSelect').value = '';
@@ -1889,109 +2405,95 @@
             document.getElementById('speciesFilter').value = '';
             document.getElementById('medicineSearch').value = '';
             document.getElementById('addToCartSection').style.display = 'none';
-            showOnlyVeterinaryMedicines();
+            showOnlyOTCMedicines();
         }
 
         // Comprehensive Formula Database
         function getComprehensiveFormulaData(medicineName) {
             const formulaDatabase = {
+                'Aspirin': {
+                    molecularFormula: 'C₉H₈O₄',
+                    molecularWeight: '180.16 g/mol',
+                    chemicalName: '2-acetoxybenzoic acid (acetylsalicylic acid)',
+                    mechanismOfAction: 'Irreversibly inhibits COX-1 and COX-2 enzymes, reducing prostaglandin synthesis',
+                    therapeuticClass: 'Nonsteroidal Anti-inflammatory Drug (NSAID) - OTC',
+                    routeOfAdmin: 'Oral',
+                    absorption: 'Rapidly absorbed from stomach and small intestine, peak levels in 1-2 hours',
+                    distribution: 'Highly protein bound (80-90%), crosses blood-brain barrier',
+                    metabolism: 'Hepatic metabolism to salicylic acid and other metabolites',
+                    elimination: 'Renal elimination, half-life 2-3 hours for low doses',
+                    contraindications: 'Active peptic ulcer, children with viral infections (Reye syndrome risk), severe kidney disease',
+                    sideEffects: 'Stomach irritation, increased bleeding risk, tinnitus at high doses'
+                },
                 'Ibuprofen': {
                     molecularFormula: 'C₁₃H₁₈O₂',
                     molecularWeight: '206.28 g/mol',
                     chemicalName: '2-(4-isobutylphenyl)propionic acid',
                     mechanismOfAction: 'Non-selective COX-1 and COX-2 inhibitor, reducing prostaglandin synthesis',
-                    therapeuticClass: 'Nonsteroidal Anti-inflammatory Drug (NSAID)',
-                    routeOfAdmin: 'Oral, Topical',
+                    therapeuticClass: 'Nonsteroidal Anti-inflammatory Drug (NSAID) - OTC',
+                    routeOfAdmin: 'Oral',
                     absorption: 'Rapidly absorbed from GI tract, peak levels in 1-4 hours',
                     distribution: 'Highly protein bound (99%), limited distribution to CNS',
                     metabolism: 'Hepatic metabolism via CYP2C9, glucuronidation',
                     elimination: 'Renal elimination, half-life 2-4 hours',
-                    contraindications: 'Peptic ulcer disease, severe renal/hepatic impairment, aspirin allergy',
-                    sideEffects: 'GI upset, increased bleeding risk, renal dysfunction, hypertension'
+                    contraindications: 'Active peptic ulcer disease, severe renal/hepatic impairment, aspirin allergy',
+                    sideEffects: 'GI upset, take with food to minimize stomach irritation'
                 },
-                'Amoxicillin': {
-                    molecularFormula: 'C₁₆H₁₉N₃O₅S',
-                    molecularWeight: '365.40 g/mol',
-                    chemicalName: '(2S,5R,6R)-6-[(2R)-2-amino-2-(4-hydroxyphenyl)acetamido]-3,3-dimethyl-7-oxo-4-thia-1-azabicyclo[3.2.0]heptane-2-carboxylic acid',
-                    mechanismOfAction: 'Inhibits bacterial cell wall synthesis by binding to penicillin-binding proteins',
-                    therapeuticClass: 'Beta-lactam Antibiotic (Penicillin)',
-                    routeOfAdmin: 'Oral, Intravenous',
-                    absorption: 'Well absorbed orally (75-90%), not affected by food',
-                    distribution: 'Widely distributed, crosses placenta, minimal CNS penetration',
-                    metabolism: 'Minimal hepatic metabolism (10-25%)',
-                    elimination: 'Primarily renal excretion, half-life 1-1.3 hours',
-                    contraindications: 'Penicillin allergy, severe renal impairment',
-                    sideEffects: 'Allergic reactions, GI upset, superinfection, skin rash'
+                'Acetaminophen': {
+                    molecularFormula: 'C₈H₉NO₂',
+                    molecularWeight: '151.16 g/mol',
+                    chemicalName: 'N-(4-hydroxyphenyl)acetamide',
+                    mechanismOfAction: 'Inhibits COX enzymes in CNS, minimal peripheral anti-inflammatory effect',
+                    therapeuticClass: 'Analgesic and Antipyretic - OTC',
+                    routeOfAdmin: 'Oral, Rectal, Intravenous (prescription only)',
+                    absorption: 'Rapidly and completely absorbed from GI tract, peak levels in 30-60 minutes',
+                    distribution: 'Minimal protein binding (10-25%), crosses blood-brain barrier',
+                    metabolism: 'Primarily hepatic metabolism via glucuronidation and sulfation',
+                    elimination: 'Renal excretion, half-life 1-4 hours',
+                    contraindications: 'Severe hepatic impairment, chronic alcohol use',
+                    sideEffects: 'Very safe when used as directed, hepatotoxicity only with overdose'
                 },
-                'Carprofen': {
-                    molecularFormula: 'C₁₅H₁₂ClNO₂',
-                    molecularWeight: '273.71 g/mol',
-                    chemicalName: '6-chloro-α-methyl-9H-carbazole-2-acetic acid',
-                    mechanismOfAction: 'Preferential COX-2 inhibitor with some COX-1 activity',
-                    therapeuticClass: 'Veterinary NSAID',
-                    routeOfAdmin: 'Oral, Injectable',
-                    absorption: 'Rapidly absorbed, peak levels in 1-3 hours in dogs',
-                    distribution: 'Highly protein bound (>95%), good tissue penetration',
-                    metabolism: 'Hepatic metabolism, glucuronidation in dogs',
-                    elimination: 'Biliary and renal excretion, half-life 8 hours in dogs',
-                    contraindications: 'GI ulceration, renal/hepatic disease, concurrent steroid use',
-                    sideEffects: 'GI upset, hepatotoxicity, renal dysfunction, behavioral changes'
-                },
-                'Tramadol': {
-                    molecularFormula: 'C₁₆H₂₅NO₂',
-                    molecularWeight: '263.38 g/mol',
-                    chemicalName: '(±)-trans-2-[(dimethylamino)methyl]-1-(3-methoxyphenyl)cyclohexanol',
-                    mechanismOfAction: 'Weak μ-opioid receptor agonist, inhibits serotonin and norepinephrine reuptake',
-                    therapeuticClass: 'Centrally Acting Analgesic',
-                    routeOfAdmin: 'Oral, Injectable',
-                    absorption: 'Well absorbed orally (75%), peak levels in 2 hours',
-                    distribution: 'Crosses blood-brain barrier, moderate protein binding (20%)',
-                    metabolism: 'Hepatic metabolism via CYP2D6 to active metabolite M1',
-                    elimination: 'Renal excretion, half-life 5-7 hours',
-                    contraindications: 'Seizure disorders, MAO inhibitor use, respiratory depression',
-                    sideEffects: 'Seizures, serotonin syndrome, respiratory depression, dependence potential'
-                },
-                'Ivermectin': {
-                    molecularFormula: 'C₄₈H₇₄O₁₄',
-                    molecularWeight: '875.09 g/mol',
-                    chemicalName: '22,23-dihydroavermectin B1a + 22,23-dihydroavermectin B1b',
-                    mechanismOfAction: 'Binds to glutamate-gated chloride channels, causing paralysis in parasites',
-                    therapeuticClass: 'Macrocyclic Lactone Antiparasitic',
-                    routeOfAdmin: 'Oral, Topical, Injectable',
-                    absorption: 'Well absorbed orally in most species, peak levels in 4-5 hours',
-                    distribution: 'Highly lipophilic, extensive tissue distribution, crosses blood-brain barrier minimally',
-                    metabolism: 'Hepatic metabolism via CYP3A4',
-                    elimination: 'Biliary excretion primarily, half-life 12-36 hours (species dependent)',
-                    contraindications: 'MDR1 gene mutations (collies), severe hepatic impairment',
-                    sideEffects: 'Neurological signs in sensitive breeds, hypersensitivity reactions'
-                },
-                'Prednisolone': {
-                    molecularFormula: 'C₂₁H₂₈O₅',
-                    molecularWeight: '360.44 g/mol',
-                    chemicalName: '11β,17α,21-trihydroxypregna-1,4-diene-3,20-dione',
-                    mechanismOfAction: 'Binds to glucocorticoid receptors, modulates gene transcription and protein synthesis',
-                    therapeuticClass: 'Synthetic Glucocorticoid',
-                    routeOfAdmin: 'Oral, Injectable, Topical',
-                    absorption: 'Well absorbed orally, peak levels in 1-2 hours',
-                    distribution: 'Widely distributed, crosses placenta and blood-brain barrier',
-                    metabolism: 'Hepatic metabolism, converted to inactive metabolites',
-                    elimination: 'Renal excretion, biological half-life 12-36 hours',
-                    contraindications: 'Viral infections, fungal infections, vaccination periods',
-                    sideEffects: 'Immunosuppression, PU/PD, weight gain, GI ulceration, behavioral changes'
-                },
-                'Gabapentin': {
-                    molecularFormula: 'C₉H₁₇NO₂',
-                    molecularWeight: '171.24 g/mol',
-                    chemicalName: '1-(aminomethyl)cyclohexaneacetic acid',
-                    mechanismOfAction: 'Binds to α2δ subunit of voltage-gated calcium channels, modulates neurotransmitter release',
-                    therapeuticClass: 'Anticonvulsant/Neuropathic Pain Agent',
+                'Vitamin C': {
+                    molecularFormula: 'C₆H₈O₆',
+                    molecularWeight: '176.12 g/mol',
+                    chemicalName: 'L-ascorbic acid',
+                    mechanismOfAction: 'Essential cofactor for collagen synthesis, antioxidant, supports immune function',
+                    therapeuticClass: 'Water-soluble Vitamin Supplement - OTC',
                     routeOfAdmin: 'Oral',
-                    absorption: 'Variable absorption (27-60%), not affected by food',
-                    distribution: 'Minimal protein binding (<3%), crosses blood-brain barrier',
-                    metabolism: 'Not metabolized, excreted unchanged',
-                    elimination: 'Renal excretion, half-life 5-7 hours in humans, 3-4 hours in dogs',
-                    contraindications: 'Severe renal impairment, known hypersensitivity',
-                    sideEffects: 'Sedation, ataxia, behavioral changes, potential withdrawal symptoms'
+                    absorption: 'Active transport in small intestine, absorption decreases with higher doses',
+                    distribution: 'Widely distributed, high concentrations in adrenal glands, brain, lungs',
+                    metabolism: 'Metabolized to oxalate and other metabolites',
+                    elimination: 'Renal excretion, excess amounts excreted unchanged',
+                    contraindications: 'History of kidney stones (high doses), glucose-6-phosphate dehydrogenase deficiency',
+                    sideEffects: 'Generally very safe, high doses may cause GI upset or diarrhea'
+                },
+                'Multivitamin': {
+                    molecularFormula: 'Multiple compounds',
+                    molecularWeight: 'Variable',
+                    chemicalName: 'Combination of essential vitamins and minerals',
+                    mechanismOfAction: 'Provides essential micronutrients for cellular metabolism and physiological functions',
+                    therapeuticClass: 'Vitamin and Mineral Supplement - OTC',
+                    routeOfAdmin: 'Oral',
+                    absorption: 'Variable absorption for different vitamins and minerals',
+                    distribution: 'Distributed according to individual vitamin/mineral properties',
+                    metabolism: 'Each component metabolized differently',
+                    elimination: 'Water-soluble vitamins excreted in urine, fat-soluble vitamins stored',
+                    contraindications: 'Iron overload disorders, hypervitaminosis A or D',
+                    sideEffects: 'Generally safe, may cause mild nausea if taken on empty stomach'
+                },
+                'Loratadine': {
+                    molecularFormula: 'C₂₂H₂₃ClN₂O₂',
+                    molecularWeight: '382.88 g/mol',
+                    chemicalName: 'ethyl 4-(8-chloro-5,6-dihydro-11H-benzo[5,6]cyclohepta[1,2-b]pyridin-11-ylidene)-1-piperidinecarboxylate',
+                    mechanismOfAction: 'Selective peripheral H1-receptor antagonist, blocks histamine effects',
+                    therapeuticClass: 'Second-generation Antihistamine - OTC',
+                    routeOfAdmin: 'Oral',
+                    absorption: 'Rapidly absorbed, peak levels in 1-3 hours',
+                    distribution: 'Extensive tissue distribution, minimal CNS penetration',
+                    metabolism: 'Hepatic metabolism via CYP3A4 to active metabolite desloratadine',
+                    elimination: 'Renal and biliary excretion, half-life 8-12 hours',
+                    contraindications: 'Known hypersensitivity to loratadine',
+                    sideEffects: 'Non-drowsy formula, very well tolerated, occasional headache'
                 }
             };
             
@@ -2083,7 +2585,7 @@
                 });
             }
             
-            updateCartUI();
+            updateCartCount();
             
             // Show success message
             const successMessage = document.createElement('div');
