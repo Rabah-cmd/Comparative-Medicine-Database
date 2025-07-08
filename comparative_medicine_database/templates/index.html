@@ -33,12 +33,12 @@
                 <button type="button" class="btn btn-outline-light me-2" onclick="showCart()">
                     🛒 Cart (<span id="cartCount">0</span>)
                 </button>
-                
+
                 <!-- User greeting (hidden by default) -->
                 <div id="userGreeting" class="text-white me-3" style="display: none;">
                     Welcome, <span id="userName"></span>!
                 </div>
-                
+
                 <!-- Authentication buttons -->
                 <div id="authButtons">
                     <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal"
@@ -50,9 +50,10 @@
                         Sign Up
                     </button>
                 </div>
-                
+
                 <!-- Sign out button (hidden by default) -->
-                <button type="button" class="btn btn-outline-light" id="signoutBtn" onclick="signOut()" style="display: none;">
+                <button type="button" class="btn btn-outline-light" id="signoutBtn" onclick="signOut()"
+                    style="display: none;">
                     Sign Out
                 </button>
             </div>
@@ -85,7 +86,8 @@
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="password" required>
-                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password', this)">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('password', this)">
                                     <i class="fas fa-eye" id="passwordIcon"></i>
                                 </button>
                             </div>
@@ -94,7 +96,8 @@
                             <label for="confirmPassword" class="form-label">Confirm Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="confirmPassword" required>
-                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('confirmPassword', this)">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('confirmPassword', this)">
                                     <i class="fas fa-eye" id="confirmPasswordIcon"></i>
                                 </button>
                             </div>
@@ -127,7 +130,8 @@
                             <label for="signinPassword" class="form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="signinPassword" required>
-                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('signinPassword', this)">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePassword('signinPassword', this)">
                                     <i class="fas fa-eye" id="signinPasswordIcon"></i>
                                 </button>
                             </div>
@@ -154,7 +158,8 @@
     </div>
 
     <!-- Forgot Password Modal -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -162,28 +167,32 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted">Enter your email address and we'll help you recover your account information.</p>
+                    <p class="text-muted">Enter your email address and we'll help you recover your account information.
+                    </p>
                     <form id="forgotPasswordForm">
                         <div class="mb-3">
                             <label for="recoveryEmail" class="form-label">Your Email Address</label>
-                            <input type="email" class="form-control" id="recoveryEmail" required 
-                                   placeholder="Enter the email you used to sign up">
+                            <input type="email" class="form-control" id="recoveryEmail" required
+                                placeholder="Enter the email you used to sign up">
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="recoveryType" id="recoverPassword" value="password" checked>
+                                <input class="form-check-input" type="radio" name="recoveryType" id="recoverPassword"
+                                    value="password" checked>
                                 <label class="form-check-label" for="recoverPassword">
                                     <i class="fas fa-key"></i> I forgot my password
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="recoveryType" id="recoverUsername" value="username">
+                                <input class="form-check-input" type="radio" name="recoveryType" id="recoverUsername"
+                                    value="username">
                                 <label class="form-check-label" for="recoverUsername">
                                     <i class="fas fa-user"></i> I forgot my username/email
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="recoveryType" id="accountIssues" value="issues">
+                                <input class="form-check-input" type="radio" name="recoveryType" id="accountIssues"
+                                    value="issues">
                                 <label class="form-check-label" for="accountIssues">
                                     <i class="fas fa-exclamation-triangle"></i> My account isn't working
                                 </label>
@@ -358,10 +367,14 @@
                 <div class="modal-body">
                     <div class="terms-content">
                         <h6>1. Acceptance of Terms</h6>
-                        <p>By accessing and using the Comparative Medicine Database website and services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you may not use our services.</p>
+                        <p>By accessing and using the Comparative Medicine Database website and services, you agree to
+                            be bound by these Terms and Conditions. If you do not agree with any part of these terms,
+                            you may not use our services.</p>
 
                         <h6>2. Description of Service</h6>
-                        <p>The Comparative Medicine Database provides access to information about medicines and treatments for both humans and animals. This platform is designed for educational and research purposes to facilitate comparative medicine studies.</p>
+                        <p>The Comparative Medicine Database provides access to information about medicines and
+                            treatments for both humans and animals. This platform is designed for educational and
+                            research purposes to facilitate comparative medicine studies.</p>
 
                         <h6>3. User Responsibilities</h6>
                         <ul>
@@ -372,19 +385,30 @@
                         </ul>
 
                         <h6>4. Medical Disclaimer</h6>
-                        <p><strong>Important:</strong> The information provided in this database is for educational and research purposes only. It is not intended as medical advice, diagnosis, or treatment. Always consult with qualified healthcare professionals or veterinarians before making any medical decisions for yourself or your animals.</p>
+                        <p><strong>Important:</strong> The information provided in this database is for educational and
+                            research purposes only. It is not intended as medical advice, diagnosis, or treatment.
+                            Always consult with qualified healthcare professionals or veterinarians before making any
+                            medical decisions for yourself or your animals.</p>
 
                         <h6>5. Data Accuracy and Liability</h6>
-                        <p>While we strive to provide accurate information, we make no warranties about the completeness, reliability, or accuracy of the data. Users should verify all information with appropriate medical professionals before use.</p>
+                        <p>While we strive to provide accurate information, we make no warranties about the
+                            completeness, reliability, or accuracy of the data. Users should verify all information with
+                            appropriate medical professionals before use.</p>
 
                         <h6>6. Privacy and Data Protection</h6>
-                        <p>We are committed to protecting your privacy. Personal information collected through this service will be handled in accordance with applicable data protection laws. We do not sell or share personal information with third parties without consent.</p>
+                        <p>We are committed to protecting your privacy. Personal information collected through this
+                            service will be handled in accordance with applicable data protection laws. We do not sell
+                            or share personal information with third parties without consent.</p>
 
                         <h6>7. Intellectual Property</h6>
-                        <p>The content, design, and functionality of this website are protected by copyright and other intellectual property laws. Users may not reproduce, distribute, or create derivative works without written permission.</p>
+                        <p>The content, design, and functionality of this website are protected by copyright and other
+                            intellectual property laws. Users may not reproduce, distribute, or create derivative works
+                            without written permission.</p>
 
                         <h6>8. Shopping Cart and Payment</h6>
-                        <p>The shopping cart feature is provided for demonstration purposes only. Any transactions are simulated and no actual payments are processed. Real medicine purchases should only be made through licensed pharmacies and veterinary clinics.</p>
+                        <p>The shopping cart feature is provided for demonstration purposes only. Any transactions are
+                            simulated and no actual payments are processed. Real medicine purchases should only be made
+                            through licensed pharmacies and veterinary clinics.</p>
 
                         <h6>9. Prohibited Uses</h6>
                         <p>You may not use this service to:</p>
@@ -397,19 +421,25 @@
                         </ul>
 
                         <h6>10. Limitation of Liability</h6>
-                        <p>The Comparative Medicine Database and its operators shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use this service.</p>
+                        <p>The Comparative Medicine Database and its operators shall not be liable for any direct,
+                            indirect, incidental, special, or consequential damages resulting from the use or inability
+                            to use this service.</p>
 
                         <h6>11. Changes to Terms</h6>
-                        <p>We reserve the right to modify these terms at any time. Users will be notified of significant changes, and continued use of the service constitutes acceptance of the modified terms.</p>
+                        <p>We reserve the right to modify these terms at any time. Users will be notified of significant
+                            changes, and continued use of the service constitutes acceptance of the modified terms.</p>
 
                         <h6>12. Termination</h6>
-                        <p>We may terminate or suspend access to the service immediately, without prior notice, for any breach of these Terms and Conditions.</p>
+                        <p>We may terminate or suspend access to the service immediately, without prior notice, for any
+                            breach of these Terms and Conditions.</p>
 
                         <h6>13. Governing Law</h6>
-                        <p>These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which the service operates.</p>
+                        <p>These terms shall be governed by and construed in accordance with the laws of the
+                            jurisdiction in which the service operates.</p>
 
                         <h6>14. Contact Information</h6>
-                        <p>If you have questions about these Terms and Conditions, please contact us through the Contact Us form on our website.</p>
+                        <p>If you have questions about these Terms and Conditions, please contact us through the Contact
+                            Us form on our website.</p>
 
                         <hr class="mt-4">
                         <p class="text-muted"><small>Last updated: July 6, 2025</small></p>
@@ -538,20 +568,23 @@
     <div class="container mt-4">
         <h1>Welcome to Comparative Medicine Database</h1>
         <p>This is a comprehensive database for comparative medicine research and treatments.</p>
-        
+
         <!-- OTC Medicine Notice -->
         <div class="alert alert-info border-primary" role="alert">
             <h5 class="alert-heading">
                 <i class="fas fa-info-circle"></i> Over-the-Counter (OTC) Medicines Only
             </h5>
-            <p class="mb-2">Our online platform features only <strong>affordable, over-the-counter medicines</strong> that do not require a prescription. All medicines shown are:</p>
+            <p class="mb-2">Our online platform features only <strong>affordable, over-the-counter medicines</strong>
+                that do not require a prescription. All medicines shown are:</p>
             <ul class="mb-2">
                 <li><i class="fas fa-check text-success"></i> Available without prescription</li>
                 <li><i class="fas fa-check text-success"></i> Safe for self-medication when used as directed</li>
                 <li><i class="fas fa-check text-success"></i> Affordable and accessible</li>
-                <li><i class="fas fa-check text-success"></i> Suitable for general wellness and minor health concerns</li>
+                <li><i class="fas fa-check text-success"></i> Suitable for general wellness and minor health concerns
+                </li>
             </ul>
-            <p class="mb-0"><strong>Note:</strong> For prescription medications or serious medical conditions, please consult with a licensed healthcare provider or veterinarian.</p>
+            <p class="mb-0"><strong>Note:</strong> For prescription medications or serious medical conditions, please
+                consult with a licensed healthcare provider or veterinarian.</p>
         </div>
         <p>Browse through our collection of medicines and their applications across different species.</p>
 
@@ -563,7 +596,8 @@
                         <h4 class="mb-0">
                             <i class="fas fa-user-md"></i> Patient Information
                         </h4>
-                        <small>Please provide your information for personalized medicine recommendations and safety warnings</small>
+                        <small>Please provide your information for personalized medicine recommendations and safety
+                            warnings</small>
                     </div>
                     <div class="card-body">
                         <form id="patientInfoForm">
@@ -572,17 +606,19 @@
                                 <div class="col-md-3">
                                     <label for="patientAge" class="form-label"><strong>Age:</strong></label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="patientAge" min="0" max="120" placeholder="Enter age">
+                                        <input type="number" class="form-control" id="patientAge" min="0" max="120"
+                                            placeholder="Enter age">
                                         <span class="input-group-text">years</span>
                                     </div>
                                     <div class="form-text">Age affects dosage and safety</div>
                                 </div>
-                                
+
                                 <!-- Weight -->
                                 <div class="col-md-3">
                                     <label for="patientWeight" class="form-label"><strong>Weight:</strong></label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="patientWeight" min="1" max="300" step="0.1" placeholder="Enter weight">
+                                        <input type="number" class="form-control" id="patientWeight" min="1" max="300"
+                                            step="0.1" placeholder="Enter weight">
                                         <select class="form-select" id="weightUnit" style="max-width: 80px;">
                                             <option value="kg">kg</option>
                                             <option value="lbs">lbs</option>
@@ -590,12 +626,13 @@
                                     </div>
                                     <div class="form-text">Weight-based dosing calculations</div>
                                 </div>
-                                
+
                                 <!-- Height -->
                                 <div class="col-md-3">
                                     <label for="patientHeight" class="form-label"><strong>Height:</strong></label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="patientHeight" min="50" max="250" placeholder="Enter height">
+                                        <input type="number" class="form-control" id="patientHeight" min="50" max="250"
+                                            placeholder="Enter height">
                                         <select class="form-select" id="heightUnit" style="max-width: 80px;">
                                             <option value="cm">cm</option>
                                             <option value="ft">ft</option>
@@ -603,22 +640,25 @@
                                     </div>
                                     <div class="form-text">For BMI and surface area calculations</div>
                                 </div>
-                                
+
                                 <!-- Allergies -->
                                 <div class="col-md-3">
                                     <label for="patientAllergies" class="form-label"><strong>Known Allergies:</strong></label>
-                                    <textarea class="form-control" id="patientAllergies" rows="2" placeholder="e.g., Penicillin, Aspirin, Sulfa"></textarea>
-                                    <div class="form-text">Critical for safety warnings</div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="patientAllergies" placeholder="Enter allergies">
+                                    </div>
+                                    <div class="form-text">List any known allergies</div>
                                 </div>
                             </div>
-                            
+
                             <!-- Action Buttons -->
                             <div class="row mt-3">
                                 <div class="col-12 text-center">
                                     <button type="button" class="btn btn-primary me-2" onclick="savePatientInfo()">
                                         <i class="fas fa-save"></i> Save Information
                                     </button>
-                                    <button type="button" class="btn btn-outline-secondary me-2" onclick="clearPatientInfo()">
+                                    <button type="button" class="btn btn-outline-secondary me-2"
+                                        onclick="clearPatientInfo()">
                                         <i class="fas fa-eraser"></i> Clear
                                     </button>
                                     <button type="button" class="btn btn-info" onclick="calculateBMI()">
@@ -626,17 +666,18 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- BMI Display -->
                             <div class="row mt-3" id="bmiSection" style="display: none;">
                                 <div class="col-12">
                                     <div class="alert alert-info">
-                                        <strong>BMI: </strong><span id="bmiValue"></span> - <span id="bmiCategory"></span>
+                                        <strong>BMI: </strong><span id="bmiValue"></span> - <span
+                                            id="bmiCategory"></span>
                                         <br><small id="bmiNote"></small>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Safety Alerts -->
                             <div class="row mt-3" id="safetyAlerts" style="display: none;">
                                 <div class="col-12">
@@ -706,7 +747,8 @@
                         <div class="col-md-12">
                             <div class="card border-primary">
                                 <div class="card-header bg-primary text-white">
-                                    <h6 class="mb-0"><i class="fas fa-shopping-cart"></i> Selected Medicine Details & Add to Cart</h6>
+                                    <h6 class="mb-0"><i class="fas fa-shopping-cart"></i> Selected Medicine Details &
+                                        Add to Cart</h6>
                                 </div>
                                 <div class="card-body">
                                     <!-- Basic Medicine Information -->
@@ -714,16 +756,21 @@
                                         <div class="col-md-8">
                                             <div id="selectedMedicineInfo">
                                                 <h5 class="text-primary mb-2">
-                                                    <i class="fas fa-pills"></i> <span id="selectedMedicineName">None</span>
+                                                    <i class="fas fa-pills"></i> <span
+                                                        id="selectedMedicineName">None</span>
                                                 </h5>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <small class="text-muted"><strong>Category:</strong> <span id="selectedMedicineCategory">-</span></small><br>
-                                                        <small class="text-muted"><strong>Species:</strong> <span id="selectedMedicineSpecies">-</span></small><br>
-                                                        <small class="text-info"><strong>Dosage:</strong> <span id="selectedMedicineDosage">-</span></small>
+                                                        <small class="text-muted"><strong>Category:</strong> <span
+                                                                id="selectedMedicineCategory">-</span></small><br>
+                                                        <small class="text-muted"><strong>Species:</strong> <span
+                                                                id="selectedMedicineSpecies">-</span></small><br>
+                                                        <small class="text-info"><strong>Dosage:</strong> <span
+                                                                id="selectedMedicineDosage">-</span></small>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="fw-bold text-success fs-5">£<span id="selectedMedicinePrice">0.00</span></div>
+                                                        <div class="fw-bold text-success fs-5">£<span
+                                                                id="selectedMedicinePrice">0.00</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -731,7 +778,8 @@
                                         <div class="col-md-4">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <label for="quantitySelect" class="form-label"><strong>Quantity:</strong></label>
+                                                    <label for="quantitySelect"
+                                                        class="form-label"><strong>Quantity:</strong></label>
                                                     <select class="form-select" id="quantitySelect">
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -744,7 +792,8 @@
                                                 <div class="col-6">
                                                     <label class="form-label">&nbsp;</label>
                                                     <div class="d-grid">
-                                                        <button class="btn btn-primary" onclick="addSelectedMedicineToCart()">
+                                                        <button class="btn btn-primary"
+                                                            onclick="addSelectedMedicineToCart()">
                                                             <i class="fas fa-cart-plus"></i> Add to Cart
                                                         </button>
                                                     </div>
@@ -756,7 +805,8 @@
                                     <!-- Comprehensive Formula Section -->
                                     <div class="card border-info mt-3" id="formulaSection">
                                         <div class="card-header bg-info text-white">
-                                            <h6 class="mb-0"><i class="fas fa-flask"></i> Comprehensive Formula & Chemical Information</h6>
+                                            <h6 class="mb-0"><i class="fas fa-flask"></i> Comprehensive Formula &
+                                                Chemical Information</h6>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -777,7 +827,7 @@
                                                         <div class="text-muted" id="chemicalName">-</div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <!-- Pharmacological Information -->
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
@@ -794,7 +844,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <!-- Pharmacokinetics -->
                                             <div class="row mt-3">
                                                 <div class="col-md-12">
@@ -819,7 +869,7 @@
                                                     <div class="text-muted small" id="elimination">-</div>
                                                 </div>
                                             </div>
-                                            
+
                                             <!-- Additional Information -->
                                             <div class="row mt-3">
                                                 <div class="col-md-6">
@@ -842,7 +892,8 @@
                 <!-- Medicine Cards Grid -->
                 <div class="row" id="medicineGrid">
                     <!-- Medicine Card 1 - Aspirin (OTC Pain Relief) -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human" data-type="otc">
+                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human"
+                        data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-primary text-white">
                                 <h5 class="card-title mb-0">Aspirin</h5>
@@ -851,16 +902,18 @@
                             <div class="card-body">
                                 <p class="card-text"><strong>Generic Name:</strong> Acetylsalicylic Acid</p>
                                 <p class="card-text"><strong>Brand Names:</strong> Bayer, Bufferin, Generic</p>
-                                <p class="card-text"><strong>Description:</strong> Over-the-counter pain reliever and anti-inflammatory. Safe for headaches and minor aches.</p>
+                                <p class="card-text"><strong>Description:</strong> Over-the-counter pain reliever and
+                                    anti-inflammatory. Safe for headaches and minor aches.</p>
                                 <p class="card-text"><strong>Species:</strong> Humans</p>
                                 <p class="card-text"><strong>Dosage:</strong> 325-650mg every 4-6 hours</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Mild stomach irritation, take with food</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Mild stomach irritation, take with
+                                    food</p>
                                 <p class="card-text text-success"><strong>Price: £4.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm"
-                                        onclick="showMedicineDetails('aspirin')">View Details</button>
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('aspirin')">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm"
                                         onclick="addToCart('aspirin', 'Aspirin', 4.99)">Add to Cart</button>
                                 </div>
@@ -869,7 +922,8 @@
                     </div>
 
                     <!-- Medicine Card 2 - Ibuprofen (OTC Anti-inflammatory) -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="anti-inflammatory" data-species="human" data-type="otc">
+                    <div class="col-md-4 mb-4 medicine-card" data-category="anti-inflammatory" data-species="human"
+                        data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-success text-white">
                                 <h5 class="card-title mb-0">Ibuprofen</h5>
@@ -878,16 +932,18 @@
                             <div class="card-body">
                                 <p class="card-text"><strong>Generic Name:</strong> Ibuprofen</p>
                                 <p class="card-text"><strong>Brand Names:</strong> Advil, Motrin, Generic</p>
-                                <p class="card-text"><strong>Description:</strong> Over-the-counter NSAID for pain, fever, and inflammation. No prescription needed.</p>
+                                <p class="card-text"><strong>Description:</strong> Over-the-counter NSAID for pain,
+                                    fever, and inflammation. No prescription needed.</p>
                                 <p class="card-text"><strong>Species:</strong> Humans</p>
                                 <p class="card-text"><strong>Dosage:</strong> 200-400mg every 4-6 hours</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Take with food, avoid if you have stomach problems</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Take with food, avoid if you have
+                                    stomach problems</p>
                                 <p class="card-text text-success"><strong>Price: £5.49</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm"
-                                        onclick="showMedicineDetails('ibuprofen')">View Details</button>
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('ibuprofen')">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm"
                                         onclick="addToCart('ibuprofen', 'Ibuprofen', 5.49)">Add to Cart</button>
                                 </div>
@@ -896,7 +952,8 @@
                     </div>
 
                     <!-- Medicine Card 3 - Acetaminophen (OTC Pain Relief) -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human" data-type="otc">
+                    <div class="col-md-4 mb-4 medicine-card" data-category="analgesic" data-species="human"
+                        data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-warning text-dark">
                                 <h5 class="card-title mb-0">Acetaminophen</h5>
@@ -905,7 +962,8 @@
                             <div class="card-body">
                                 <p class="card-text"><strong>Generic Name:</strong> Acetaminophen</p>
                                 <p class="card-text"><strong>Brand Names:</strong> Tylenol, Panadol, Generic</p>
-                                <p class="card-text"><strong>Description:</strong> Safe over-the-counter pain reliever and fever reducer. Gentle on stomach.</p>
+                                <p class="card-text"><strong>Description:</strong> Safe over-the-counter pain reliever
+                                    and fever reducer. Gentle on stomach.</p>
                                 <p class="card-text"><strong>Species:</strong> Humans</p>
                                 <p class="card-text"><strong>Dosage:</strong> 325-650mg every 4-6 hours</p>
                                 <p class="card-text"><strong>Side Effects:</strong> Very safe when used as directed</p>
@@ -913,7 +971,8 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('acetaminophen')">View Details</button>
+                                    <button class="btn btn-info btn-sm"
+                                        onclick="showMedicineDetails('acetaminophen')">View Details</button>
                                     <button class="btn btn-success btn-sm"
                                         onclick="addToCart('acetaminophen', 'Acetaminophen', 3.99)">Add to Cart</button>
                                 </div>
@@ -922,7 +981,8 @@
                     </div>
 
                     <!-- Medicine Card 4 - Vitamin C (OTC Supplement) -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="vitamin" data-species="human" data-type="otc">
+                    <div class="col-md-4 mb-4 medicine-card" data-category="vitamin" data-species="human"
+                        data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-info text-white">
                                 <h5 class="card-title mb-0">Vitamin C</h5>
@@ -931,15 +991,18 @@
                             <div class="card-body">
                                 <p class="card-text"><strong>Generic Name:</strong> Ascorbic Acid</p>
                                 <p class="card-text"><strong>Brand Names:</strong> Generic, Emergen-C</p>
-                                <p class="card-text"><strong>Description:</strong> Essential vitamin supplement for immune support. Available without prescription.</p>
+                                <p class="card-text"><strong>Description:</strong> Essential vitamin supplement for
+                                    immune support. Available without prescription.</p>
                                 <p class="card-text"><strong>Species:</strong> Humans</p>
                                 <p class="card-text"><strong>Dosage:</strong> 500-1000mg daily</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Generally safe, may cause stomach upset in high doses</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Generally safe, may cause stomach
+                                    upset in high doses</p>
                                 <p class="card-text text-success"><strong>Price: £6.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('vitamin_c')">View Details</button>
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('vitamin_c')">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm"
                                         onclick="addToCart('vitamin_c', 'Vitamin C', 6.99)">Add to Cart</button>
                                 </div>
@@ -948,7 +1011,8 @@
                     </div>
 
                     <!-- Medicine Card 5 - Multivitamin (OTC Supplement) -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="vitamin" data-species="human" data-type="otc">
+                    <div class="col-md-4 mb-4 medicine-card" data-category="vitamin" data-species="human"
+                        data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-info text-white">
                                 <h5 class="card-title mb-0">Daily Multivitamin</h5>
@@ -957,24 +1021,29 @@
                             <div class="card-body">
                                 <p class="card-text"><strong>Generic Name:</strong> Multivitamin/Mineral</p>
                                 <p class="card-text"><strong>Brand Names:</strong> Centrum, One-A-Day, Generic</p>
-                                <p class="card-text"><strong>Description:</strong> Complete daily vitamin and mineral supplement. Available over-the-counter.</p>
+                                <p class="card-text"><strong>Description:</strong> Complete daily vitamin and mineral
+                                    supplement. Available over-the-counter.</p>
                                 <p class="card-text"><strong>Species:</strong> Humans</p>
                                 <p class="card-text"><strong>Dosage:</strong> 1 tablet daily with breakfast</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Generally safe, may cause mild nausea on empty stomach</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Generally safe, may cause mild
+                                    nausea on empty stomach</p>
                                 <p class="card-text text-success"><strong>Price: £8.99</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('multivitamin')">View Details</button>
+                                    <button class="btn btn-info btn-sm"
+                                        onclick="showMedicineDetails('multivitamin')">View Details</button>
                                     <button class="btn btn-success btn-sm"
-                                        onclick="addToCart('multivitamin', 'Daily Multivitamin', 8.99)">Add to Cart</button>
+                                        onclick="addToCart('multivitamin', 'Daily Multivitamin', 8.99)">Add to
+                                        Cart</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Medicine Card 6 - Allergy Relief (OTC Antihistamine) -->
-                    <div class="col-md-4 mb-4 medicine-card" data-category="antihistamine" data-species="human" data-type="otc">
+                    <div class="col-md-4 mb-4 medicine-card" data-category="antihistamine" data-species="human"
+                        data-type="otc">
                         <div class="card h-100">
                             <div class="card-header bg-secondary text-white">
                                 <h5 class="card-title mb-0">Loratadine</h5>
@@ -983,15 +1052,18 @@
                             <div class="card-body">
                                 <p class="card-text"><strong>Generic Name:</strong> Loratadine</p>
                                 <p class="card-text"><strong>Brand Names:</strong> Claritin, Generic</p>
-                                <p class="card-text"><strong>Description:</strong> Non-drowsy over-the-counter allergy relief. No prescription needed.</p>
+                                <p class="card-text"><strong>Description:</strong> Non-drowsy over-the-counter allergy
+                                    relief. No prescription needed.</p>
                                 <p class="card-text"><strong>Species:</strong> Humans</p>
                                 <p class="card-text"><strong>Dosage:</strong> 10mg once daily</p>
-                                <p class="card-text"><strong>Side Effects:</strong> Non-drowsy, very safe for daily use</p>
+                                <p class="card-text"><strong>Side Effects:</strong> Non-drowsy, very safe for daily use
+                                </p>
                                 <p class="card-text text-success"><strong>Price: £6.49</strong></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('loratadine')">View Details</button>
+                                    <button class="btn btn-info btn-sm" onclick="showMedicineDetails('loratadine')">View
+                                        Details</button>
                                     <button class="btn btn-success btn-sm"
                                         onclick="addToCart('loratadine', 'Loratadine', 6.49)">Add to Cart</button>
                                 </div>
@@ -1007,12 +1079,12 @@
         let isSignedIn = false;
         let currentUser = null;
         let cart = [];
-        
+
         // Store registered users (in a real app, this would be in a database)
         let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [
             { email: 'test@example.com', password: 'password', firstName: 'John', lastName: 'Doe', isActivated: true }
         ];
-        
+
         // Human medicines dataset - only affordable OTC (over-the-counter) medicines
         const humanMedicines = [
             {
@@ -1243,11 +1315,11 @@
 
             // Check against registered users
             const user = registeredUsers.find(u => u.email.toLowerCase() === email && u.password === password);
-            
+
             if (user) {
                 isSignedIn = true;
-                currentUser = { 
-                    email: user.email, 
+                currentUser = {
+                    email: user.email,
                     name: user.firstName,  // Only first name
                     fullName: `${user.firstName} ${user.lastName}`  // Keep full name for other purposes
                 };
@@ -1266,12 +1338,12 @@
             } else {
                 // Enhanced error message with help options
                 const confirmForgot = confirm(`❌ Login Failed\n\nIncorrect username or password.\n\nPossible solutions:\n• Check your email and password spelling\n• Use "Forgot Password" if you can't remember\n• Make sure your account is activated\n\nWould you like to reset your password or recover your username?`);
-                
+
                 if (confirmForgot) {
                     // Close sign-in modal
                     const signinModal = bootstrap.Modal.getInstance(document.getElementById('signinModal'));
                     signinModal.hide();
-                    
+
                     // Open forgot password modal
                     setTimeout(() => {
                         showForgotPassword();
@@ -1311,7 +1383,7 @@
                     case 'password':
                         // Generate temporary password
                         const tempPassword = Math.random().toString(36).substring(2, 10);
-                        
+
                         // Update user's password temporarily
                         user.tempPassword = tempPassword;
                         user.passwordResetDate = new Date().toISOString();
@@ -1411,10 +1483,10 @@ Comparative Medicine Database Support Team`;
             // Show user greeting
             document.getElementById('userGreeting').style.display = 'block';
             document.getElementById('userName').textContent = currentUser.name;
-            
+
             // Hide sign in/sign up buttons
             document.getElementById('authButtons').style.display = 'none';
-            
+
             // Show sign out button
             document.getElementById('signoutBtn').style.display = 'block';
         }
@@ -1423,15 +1495,15 @@ Comparative Medicine Database Support Team`;
             isSignedIn = false;
             currentUser = null;
             cart = []; // Clear cart on sign out
-            
+
             // Update UI
             document.getElementById('userGreeting').style.display = 'none';
             document.getElementById('authButtons').style.display = 'block';
             document.getElementById('signoutBtn').style.display = 'none';
-            
+
             // Update cart count
             updateCartCount();
-            
+
             alert('You have been signed out successfully.');
         }
 
@@ -1479,18 +1551,18 @@ Comparative Medicine Database Support Team`;
                     console.error('Invalid cart index:', index);
                     return;
                 }
-                
+
                 // Update quantity
                 cart[index].quantity += change;
-                
+
                 // Remove item if quantity becomes 0 or negative
                 if (cart[index].quantity <= 0) {
                     cart.splice(index, 1);
                 }
-                
+
                 // Update cart display and count
                 updateCartCount();
-                
+
                 // Only refresh cart display if cart modal is currently shown
                 const cartModal = document.getElementById('cartModal');
                 if (cartModal && cartModal.classList.contains('show')) {
@@ -1556,10 +1628,10 @@ Comparative Medicine Database Support Team`;
                 console.error('Invalid cart index:', index);
                 return;
             }
-            
+
             cart.splice(index, 1);
             updateCartCount();
-            
+
             // Only refresh cart display if cart modal is currently shown
             const cartModal = document.getElementById('cartModal');
             if (cartModal && cartModal.classList.contains('show')) {
@@ -1690,8 +1762,8 @@ Comparative Medicine Database Support Team`;
 
             // Automatically sign in the user
             isSignedIn = true;
-            currentUser = { 
-                email: newUser.email, 
+            currentUser = {
+                email: newUser.email,
                 name: newUser.firstName,
                 fullName: `${newUser.firstName} ${newUser.lastName}`
             };
@@ -1744,7 +1816,7 @@ Thank you for joining our platform!
 Best regards,
 The Comparative Medicine Database Team
                 `;
-                
+
                 alert(welcomeMessage);
             }, 1000);
         }
@@ -1752,7 +1824,7 @@ The Comparative Medicine Database Team
         function showForgotPassword() {
             // In a real application, this would send an actual email
             // For demo purposes, we'll store the activation email in localStorage and show it INSTANTLY
-            
+
             const activationEmail = {
                 to: email,
                 subject: 'Activate Your Comparative Medicine Database Account - INSTANT EMAIL',
@@ -1786,10 +1858,10 @@ The Comparative Medicine Database Team`,
                 activationCode: activationCode,
                 timestamp: new Date().toISOString()
             };
-            
+
             // Store the "email" in localStorage (simulating email delivery)
             localStorage.setItem(`activationEmail_${email}`, JSON.stringify(activationEmail));
-            
+
             // Show the email simulation modal IMMEDIATELY (no delay)
             setTimeout(() => {
                 // Show a brief "sending email" notification
@@ -1803,7 +1875,7 @@ The Comparative Medicine Database Team`,
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 `;
                 document.body.appendChild(notification);
-                
+
                 // Remove notification after 2 seconds and show email modal
                 setTimeout(() => {
                     notification.remove();
@@ -1864,17 +1936,17 @@ The Comparative Medicine Database Team`,
                 `;
                 document.body.insertAdjacentHTML('beforeend', modalHTML);
             }
-            
+
             // Populate modal with email data
             document.getElementById('emailTo').textContent = emailData.to;
             document.getElementById('emailSubject').textContent = emailData.subject;
             document.getElementById('emailTime').textContent = new Date(emailData.timestamp).toLocaleString();
             document.getElementById('emailBody').textContent = emailData.body;
-            
+
             // Store activation code for later use
             window.currentActivationCode = emailData.activationCode;
             window.currentActivationEmail = emailData.to;
-            
+
             // Show the modal
             const modal = new bootstrap.Modal(document.getElementById('emailSimulationModal'));
             modal.show();
@@ -1884,64 +1956,64 @@ The Comparative Medicine Database Team`,
         function activateAccount() {
             // Check if this is a manual activation or from email
             const activationCode = prompt('Please enter your activation code from the email:\n(Example: VA4dc1e040b0c31b495a2c238b8fa8d336)');
-            
+
             if (!activationCode) {
                 return; // User cancelled
             }
-            
+
             // Check for the specific verification code
             if (activationCode === 'VA4dc1e040b0c31b495a2c238b8fa8d336') {
                 // This is the master activation code - activate any pending account
                 activateWithMasterCode();
                 return;
             }
-            
+
             if (!window.currentActivationCode || !window.currentActivationEmail) {
                 alert('Activation information not found. Please try signing up again or use the master code: VA4dc1e040b0c31b495a2c238b8fa8d336');
                 return;
             }
-            
+
             // Check if the entered code matches the user's activation code
             if (activationCode !== window.currentActivationCode) {
                 alert('Invalid activation code. Please check your email or use the master code: VA4dc1e040b0c31b495a2c238b8fa8d336');
                 return;
             }
-            
+
             // Load current users
             registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-            
+
             // Find the user and activate their account
-            const userIndex = registeredUsers.findIndex(u => 
-                u.email.toLowerCase() === window.currentActivationEmail.toLowerCase() && 
+            const userIndex = registeredUsers.findIndex(u =>
+                u.email.toLowerCase() === window.currentActivationEmail.toLowerCase() &&
                 u.activationCode === window.currentActivationCode
             );
-            
+
             if (userIndex !== -1) {
                 registeredUsers[userIndex].isActivated = true;
                 localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-                
+
                 // Hide the email modal if it's open
                 const emailModal = document.getElementById('emailSimulationModal');
                 if (emailModal && bootstrap.Modal.getInstance(emailModal)) {
                     bootstrap.Modal.getInstance(emailModal).hide();
                 }
-                
+
                 // Show success message with better instructions
                 alert(`✅ ACCOUNT ACTIVATED! Welcome ${window.currentActivationEmail}!
 
 You can now sign in immediately with your credentials.
 
 The sign-in window will open automatically for your convenience.`);
-                
+
                 // Clear activation data
                 window.currentActivationCode = null;
                 window.currentActivationEmail = null;
                 localStorage.removeItem(`activationEmail_${window.currentActivationEmail}`);
-                
+
                 // Show sign-in modal
                 const signInModal = new bootstrap.Modal(document.getElementById('signinModal'));
                 signInModal.show();
-                
+
             } else {
                 alert('Activation failed. User not found or invalid activation code.');
             }
@@ -1951,27 +2023,27 @@ The sign-in window will open automatically for your convenience.`);
         function activateWithMasterCode() {
             // Load current users
             registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-            
+
             // Find any unactivated accounts
             const unactivatedUsers = registeredUsers.filter(u => !u.isActivated);
-            
+
             if (unactivatedUsers.length === 0) {
                 alert('✅ MASTER CODE VERIFIED!\n\nNo unactivated accounts found. All accounts are already activated.');
                 return;
             }
-            
+
             if (unactivatedUsers.length === 1) {
                 // Activate the single unactivated account
                 const userIndex = registeredUsers.findIndex(u => u.email === unactivatedUsers[0].email);
                 registeredUsers[userIndex].isActivated = true;
                 localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-                
+
                 alert(`✅ MASTER CODE VERIFIED!\n\nAccount activated: ${unactivatedUsers[0].email}\n\nYou can now sign in with your credentials.`);
-                
+
                 // Show sign-in modal
                 const signInModal = new bootstrap.Modal(document.getElementById('signinModal'));
                 signInModal.show();
-                
+
             } else {
                 // Multiple unactivated accounts - let user choose
                 let accountList = 'Multiple unactivated accounts found:\n\n';
@@ -1979,18 +2051,18 @@ The sign-in window will open automatically for your convenience.`);
                     accountList += `${index + 1}. ${user.email} (${user.firstName} ${user.lastName})\n`;
                 });
                 accountList += '\nEnter the number of the account to activate:';
-                
+
                 const choice = prompt(accountList);
                 const choiceIndex = parseInt(choice) - 1;
-                
+
                 if (choiceIndex >= 0 && choiceIndex < unactivatedUsers.length) {
                     const selectedUser = unactivatedUsers[choiceIndex];
                     const userIndex = registeredUsers.findIndex(u => u.email === selectedUser.email);
                     registeredUsers[userIndex].isActivated = true;
                     localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-                    
+
                     alert(`✅ MASTER CODE VERIFIED!\n\nAccount activated: ${selectedUser.email}\n\nYou can now sign in with your credentials.`);
-                    
+
                     // Show sign-in modal
                     const signInModal = new bootstrap.Modal(document.getElementById('signinModal'));
                     signInModal.show();
@@ -2003,7 +2075,7 @@ The sign-in window will open automatically for your convenience.`);
         // Check email function (for users who want to activate later)
         function checkEmail() {
             alert('Your activation email has been saved. You can return to this page anytime to activate your account by signing up with the same email address.');
-            
+
             const emailModal = bootstrap.Modal.getInstance(document.getElementById('emailSimulationModal'));
             emailModal.hide();
         }
@@ -2014,10 +2086,10 @@ The sign-in window will open automatically for your convenience.`);
             if (email) {
                 // Load current users
                 registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-                
+
                 // Find the user
                 const userIndex = registeredUsers.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
-                
+
                 if (userIndex !== -1 && !registeredUsers[userIndex].isActivated) {
                     const activationCode = prompt('Enter your activation code:');
                     if (activationCode === registeredUsers[userIndex].activationCode) {
@@ -2039,7 +2111,7 @@ The sign-in window will open automatically for your convenience.`);
         function togglePassword(inputId, buttonElement) {
             const passwordInput = document.getElementById(inputId);
             const icon = buttonElement.querySelector('i');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 icon.className = 'fas fa-eye-slash';
@@ -2220,7 +2292,7 @@ The sign-in window will open automatically for your convenience.`);
         }
 
         // Load medicines into the select dropdown when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadMedicinesIntoSelect();
         });
 
@@ -2229,7 +2301,7 @@ The sign-in window will open automatically for your convenience.`);
                 // Use local humanMedicines array (all OTC medicines)
                 const selectElement = document.getElementById('medicineSelect');
                 selectElement.innerHTML = '<option value="">Choose a medicine...</option>';
-                
+
                 if (humanMedicines && humanMedicines.length > 0) {
                     humanMedicines.forEach(medicine => {
                         const option = document.createElement('option');
@@ -2252,7 +2324,7 @@ The sign-in window will open automatically for your convenience.`);
         async function selectMedicine() {
             const selectElement = document.getElementById('medicineSelect');
             const selectedMedicineId = selectElement.value;
-            
+
             if (!selectedMedicineId) {
                 // If no medicine is selected, hide add to cart section and show all OTC medicine cards
                 document.getElementById('addToCartSection').style.display = 'none';
@@ -2263,18 +2335,18 @@ The sign-in window will open automatically for your convenience.`);
             try {
                 // Find the selected medicine in the local humanMedicines array
                 const medicine = humanMedicines.find(med => med.id === selectedMedicineId);
-                
+
                 if (!medicine) {
                     alert('Medicine not found. Please try again.');
                     return;
                 }
-                
+
                 // Update add to cart section
                 updateAddToCartSection(medicine);
-                
+
                 // Clear the current grid
                 const medicineGrid = document.querySelector('.row');
-                
+
                 // Hide all existing cards
                 const allCards = document.querySelectorAll('.medicine-card');
                 allCards.forEach(card => {
@@ -2305,10 +2377,10 @@ The sign-in window will open automatically for your convenience.`);
             const categoryFilter = document.getElementById('categoryFilter').value;
             const selectElement = document.getElementById('medicineSelect');
             const options = selectElement.querySelectorAll('option[data-category]');
-            
+
             // Reset the medicine selection
             selectElement.value = '';
-            
+
             // Show/hide options based on category filter
             options.forEach(option => {
                 if (!categoryFilter || option.getAttribute('data-category') === categoryFilter) {
@@ -2330,10 +2402,10 @@ The sign-in window will open automatically for your convenience.`);
             const speciesFilter = document.getElementById('speciesFilter').value;
             const selectElement = document.getElementById('medicineSelect');
             const options = selectElement.querySelectorAll('option[data-species]');
-            
+
             // Reset the medicine selection
             selectElement.value = '';
-            
+
             // Show/hide options based on species filter
             options.forEach(option => {
                 if (!speciesFilter || option.getAttribute('data-species').includes(speciesFilter)) {
@@ -2375,7 +2447,7 @@ The sign-in window will open automatically for your convenience.`);
 
         function displaySearchResults(medicines) {
             const medicineGrid = document.querySelector('.row');
-            
+
             // Hide veterinary cards
             const veterinaryCards = document.querySelectorAll('.medicine-card[data-type="veterinary"]');
             veterinaryCards.forEach(card => {
@@ -2496,7 +2568,7 @@ The sign-in window will open automatically for your convenience.`);
                     sideEffects: 'Non-drowsy formula, very well tolerated, occasional headache'
                 }
             };
-            
+
             // Return data for the medicine, or default values if not found
             return formulaDatabase[medicineName] || {
                 molecularFormula: 'Data not available',
@@ -2520,14 +2592,14 @@ The sign-in window will open automatically for your convenience.`);
             document.getElementById('selectedMedicineCategory').textContent = medicine.category;
             document.getElementById('selectedMedicineSpecies').textContent = medicine.species_applicable;
             document.getElementById('selectedMedicineDosage').textContent = medicine.dosage;
-            
+
             // Generate a random price for demonstration (in a real app, this would come from the database)
             const price = (Math.random() * 100 + 10).toFixed(2);
             document.getElementById('selectedMedicinePrice').textContent = price;
-            
+
             // Get comprehensive formula data
             const formulaData = getComprehensiveFormulaData(medicine.name);
-            
+
             // Update formula information
             document.getElementById('molecularFormula').textContent = formulaData.molecularFormula;
             document.getElementById('molecularWeight').textContent = formulaData.molecularWeight;
@@ -2541,10 +2613,10 @@ The sign-in window will open automatically for your convenience.`);
             document.getElementById('elimination').textContent = formulaData.elimination;
             document.getElementById('contraindications').textContent = formulaData.contraindications;
             document.getElementById('sideEffects').textContent = formulaData.sideEffects;
-            
+
             // Show the add to cart section
             document.getElementById('addToCartSection').style.display = 'block';
-            
+
             // Store medicine data for cart addition
             window.selectedMedicineData = {
                 id: medicine.id,
@@ -2566,10 +2638,10 @@ The sign-in window will open automatically for your convenience.`);
 
             const quantity = parseInt(document.getElementById('quantitySelect').value);
             const medicine = window.selectedMedicineData;
-            
+
             // Check if medicine is already in cart
             const existingItem = cart.find(item => item.id === medicine.id);
-            
+
             if (existingItem) {
                 existingItem.quantity += quantity;
             } else {
@@ -2584,9 +2656,9 @@ The sign-in window will open automatically for your convenience.`);
                     notes: medicine.notes
                 });
             }
-            
+
             updateCartCount();
-            
+
             // Show success message
             const successMessage = document.createElement('div');
             successMessage.className = 'alert alert-success alert-dismissible fade show mt-2';
@@ -2594,10 +2666,10 @@ The sign-in window will open automatically for your convenience.`);
                 <strong>Success!</strong> ${medicine.name} (${quantity}x) has been added to your cart.
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             `;
-            
+
             const addToCartSection = document.getElementById('addToCartSection');
             addToCartSection.appendChild(successMessage);
-            
+
             // Remove success message after 3 seconds
             setTimeout(() => {
                 if (successMessage.parentNode) {
@@ -2784,7 +2856,7 @@ The sign-in window will open automatically for your convenience.`);
         }
 
         // Load patient info on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadPatientInfo();
         });
     </script>
@@ -2800,10 +2872,13 @@ The sign-in window will open automatically for your convenience.`);
                 <div class="col-md-6 text-md-end">
                     <h6>Quick Links</h6>
                     <div class="footer-links">
-                        <a href="#" class="text-light me-3" data-bs-toggle="modal" data-bs-target="#aboutModal">About Us</a>
-                        <a href="#" class="text-light me-3" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
+                        <a href="#" class="text-light me-3" data-bs-toggle="modal" data-bs-target="#aboutModal">About
+                            Us</a>
+                        <a href="#" class="text-light me-3" data-bs-toggle="modal"
+                            data-bs-target="#contactModal">Contact</a>
                         <a href="#" class="text-light me-3" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
-                        <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
+                        <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#termsModal">Terms &
+                            Conditions</a>
                     </div>
                 </div>
             </div>
@@ -2811,8 +2886,9 @@ The sign-in window will open automatically for your convenience.`);
             <div class="row">
                 <div class="col-12 text-center">
                     <p class="mb-0 text-muted">
-                        &copy; 2025 Comparative Medicine Database. All rights reserved. 
-                        | <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
+                        &copy; 2025 Comparative Medicine Database. All rights reserved.
+                        | <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#termsModal">Terms &
+                            Conditions</a>
                         | For educational purposes only.
                     </p>
                 </div>
