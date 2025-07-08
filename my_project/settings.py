@@ -158,3 +158,22 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # For collectstatic
 # Ensure the static files are collected in production
+
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+
+# ✅ Required for Heroku
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# ✅ Optional: if you use a /static/ folder for local development
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+# ✅ Required if using WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Ensure the static files are collected in production
