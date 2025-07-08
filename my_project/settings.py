@@ -145,3 +145,16 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # 👈 This points to the folder you just created
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # For collectstatic
+# Ensure the static files are collected in production
