@@ -16,6 +16,326 @@
             const price = medicine.price || 4.99;
             // ... rest of your function ...
         }
+
+        // Fresh JavaScript functions for the new medicine details section
+        function showMedicineDetails(medicine) {
+            // Update basic information
+            document.getElementById('medicineName').textContent = medicine.name;
+            document.getElementById('medicineCategory').textContent = medicine.category;
+            document.getElementById('medicineSpecies').textContent = medicine.species || medicine.species_applicable || 'Human';
+            document.getElementById('medicineDosage').textContent = medicine.dosage;
+            
+            // Set fixed price (no random generation)
+            let price = medicine.price;
+            if (!price) {
+                switch(medicine.name) {
+                    case 'Aspirin': price = 4.99; break;
+                    case 'Ibuprofen': price = 5.49; break;
+                    case 'Acetaminophen': price = 3.99; break;
+                    case 'Vitamin C': price = 6.99; break;
+                    case 'Daily Multivitamin': price = 8.99; break;
+                    case 'Loratadine': price = 6.49; break;
+                    default: price = 4.99;
+                }
+            }
+            
+            document.getElementById('medicinePrice').textContent = `£${price.toFixed(2)}`;
+            
+            // Update totals
+            updateTotals(price);
+            
+            // Get comprehensive formula data
+            const formulaData = getComprehensiveFormulaData(medicine.name);
+            
+            // Update chemical information
+            document.getElementById('molFormula').textContent = formulaData.molecularFormula;
+            document.getElementById('molWeight').textContent = formulaData.molecularWeight;
+            document.getElementById('chemName').textContent = formulaData.chemicalName;
+            document.getElementById('therapClass').textContent = formulaData.therapeuticClass;
+            document.getElementById('routeAdmin').textContent = formulaData.routeOfAdmin;
+            
+            // Update pharmacology information
+            document.getElementById('mechanism').textContent = formulaData.mechanismOfAction;
+            document.getElementById('absorption').textContent = formulaData.absorption;
+            document.getElementById('distribution').textContent = formulaData.distribution;
+            document.getElementById('metabolism').textContent = formulaData.metabolism;
+            
+            // Update safety information
+            document.getElementById('contraindications').textContent = formulaData.contraindications;
+            document.getElementById('sideEffects').textContent = formulaData.sideEffects;
+            
+            // Store medicine data
+            window.selectedMedicineData = {
+                id: medicine.id,
+                name: medicine.name,
+                category: medicine.category,
+                dosage: medicine.dosage,
+                species_applicable: medicine.species || medicine.species_applicable || 'Human',
+                price: parseFloat(price),
+                notes: medicine.notes || medicine.description
+            };
+            
+            // Show the section
+            document.getElementById('medicineDetailsSection').style.display = 'block';
+            
+            // Scroll to the section
+            document.getElementById('medicineDetailsSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < 10) {
+                quantityInput.value = quantity + 1;
+                updateTotals();
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantityInput.value = quantity - 1;
+                updateTotals();
+            }
+        }
+
+        function updateTotals(basePrice = null) {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const priceText = document.getElementById('medicinePrice').textContent;
+            const price = basePrice || parseFloat(priceText.replace('£', ''));
+            
+            const itemTotal = price * quantity;
+            const deliveryFee = 2.99;
+            const total = itemTotal + deliveryFee;
+            
+            document.getElementById('itemTotal').textContent = `£${itemTotal.toFixed(2)}`;
+            document.getElementById('totalWithDelivery').textContent = `£${total.toFixed(2)}`;
+        }
+
+        function addToCartNew() {
+            if (!window.selectedMedicineData) {
+                alert('Please select a medicine first!');
+                return;
+            }
+            
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const medicine = window.selectedMedicineData;
+            
+            // Add to cart
+            addToCart(medicine.id, medicine.name, medicine.price, 'human', quantity);
+            
+            // Show success message
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            toast.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 300px;';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle"></i> <strong>${medicine.name}</strong> added to cart!
+                <br><small>Quantity: ${quantity} | Price: £${(medicine.price * quantity).toFixed(2)}</small>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(toast);
+            
+            // Auto-remove toast after 4 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 4000);
+        }
+
+        function closeMedicineDetails() {
+            document.getElementById('medicineDetailsSection').style.display = 'none';
+            document.getElementById('quantity').value = 1;
+            clearAllFilters();
+        }
+
+        // Update the quantity input event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInput = document.getElementById('quantity');
+            if (quantityInput) {
+                quantityInput.addEventListener('input', updateTotals);
+            }
+        });
     </script>
+    
+    <!-- Replace the existing Selected Medicine Details & Add to Cart section with this fresh new section -->
+    <div id="medicineDetailsSection" class="card border-success mb-4" style="display: none;">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+                <i class="fas fa-pills"></i> Medicine Information & Purchase
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Medicine Basic Info -->
+                <div class="col-md-6">
+                    <div class="medicine-info-card">
+                        <h6 class="text-success fw-bold">Basic Information</h6>
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td><strong>Medicine Name:</strong></td>
+                                <td id="medicineName" class="text-primary fw-bold">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category:</strong></td>
+                                <td id="medicineCategory" class="text-muted">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>For Species:</strong></td>
+                                <td id="medicineSpecies" class="text-info">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Recommended Dosage:</strong></td>
+                                <td id="medicineDosage" class="text-dark">-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Price:</strong></td>
+                                <td id="medicinePrice" class="text-success fw-bold fs-5">£-</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Purchase Section -->
+                <div class="col-md-6">
+                    <div class="purchase-section border rounded p-3 bg-light">
+                        <h6 class="text-success fw-bold mb-3">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </h6>
+                        
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity:</label>
+                            <div class="input-group" style="max-width: 150px;">
+                                <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity()">-</button>
+                                <input type="number" class="form-control text-center" id="quantity" value="1" min="1" max="10">
+                                <button class="btn btn-outline-secondary" type="button" onclick="increaseQuantity()">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Item Total:</span>
+                                <span id="itemTotal" class="fw-bold text-success">£0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Delivery Fee:</span>
+                                <span class="text-muted">£2.99</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <span class="fw-bold">Total:</span>
+                                <span id="totalWithDelivery" class="fw-bold text-success fs-5">£2.99</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-success w-100" onclick="addToCartNew()">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Medicine Details Tabs -->
+            <div class="mt-4">
+                <ul class="nav nav-tabs" id="medicineDetailsTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="chemical-tab" data-bs-toggle="tab" data-bs-target="#chemical" type="button" role="tab">
+                            Chemical Info
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pharmacology-tab" data-bs-toggle="tab" data-bs-target="#pharmacology" type="button" role="tab">
+                            Pharmacology
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="safety-tab" data-bs-toggle="tab" data-bs-target="#safety" type="button" role="tab">
+                            Safety Info
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content" id="medicineDetailsTabContent">
+                    <!-- Chemical Information Tab -->
+                    <div class="tab-pane fade show active" id="chemical" role="tabpanel">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td><strong>Molecular Formula:</strong></td>
+                                        <td id="molFormula">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Molecular Weight:</strong></td>
+                                        <td id="molWeight">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Chemical Name:</strong></td>
+                                        <td id="chemName">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td><strong>Therapeutic Class:</strong></td>
+                                        <td id="therapClass">-</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Route of Administration:</strong></td>
+                                        <td id="routeAdmin">-</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pharmacology Tab -->
+                    <div class="tab-pane fade" id="pharmacology" role="tabpanel">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h6>Mechanism of Action</h6>
+                                <p id="mechanism" class="text-muted">-</p>
+                                
+                                <h6>Absorption</h6>
+                                <p id="absorption" class="text-muted">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Distribution</h6>
+                                <p id="distribution" class="text-muted">-</p>
+                                
+                                <h6>Metabolism & Elimination</h6>
+                                <p id="metabolism" class="text-muted">-</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Safety Information Tab -->
+                    <div class="tab-pane fade" id="safety" role="tabpanel">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h6 class="text-warning">Contraindications</h6>
+                                <p id="contraindications" class="text-muted">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-danger">Side Effects</h6>
+                                <p id="sideEffects" class="text-muted">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Close Button -->
+            <div class="text-end mt-3">
+                <button class="btn btn-outline-secondary" onclick="closeMedicineDetails()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

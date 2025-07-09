@@ -92,6 +92,66 @@ if not DEBUG:
 
 <!-- Add this to your index.html file in the <script> section -->
 <script>
+// Clear all search fields and filters when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    clearAllFieldsOnPageLoad();
+});
+
+// Function to clear all fields when page loads/refreshes
+function clearAllFieldsOnPageLoad() {
+    // Clear the medicine dropdown
+    const medicineSelect = document.getElementById('medicineSelect');
+    if (medicineSelect) {
+        medicineSelect.value = '';
+    }
+    
+    // Clear category filter
+    const categoryFilter = document.getElementById('categoryFilter');
+    if (categoryFilter) {
+        categoryFilter.value = '';
+    }
+    
+    // Clear species filter
+    const speciesFilter = document.getElementById('speciesFilter');
+    if (speciesFilter) {
+        speciesFilter.value = '';
+    }
+    
+    // Clear search input
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+    
+    // Clear patient information form
+    const patientForm = document.getElementById('patientInfoForm');
+    if (patientForm) {
+        patientForm.reset();
+    }
+    
+    // Hide the selected medicine details section
+    const addToCartSection = document.getElementById('addToCartSection');
+    if (addToCartSection) {
+        addToCartSection.style.display = 'none';
+    }
+    
+    // Reset all medicine cards to visible
+    const medicineCards = document.querySelectorAll('.medicine-card');
+    medicineCards.forEach(card => {
+        card.style.display = 'block';
+    });
+    
+    // Clear any active filter states
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Activate "All" buttons if they exist
+    document.querySelectorAll('.filter-btn[data-filter="all"]').forEach(btn => {
+        btn.classList.add('active');
+    });
+}
+
 // Function to remove random prices completely
 function updateAddToCartSection(medicine) {
     document.getElementById('selectedMedicineName').textContent = medicine.name;
@@ -160,37 +220,11 @@ function updateAddToCartSection(medicine) {
         price: parseFloat(price), // Use the fixed price
         notes: medicine.notes || medicine.description
     };
-    
-    // Clear filters after selection
-    clearAllFilters();
 }
 
-// Function to clear all filters
+// Function to clear all filters (for manual clearing)
 function clearAllFilters() {
-    const medicineSelect = document.getElementById('medicineSelect');
-    if (medicineSelect) {
-        medicineSelect.value = '';
-    }
-    
-    const categoryFilter = document.getElementById('categoryFilter');
-    if (categoryFilter) {
-        categoryFilter.value = '';
-    }
-    
-    const speciesFilter = document.getElementById('speciesFilter');
-    if (speciesFilter) {
-        speciesFilter.value = '';
-    }
-    
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.value = '';
-    }
-    
-    const medicineCards = document.querySelectorAll('.medicine-card');
-    medicineCards.forEach(card => {
-        card.style.display = 'block';
-    });
+    clearAllFieldsOnPageLoad();
 }
 
 // Make sure your humanMedicines array has fixed prices
@@ -225,3 +259,18 @@ const humanMedicines = [
     // Add more medicines with fixed prices
 ];
 </script>
+
+<!-- Update your search inputs in index.html -->
+<input type="text" class="form-control" id="searchInput" placeholder="Search medicines..." autocomplete="off">
+
+<select class="form-select" id="medicineSelect" autocomplete="off">
+    <option value="">Select a medicine...</option>
+</select>
+
+<select class="form-select" id="categoryFilter" autocomplete="off">
+    <option value="">All Categories</option>
+</select>
+
+<select class="form-select" id="speciesFilter" autocomplete="off">
+    <option value="">All Species</option>
+</select>
