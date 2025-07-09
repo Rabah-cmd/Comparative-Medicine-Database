@@ -1,9 +1,6 @@
-/* Basic CSS placeholder */
+/* Placeholder CSS file to ensure static directory is not empty */
 body {
     font-family: Arial, sans-serif;
-    background-color: lightblue;
-    margin: 0;
-    padding: 0;
 }
 
 .container {
