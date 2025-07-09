@@ -6,19 +6,3 @@ staticfiles/
 media/
 *.log
 .DS_Store
-C:\comparative medicine database\
-├── comparative_medicine_database/
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── static/
-│   └── style.css
-├── templates/
-│   └── index.html
-├── manage.py
-├── requirements.txt
-├── Procfile
-├── runtime.txt
-├── .gitignore
-└── db.sqlite3
