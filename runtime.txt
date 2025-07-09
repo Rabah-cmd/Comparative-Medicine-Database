@@ -1,6 +1,11 @@
 python-3.11.9
 
-# Static files configuration
+import os
+from pathlib import Path
+
+# ... your existing settings ...
+
+# Static files configuration (add this at the end)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
