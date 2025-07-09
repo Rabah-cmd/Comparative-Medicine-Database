@@ -102,3 +102,34 @@ function createHumanMedicineCard(medicine) {
 
     return cardDiv;
 }
+
+const humanMedicines = [
+    {
+        id: 'aspirin_human',
+        name: 'Aspirin',
+        category: 'analgesic',
+        species: 'human',
+        dosage: '325-650mg every 4-6 hours',
+        price: 4.99, // Fixed price
+        notes: 'Over-the-counter pain reliever and anti-inflammatory.'
+    },
+    {
+        id: 'ibuprofen_human',
+        name: 'Ibuprofen',
+        category: 'analgesic',
+        species: 'human',
+        dosage: '200-400mg every 6-8 hours',
+        price: 5.49, // Fixed price
+        notes: 'Non-steroidal anti-inflammatory drug (NSAID).'
+    },
+    {
+        id: 'acetaminophen_human',
+        name: 'Acetaminophen',
+        category: 'analgesic',
+        species: 'human',
+        dosage: '500-1000mg every 6-8 hours',
+        price: 3.99, // Fixed price
+        notes: 'Pain reliever and fever reducer.'
+    }
+    // ... add more medicines with fixed prices
+];
