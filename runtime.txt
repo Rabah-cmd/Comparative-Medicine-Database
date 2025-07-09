@@ -1,9 +1,11 @@
-python-3.11.9
-
 import os
 from pathlib import Path
 
-# ... your existing settings ...
+# Your Django settings including the static files config
+
+# Python 3.11 compatibility
+if not hasattr(os, 'str'):
+    os.str = str
 
 # Static files configuration (add this at the end)
 STATIC_URL = '/static/'
@@ -17,3 +19,86 @@ STATICFILES_DIRS = [
 # Ensure the static directory exists
 os.makedirs(os.path.join(BASE_DIR, 'static'), exist_ok=True)
 os.makedirs(os.path.join(BASE_DIR, 'staticfiles'), exist_ok=True)
+
+# Python app detected
+# Using Python version 3.11.9
+
+// Replace the updateAddToCartSection function to remove random price generation
+function updateAddToCartSection(medicine) {
+    document.getElementById('selectedMedicineName').textContent = medicine.name;
+    document.getElementById('selectedMedicineCategory').textContent = medicine.category;
+    document.getElementById('selectedMedicineSpecies').textContent = medicine.species || medicine.species_applicable || 'Human';
+    document.getElementById('selectedMedicineDosage').textContent = medicine.dosage;
+    
+    // USE FIXED PRICE - NO RANDOM GENERATION
+    const price = medicine.price || 4.99;
+    document.getElementById('selectedMedicinePrice').textContent = price.toFixed(2);
+    
+    // Get comprehensive formula data
+    const formulaData = getComprehensiveFormulaData(medicine.name);
+    
+    // Update formula information
+    document.getElementById('molecularFormula').textContent = formulaData.molecularFormula;
+    document.getElementById('molecularWeight').textContent = formulaData.molecularWeight;
+    document.getElementById('chemicalName').textContent = formulaData.chemicalName;
+    document.getElementById('mechanismOfAction').textContent = formulaData.mechanismOfAction;
+    document.getElementById('therapeuticClass').textContent = formulaData.therapeuticClass;
+    document.getElementById('routeOfAdmin').textContent = formulaData.routeOfAdmin;
+    document.getElementById('absorption').textContent = formulaData.absorption;
+    document.getElementById('distribution').textContent = formulaData.distribution;
+    document.getElementById('metabolism').textContent = formulaData.metabolism;
+    document.getElementById('elimination').textContent = formulaData.elimination;
+    document.getElementById('contraindications').textContent = formulaData.contraindications;
+    document.getElementById('sideEffects').textContent = formulaData.sideEffects;
+    
+    // Show the add to cart section
+    document.getElementById('addToCartSection').style.display = 'block';
+    
+    // Store medicine data with FIXED price
+    window.selectedMedicineData = {
+        id: medicine.id,
+        name: medicine.name,
+        category: medicine.category,
+        dosage: medicine.dosage,
+        species_applicable: medicine.species || medicine.species_applicable || 'Human',
+        price: parseFloat(price), // Use fixed price
+        notes: medicine.notes || medicine.description
+    };
+}
+
+// Replace the createHumanMedicineCard function to remove random price generation
+function createHumanMedicineCard(medicine) {
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'col-md-4 mb-4 medicine-card';
+    cardDiv.setAttribute('data-category', medicine.category);
+    cardDiv.setAttribute('data-species', medicine.species_applicable || medicine.species);
+    cardDiv.setAttribute('data-type', 'human');
+
+    // USE FIXED PRICE - NO RANDOM GENERATION
+    const price = medicine.price || 4.99;
+
+    cardDiv.innerHTML = `
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-primary">${medicine.name}</h5>
+                <p class="card-text text-muted small mb-2">
+                    <i class="fas fa-tag"></i> ${medicine.category} | 
+                    <i class="fas fa-user"></i> ${medicine.species_applicable || medicine.species}
+                </p>
+                <p class="card-text"><strong>Dosage:</strong> ${medicine.dosage}</p>
+                <p class="card-text">${medicine.notes || medicine.description}</p>
+                <p class="text-success fw-bold">£${price.toFixed(2)}</p>
+            </div>
+            <div class="card-footer bg-transparent">
+                <button class="btn btn-outline-primary btn-sm me-2" onclick="showHumanMedicineDetails('${medicine.id}')">
+                    <i class="fas fa-info-circle"></i> Details
+                </button>
+                <button class="btn btn-success btn-sm" onclick="addToCart('${medicine.id}', '${medicine.name}', ${price}, 'human')">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+            </div>
+        </div>
+    `;
+
+    return cardDiv;
+}
