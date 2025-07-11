@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparative Medicine Database</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
+
 <body>
     <h1>Welcome to My Project</h1>
     <p>This is a placeholder for your Django project.</p>
@@ -24,11 +25,11 @@
             document.getElementById('medicineCategory').textContent = medicine.category;
             document.getElementById('medicineSpecies').textContent = medicine.species || medicine.species_applicable || 'Human';
             document.getElementById('medicineDosage').textContent = medicine.dosage;
-            
+
             // Set fixed price (no random generation)
             let price = medicine.price;
             if (!price) {
-                switch(medicine.name) {
+                switch (medicine.name) {
                     case 'Aspirin': price = 4.99; break;
                     case 'Ibuprofen': price = 5.49; break;
                     case 'Acetaminophen': price = 3.99; break;
@@ -38,32 +39,32 @@
                     default: price = 4.99;
                 }
             }
-            
+
             document.getElementById('medicinePrice').textContent = `£${price.toFixed(2)}`;
-            
+
             // Update totals
             updateTotals(price);
-            
+
             // Get comprehensive formula data
             const formulaData = getComprehensiveFormulaData(medicine.name);
-            
+
             // Update chemical information
             document.getElementById('molFormula').textContent = formulaData.molecularFormula;
             document.getElementById('molWeight').textContent = formulaData.molecularWeight;
             document.getElementById('chemName').textContent = formulaData.chemicalName;
             document.getElementById('therapClass').textContent = formulaData.therapeuticClass;
             document.getElementById('routeAdmin').textContent = formulaData.routeOfAdmin;
-            
+
             // Update pharmacology information
             document.getElementById('mechanism').textContent = formulaData.mechanismOfAction;
             document.getElementById('absorption').textContent = formulaData.absorption;
             document.getElementById('distribution').textContent = formulaData.distribution;
             document.getElementById('metabolism').textContent = formulaData.metabolism;
-            
+
             // Update safety information
             document.getElementById('contraindications').textContent = formulaData.contraindications;
             document.getElementById('sideEffects').textContent = formulaData.sideEffects;
-            
+
             // Store medicine data
             window.selectedMedicineData = {
                 id: medicine.id,
@@ -74,13 +75,13 @@
                 price: parseFloat(price),
                 notes: medicine.notes || medicine.description
             };
-            
+
             // Show the section
             document.getElementById('medicineDetailsSection').style.display = 'block';
-            
+
             // Scroll to the section
-            document.getElementById('medicineDetailsSection').scrollIntoView({ 
-                behavior: 'smooth' 
+            document.getElementById('medicineDetailsSection').scrollIntoView({
+                behavior: 'smooth'
             });
         }
 
@@ -106,11 +107,11 @@
             const quantity = parseInt(document.getElementById('quantity').value);
             const priceText = document.getElementById('medicinePrice').textContent;
             const price = basePrice || parseFloat(priceText.replace('£', ''));
-            
+
             const itemTotal = price * quantity;
             const deliveryFee = 2.99;
             const total = itemTotal + deliveryFee;
-            
+
             document.getElementById('itemTotal').textContent = `£${itemTotal.toFixed(2)}`;
             document.getElementById('totalWithDelivery').textContent = `£${total.toFixed(2)}`;
         }
@@ -120,13 +121,13 @@
                 alert('Please select a medicine first!');
                 return;
             }
-            
+
             const quantity = parseInt(document.getElementById('quantity').value);
             const medicine = window.selectedMedicineData;
-            
+
             // Add to cart
             addToCart(medicine.id, medicine.name, medicine.price, 'human', quantity);
-            
+
             // Show success message
             const toast = document.createElement('div');
             toast.className = 'alert alert-success alert-dismissible fade show position-fixed';
@@ -137,7 +138,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             `;
             document.body.appendChild(toast);
-            
+
             // Auto-remove toast after 4 seconds
             setTimeout(() => {
                 if (toast.parentNode) {
@@ -153,14 +154,18 @@
         }
 
         // Update the quantity input event listener
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const quantityInput = document.getElementById('quantity');
             if (quantityInput) {
                 quantityInput.addEventListener('input', updateTotals);
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            clearAllFieldsOnPageLoad();
+        });
     </script>
-    
+
     <!-- Replace the existing Selected Medicine Details & Add to Cart section with this fresh new section -->
     <div id="medicineDetailsSection" class="card border-success mb-4" style="display: none;">
         <div class="card-header bg-success text-white">
@@ -198,23 +203,26 @@
                         </table>
                     </div>
                 </div>
-                
+
                 <!-- Purchase Section -->
                 <div class="col-md-6">
                     <div class="purchase-section border rounded p-3 bg-light">
                         <h6 class="text-success fw-bold mb-3">
                             <i class="fas fa-shopping-cart"></i> Add to Cart
                         </h6>
-                        
+
                         <div class="mb-3">
                             <label for="quantity" class="form-label">Quantity:</label>
                             <div class="input-group" style="max-width: 150px;">
-                                <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity()">-</button>
-                                <input type="number" class="form-control text-center" id="quantity" value="1" min="1" max="10">
-                                <button class="btn btn-outline-secondary" type="button" onclick="increaseQuantity()">+</button>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="decreaseQuantity()">-</button>
+                                <input type="number" class="form-control text-center" id="quantity" value="1" min="1"
+                                    max="10">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="increaseQuantity()">+</button>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <div class="d-flex justify-content-between">
                                 <span>Item Total:</span>
@@ -230,34 +238,37 @@
                                 <span id="totalWithDelivery" class="fw-bold text-success fs-5">£2.99</span>
                             </div>
                         </div>
-                        
+
                         <button class="btn btn-success w-100" onclick="addToCartNew()">
                             <i class="fas fa-cart-plus"></i> Add to Cart
                         </button>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Medicine Details Tabs -->
             <div class="mt-4">
                 <ul class="nav nav-tabs" id="medicineDetailsTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="chemical-tab" data-bs-toggle="tab" data-bs-target="#chemical" type="button" role="tab">
+                        <button class="nav-link active" id="chemical-tab" data-bs-toggle="tab"
+                            data-bs-target="#chemical" type="button" role="tab">
                             Chemical Info
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pharmacology-tab" data-bs-toggle="tab" data-bs-target="#pharmacology" type="button" role="tab">
+                        <button class="nav-link" id="pharmacology-tab" data-bs-toggle="tab"
+                            data-bs-target="#pharmacology" type="button" role="tab">
                             Pharmacology
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="safety-tab" data-bs-toggle="tab" data-bs-target="#safety" type="button" role="tab">
+                        <button class="nav-link" id="safety-tab" data-bs-toggle="tab" data-bs-target="#safety"
+                            type="button" role="tab">
                             Safety Info
                         </button>
                     </li>
                 </ul>
-                
+
                 <div class="tab-content" id="medicineDetailsTabContent">
                     <!-- Chemical Information Tab -->
                     <div class="tab-pane fade show active" id="chemical" role="tabpanel">
@@ -292,27 +303,27 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Pharmacology Tab -->
                     <div class="tab-pane fade" id="pharmacology" role="tabpanel">
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <h6>Mechanism of Action</h6>
                                 <p id="mechanism" class="text-muted">-</p>
-                                
+
                                 <h6>Absorption</h6>
                                 <p id="absorption" class="text-muted">-</p>
                             </div>
                             <div class="col-md-6">
                                 <h6>Distribution</h6>
                                 <p id="distribution" class="text-muted">-</p>
-                                
+
                                 <h6>Metabolism & Elimination</h6>
                                 <p id="metabolism" class="text-muted">-</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Safety Information Tab -->
                     <div class="tab-pane fade" id="safety" role="tabpanel">
                         <div class="row mt-3">
@@ -328,7 +339,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Close Button -->
             <div class="text-end mt-3">
                 <button class="btn btn-outline-secondary" onclick="closeMedicineDetails()">
@@ -338,4 +349,5 @@
         </div>
     </div>
 </body>
+
 </html>
